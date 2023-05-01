@@ -1,0 +1,187 @@
+.detail-product{
+    background-color: var(--color-ededed);
+    &-container{
+        background-color: var(--color-fff);
+        box-shadow: 0px 0px 5px rgba(#000, 0.2);   
+        .new-header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0!important;
+            ol{
+                margin:15px;
+            }
+        } 
+        
+    }
+    &-content{
+        .item{
+            background-color: var(--color-fff);
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(#000, 0.1);   
+            .box-image{
+                .image-gallery-thumbnails-wrapper{
+                    margin-top: 5px;
+                }
+                .image-gallery-slides{
+                    border: 1px solid var(--color-ededed);
+                    border-radius: 5px;
+                }
+                .featured-thumb {
+                    border: 2px solid transparent;
+                    margin: 0 2px;
+                    height: 90px;
+                    width: 90px;
+                    cursor: pointer;
+                }
+
+                .featured-thumb.active {
+                    border: 2px solid var(--color-bf4800);
+                }
+            }
+            .main-product-details {
+                padding: 30px 20px;
+                background-color: white;
+                border-radius: 10px;
+                h4{
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2; // Hiển thị tối đa 2 dòng
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                }
+                a{
+                    font-size: 14px;
+                    color: var(--color-777777);
+                }
+                .button{
+                    padding: 8px 25px;
+                    margin: 0 20px 0 0;
+                    text-transform: uppercase;
+                    font-size: 14px;
+                }
+                .button-add{
+                    display: flex;
+                    align-items: center;
+                    span{
+                        padding-left: 10px;
+                        padding-top: 2px;
+                    }
+                    background-color: var(--color-232f3e);
+                    color: var(--color-fff);
+                    &:hover{
+                        background-color: var(--color-febd69);
+                        color: var(--color-232f3e);
+                    }
+                }
+                .button-buy{
+                    background-color: var(--color-febd69);
+                    color: var(--color-232f3e);
+                    &:hover{
+                        background-color: var(--color-232f3e);
+                        color: var(--color-fff);
+                    }
+                }
+                .box-price {
+                    
+                    .title{
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: var(--color-1c1c1b);
+                        margin-bottom: 10px;
+                        
+                    }
+                    .price{
+                        font-size: 22px;
+                        line-height: 20px;
+                        font-weight: 600;
+                        margin: 10px 0;
+                        color: var(--color-bf4800);
+                        background-color: var(--color-f5f5f7);
+                        padding: 25px;
+                    }
+                    .rating{
+                        display: flex;
+                        align-items: center;
+                        .count-review{
+                            color: var(--color-777777);
+                            font-size: 13px;
+                            border-left: 1px solid var(--color-777777);
+                            padding-left: 10px;
+                            cursor: pointer;
+                            &:hover{
+                                color: var(--color-bf4800);
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                .product-heading {
+                    font-size: 14px;
+                    color: var(--color-1c1c1b);
+                    margin-bottom: 0px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    cursor: pointer;
+                }
+                .product-data {
+                    font-size: 13px;
+                    columns: var(--color-777777);
+                    margin-bottom: 0px;
+                }
+            }
+        }
+          
+    }
+    .loading {
+        text-transform: uppercase;
+        font-size: 40px;
+        color: var(--color-777777);
+        text-align: center;
+    }
+    .size{
+        border: 1px solid var(--color-777777);
+        // width: 30px;
+        padding: 2px 15px;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        &:hover{
+            background-color: var(--color-febd69);
+            border: 1px solid var( --color-bf4800);
+        }
+        &.active{
+            background-color: var(--color-febd69);
+            border:1px solid var( --color-bf4800);
+        }
+    }
+    .color{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid var( --color-777777);
+        position: relative;
+        &:hover{
+            border: 2px solid var( --color-bf4800);
+        }
+        &.active::after{
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--color-232f3e);
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translate(-50%,50%);
+        }
+        &.active{
+            border: 2px solid var( --color-bf4800);
+        }
+    }
+}
+
+
+
+

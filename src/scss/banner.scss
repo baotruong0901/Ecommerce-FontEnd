@@ -1,0 +1,125 @@
+.banner{
+    &-main{
+       height: 400px;
+       .slick-list{
+        height: 450px;
+       }
+       .slick-arrow{
+        display: none!important;
+       }
+       .slick-dots{
+            bottom: 20px;
+       }
+    }
+    &-item{
+        position: relative;
+        height: 100%;
+        .image{
+            position: absolute;
+            height: 400px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 10px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .banner-content{
+            padding:50px 30px;
+            position: absolute;
+            top: 0;
+            span{
+                text-transform: uppercase;
+                display: block;
+                color: var(--color-bf4800);
+                font-size: 16px;
+                font-weight: 500;
+                margin-bottom: 15px;
+            }
+            h2{
+                margin-bottom: 15px;
+            }
+            p{
+                font-size: 16px;
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+            button{
+                padding: 10px 20px;
+                border-radius: 20px;
+                background-color: var(--color-131921);
+                font-size: 14px;
+                font-weight: 500;
+                transition: .2s linear;
+                a{
+                    color: var(--color-fff);
+                    text-transform: uppercase;
+                }
+                &:hover{
+                    background-color: var(--color-febd69);
+                    a{
+                        color: var(--color-131921);
+                    }
+                }
+            }
+        }
+    }
+    
+    &-right{
+        display: flex;
+        justify-content: space-between;
+        // align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        height: 400px;
+        // width: 40%;
+        .item{
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 10px;
+        height: 49%;
+        width: 49%;
+        // max-width: 0;
+    }
+            .banner-content{
+            padding:30px 20px;
+            span{
+                text-transform: uppercase;
+                display: block;
+                color: var(--color-bf4800);
+                font-size: 12px;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+            h2{
+                margin-bottom: 5px;
+                font-size: 24px;
+            }
+            p{
+                font-size: 12px;
+                font-weight: 400;
+                margin-bottom: 15px;
+            }
+            button{
+                padding: 5px 10px;
+                border-radius: 20px;
+                background-color: var(--color-131921);
+                font-size: 12px;
+                font-weight: 500;
+                transition: .2s linear;
+                a{
+                    color: var(--color-fff);
+                    text-transform: uppercase;
+                }
+                &:hover{
+                    background-color: var(--color-febd69);
+                    a{
+                        color: var(--color-131921);
+                    }
+                }
+            }
+        }
+    }
+}

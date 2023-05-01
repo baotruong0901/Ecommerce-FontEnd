@@ -1,0 +1,42 @@
+.profile{
+    background-color: var(--color-ededed);
+    &-item{
+        display: flex;
+        gap: 30px;
+        .left{
+            width: 15%;
+            padding: 20px 10px;
+            .menu-links{
+                width: 100%;
+                .sub-menu{
+                    margin-left: 25px;
+                }
+                .nav-link{
+                    padding: 5px 0;
+                    width: 100%;
+                    text-align: left;
+                    font-size: 14px;
+                    font-weight: 500;
+                    &:hover{
+                       span{
+                         color: var(--color-febd69);
+                       }
+                    }
+                    svg{
+                        color: var(--color-4267b2);
+                    }
+                    
+                }
+                .active{
+                        span{
+                            color: var(--color-febd69);
+                        }
+                    }
+            }   
+        }
+        .right{
+            width: 85%;
+
+        }
+    }
+}

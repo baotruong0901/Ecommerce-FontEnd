@@ -1,0 +1,84 @@
+.checkout{
+   background-color: var(--color-eaeaea);
+    &-main{
+        .right{
+            .product{
+                position: relative;
+                .count{
+                    position: absolute;
+                    top: -10px;
+                    right: 2px;
+                    padding: 0px 9px;
+                    border-radius: 50%;
+                    background-color: var(--color-777777);
+                    color: var(--color-fff);
+                    border: 1px solid #D3D3D3;
+                }
+                .image{
+                    border-radius: 5px;
+                    border: 1px solid var(--color-777777);
+                    width: 70px;
+                    height: 70px;
+                }
+                
+            }
+            .price{
+                text-align: right;
+                color: var(--color-777777);
+            }
+            h5{
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1; // Hiển thị tối đa 2 dòng
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .checkout-left-data{
+            background-color: var(--color-fff);
+            padding: 15px;
+            border-radius: 10px;
+            .back-to-cart{
+                background-color: var(--color-232f3e);
+                color: var(--color-fff);
+                border-radius: 25px;
+            }
+            .submit{
+                position: relative;
+                background-color: var(--color-232f3e);
+                color: var(--color-fff);
+                border-radius: 25px;
+                .loading-icon{
+                    color: #33ccff;
+                    font-size: 26px;
+                    position: absolute;
+                    animation: loading 1s linear infinite;
+                }
+            }
+            
+        }
+    }
+    .total {
+        font-size: 14px;
+        color: var(--color-1c1c1b);
+    }
+    .total-price {
+        font-size: 16px;
+        color: var(--color-777777);
+    }
+
+}
+
+@keyframes loading {
+    from { 
+        transform:translate(-50%,-50%) rotate(0);
+        top: 50%;
+        left: 50%;
+
+    }
+    to { 
+        transform:translate(-50%,-50%) rotate(360deg);
+        top: 50%;
+        left: 50%;
+    }
+}

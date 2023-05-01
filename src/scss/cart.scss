@@ -1,0 +1,61 @@
+.cart{
+    background-color: var(--color-ededed);
+    &-main{
+        padding: 20px;
+        .table{
+            th{
+                font-size: 14px;
+                color: var(--color-777777);
+            }
+            tbody{
+                p{
+                    color: var(--color-777777);
+                    font-size: 14px;
+                }
+                .image{
+                    img{
+                        height: 100px;
+                        width: 120px;
+                    }
+                }
+                .description{
+                     display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2; // Hiển thị tối đa 2 dòng
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .price{
+                    font-size: 14px;
+                    color: var(--color-1c1c1b);
+                    padding-top: 35px;
+                }
+                .delete{
+                    cursor: pointer;
+                }
+                .quantity{
+                    padding-top: 25px;
+                    input{
+                        width: 50px;
+                    }
+                }
+                
+            }
+        }
+        .button{
+            padding: 8px 25px;
+            border-radius: 20px;
+            color: var(--color-fff);
+            background-color: var(--color-232f3e);
+            font-size: 13px;
+        }
+        .no-product{
+             background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                width: 50%;
+                height: 400px;
+                margin: 0 auto;
+        }
+    }
+}

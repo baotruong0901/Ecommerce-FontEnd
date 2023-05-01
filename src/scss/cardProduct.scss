@@ -1,0 +1,55 @@
+.card-product{
+        border-radius: 0.25rem;
+        overflow: hidden;
+        background: var(--color-fff);
+        position: relative;
+        transition: 0.25s ease-in-out;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        &:hover{
+            transform: translateY(-2px);
+           box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+        }
+        .card-img{
+            height: 180px;
+            cursor: pointer;
+        }
+        .card-body{   
+            padding: 10px;
+            .card-brand{
+                font-weight: 500;
+                font-size: 14px;
+                color: var(--color-bf4800);
+            }
+            .card-title{
+                cursor: pointer;
+                font-size: 14px;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2; // Hiển thị tối đa 2 dòng
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .card-text{
+                color: var( --color-1c1c1b);
+            }
+            .card-price{
+                font-weight: 400;
+                font-size: 16px;
+                color: var(--color-bf4800);
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1; // Hiển thị tối đa 2 dòng
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .wish{
+            position: absolute;
+            top: 0;
+            right: 10px;
+            cursor: pointer;
+            &:hover{
+                color: var(--color-bf4800);
+            }
+        }
+}

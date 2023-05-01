@@ -1,0 +1,9 @@
+
+small.form-text{
+    display: none;
+}
+
+input:invalid[focused="true"] ~ small{
+    display: block;
+}
+

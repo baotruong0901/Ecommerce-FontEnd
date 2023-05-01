@@ -1,0 +1,30 @@
+footer{
+    background: var(--color-232f3e);
+    .footer-top{
+        span{
+            background-color: var(--color-3b4149);
+            color: var(--color-fff);
+            border: 3px solid var(--color-fff);
+            border-left: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+    }
+    .footer-middle{
+        border-top: 1px solid var(--color-3b4149);
+        h5{
+            color: var(--color-fff);
+            padding: 15px 0;
+        }
+        .social{
+            a{
+                padding: 0 5px;
+            }
+        }
+        // height: 100px;
+    }
+    .footer-bottom{
+        border-top: 1px solid var(--color-3b4149);
+    }
+}
+

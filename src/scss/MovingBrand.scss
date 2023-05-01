@@ -1,0 +1,14 @@
+.moving-brand{
+    .item{
+        height: 140px;
+        margin: 0 15px;
+        width: calc(100% / 8);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover; 
+        cursor: pointer;
+    }
+     .marquee-container{
+        box-shadow: 1px 1px 4px 4px rgba(#000, 0.05);
+     }
+}

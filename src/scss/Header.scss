@@ -1,0 +1,84 @@
+header{
+    .header-top{
+        background: var(--color-131921);
+    }
+    .header-middle{
+        background: var(--color-131921);
+        border-top: 1px solid var(--color-3b4149);
+        .form-control{
+            &:focus{
+                box-shadow: none;
+                border-color:var(--color-fff);
+            }
+        }
+        &-links{
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            gap:30px;
+            a.active{
+                svg,p{
+                    color: var(--color-007bff)!important;
+                }
+                
+            }
+            p{
+                font-size: 14px;
+            }
+        }
+        .badge{
+            background-color: white;
+            padding:4px 10px;
+            color: black;
+        }
+    }
+    .header-bottom{
+        background: var(--color-232f3e);
+        border-top: 1px solid var(--color-3b4149);
+            .dropdown{
+                &-menu{
+                    border: none;
+                    background: var(--color-131921);
+                    width: 100%;
+                    .dropdown-item{
+                        padding: 12px 25px;
+                        color: var(--color-fff);
+                        border-bottom: 1px solid var(--color-3b4149);
+                        &:hover{
+                            color: var(--color-febd69);
+                            background: transparent;
+                        }
+                    }
+                }
+                span{
+                    padding: 0 15px;
+                }
+                button{
+                    width: 255px;
+                    color: white;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-size: 15px;
+                    background: transparent;
+                    border: none;
+                    padding: 0;
+                }
+                .dropdown-toggle::after{
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        
+        .menu-links{
+            .nav-link.active{
+                color: var(--color-007bff);
+            }
+            a{
+                color: white;
+                text-transform: uppercase;
+                font-weight: 500;
+                font-size: 15px;
+            }
+        }
+    }
+}
