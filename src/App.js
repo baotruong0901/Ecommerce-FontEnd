@@ -29,6 +29,7 @@ import Order from "./component/admins/Order";
 import ProductList from "./component/admins/ProductList";
 import ColorList from "./component/admins/ColorList";
 import BrandList from "./component/admins/BrandList";
+import CategoryList from "./component/admins/CategoryList";
 
 const NotFound = () => {
   return (
@@ -68,7 +69,7 @@ function App() {
             <Route path="add" element={<Add />} />
             <Route path="product-list" element={<ProductList />} />
             <Route path="brand-list" element={< BrandList />} />
-            <Route path="category-list" element={<ProductList />} />
+            <Route path="category-list" element={<CategoryList />} />
             <Route path="color-list" element={<ColorList />} />
             <Route path="orders" element={<Order />} />
             <Route path="add-blog" element={<AddBlog />} />

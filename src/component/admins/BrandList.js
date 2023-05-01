@@ -114,10 +114,23 @@ const BrandList = () => {
             ...getColumnSearchProps('Id'),
         },
         {
+            title: 'Image',
+            dataIndex: 'Image',
+            key: 'Image',
+            width: '20%',
+            render: (text) => {
+                return (
+                    <div className='table-category-image'>
+                        <img src={text} />
+                    </div>
+                )
+            }
+        },
+        {
             title: 'Brand Name',
             dataIndex: 'BrandName',
             key: 'BrandName',
-            width: '30%',
+            width: '20%',
             ...getColumnSearchProps('BrandName'),
         },
         {
@@ -143,6 +156,7 @@ const BrandList = () => {
             newBrand.push({
                 key: i,
                 No: i + 1,
+                Image: res?.data[i]?.images?.map((item) => item?.url),
                 BrandName: res?.data[i]?.name,
                 Id: res?.data[i]?._id
             })

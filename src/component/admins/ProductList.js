@@ -85,6 +85,14 @@ const ProductList = () => {
             }
         },
         render: (text) =>
+            // <div style={{
+            //     display: '-webkit-box',
+            //     WebkitBoxOrient: 'vertical',
+            //     WebkitLineClamp: 2,
+            //     overflow: 'hidden',
+            //     textOverflow: 'ellipsis',
+            // }}>
+            // {
             searchedColumn === dataIndex ? (
                 <Highlighter
                     highlightStyle={{
@@ -97,9 +105,17 @@ const ProductList = () => {
                 />
             ) : (
                 text
-            ),
+            )
+        // }
+        // </div>
     });
     const columns = [
+        {
+            title: 'No',
+            dataIndex: 'No',
+            key: 'No',
+            width: '5%',
+        },
         {
             title: 'Id',
             dataIndex: 'Id',
@@ -111,22 +127,35 @@ const ProductList = () => {
             title: 'Product Name',
             dataIndex: 'ProductName',
             key: 'ProductName',
-            width: '30%',
+            width: '25%',
+            ...getColumnSearchProps('ProductName'),
             render: (text) => {
                 return (
-                    <div style={{
-                        display: '-webkit-box',
-                        WebkitBoxOrient: 'vertical',
-                        WebkitLineClamp: 2,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                    }}
+                    <div
+                        style={{
+                            display: '-webkit-box',
+                            WebkitBoxOrient: 'vertical',
+                            WebkitLineClamp: 2,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                        }}
                     >
-                        {text}
+                        {searchedColumn === "ProductName" ? (
+                            <Highlighter
+                                highlightStyle={{
+                                    backgroundColor: '#ffc069',
+                                    padding: 0,
+                                }}
+                                searchWords={[searchText]}
+                                autoEscape
+                                textToHighlight={text ? text.toString() : ''}
+                            />
+                        ) : (
+                            text
+                        )}
                     </div >
                 );
             },
-            ...getColumnSearchProps('ProductName'),
         },
         {
             title: 'Price',
@@ -154,7 +183,6 @@ const ProductList = () => {
                     ))}
                 </div>
             ),
-            // ...getColumnSearchProps(`Categories`),
         },
         {
             title: 'Action',
@@ -178,6 +206,7 @@ const ProductList = () => {
         for (let i = 0; i < res?.data?.length; i++) {
             newCustomer.push({
                 key: i,
+                No: i + 1,
                 ProductName: res?.data[i]?.title,
                 Price: res?.data[i]?.price,
                 Brand: res?.data[i]?.brand.map((item) => item?.name),
