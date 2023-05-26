@@ -3,12 +3,12 @@ import Select, { StylesConfig } from 'react-select';
 import chroma from 'chroma-js';
 
 const CustomerSelect = (props) => {
-    const { options, handleSelectChange, selectedOptions, className, classNamePrefix, placeholder, name } = props
+    const { options, isMulti, handleSelectChange, selectedOptions, className, classNamePrefix, placeholder, name } = props
     return (
         <>
             <Select
                 defaultValue={[options[0]]}
-                isMulti
+                isMulti={isMulti}
                 name={name}
                 options={options}
                 className={className}

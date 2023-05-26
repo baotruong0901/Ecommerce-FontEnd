@@ -1,13 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
-import { getCategoryApi } from '../../service/homeService';
+import { getCategoryApi, deleteCartegory, editCategory } from '../../service/homeService';
 import Highlighter from 'react-highlight-words';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { toast } from 'react-toastify'
+import UpdateCatalog from '../modal/UpdateCatelog';
+
 const CategoryList = () => {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const [data, setData] = useState(null)
+    const [show, setShow] = useState(false)
+    const [value, setValue] = useState(null)
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const searchInput = useRef(null);
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
@@ -121,7 +127,7 @@ const CategoryList = () => {
             width: '20%',
             render: (text) => {
                 return (
-                    <div className='table-category-image'>
+                    <div className='table-image'>
                         <img src={text} />
                     </div>
                 )
@@ -142,8 +148,8 @@ const CategoryList = () => {
             render: (text, record) => {
                 return (
                     <span>
-                        <Button className='mr-5' onClick={() => handleUpdate(record)}>Update</Button>
-                        <Button onClick={() => handleDelete(record)}>Detele</Button>
+                        <Button className='mr-5' onClick={() => handleUpdate(record)}><AiFillEdit /></Button>
+                        <Button onClick={() => handleDelete(record)}><AiFillDelete /></Button>
                     </span>
                 );
             }
@@ -169,11 +175,39 @@ const CategoryList = () => {
     }, [])
 
     const handleUpdate = async (record) => {
-
+        const fileList = [{
+            uid: '1',
+            name: `${record?.CategoryName}.png`,
+            status: 'done',
+            thumbUrl: `${record?.Image}`
+        }]
+        console.log(record);
+        setSelectedFiles(fileList)
+        setValue(record)
+        setShow(true)
     }
 
     const handleDelete = async (record) => {
+        let res = await deleteCartegory(record?.Id)
+        if (res && res?.success === true) {
+            toast.success(res?.msg)
+            fetchAllCategory()
+        }
+    }
+    const handleChange = (e) => {
+        setValue({ ...value, [e.target.name]: e.target.value })
+    }
 
+    const handleSubmit = async () => {
+        let id = value?.Id
+        let name = value?.CategoryName
+        console.log(id, name);
+        let res = await editCategory(id, name, selectedFiles)
+        if (res && res?.success === true) {
+            toast.success(res?.msg)
+            fetchAllCategory()
+            setShow(false)
+        }
     }
     return (
         <div className='category-list'>
@@ -181,6 +215,17 @@ const CategoryList = () => {
             <div className='table'>
                 <Table columns={columns} dataSource={data} />
             </div>
+            <UpdateCatalog
+                show={show}
+                setShow={setShow}
+                value={value}
+                setSelectedFiles={setSelectedFiles}
+                selectedFiles={selectedFiles}
+                handleUpdate={handleSubmit}
+                handleChange={handleChange}
+                name="Category"
+                catalogName={value?.CategoryName}
+            />
         </div>
     );
 };

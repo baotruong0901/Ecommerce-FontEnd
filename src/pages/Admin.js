@@ -79,6 +79,11 @@ const Admin = () => {
                                         key: "color-list",
                                         icon: <AiOutlineBgColors />,
                                         label: "Color List"
+                                    },
+                                    {
+                                        key: "size-list",
+                                        icon: <AiOutlineBgColors />,
+                                        label: "Size List"
                                     }
                                 ]
                             },

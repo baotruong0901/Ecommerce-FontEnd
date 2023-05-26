@@ -4,7 +4,7 @@
         background: var(--color-fff);
         position: relative;
         transition: 0.25s ease-in-out;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        // box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
         &:hover{
             transform: translateY(-2px);
            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
@@ -41,6 +41,18 @@
                 -webkit-line-clamp: 1; // Hiển thị tối đa 2 dòng
                 overflow: hidden;
                 text-overflow: ellipsis;
+                .original-price{
+                    font-size: 12px;
+                }
+            }
+            .card-start{
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                .sold{
+                    font-size: 12px;
+                    margin-left: 5px;
+                }
             }
         }
         .wish{
@@ -51,5 +63,18 @@
             &:hover{
                 color: var(--color-bf4800);
             }
+        }
+        .coupon{
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: var(--color-febd69);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            color: var(--color-fff);
+            font-size: 12px;
+            display: block;
+            padding: 6px 4px;
         }
 }

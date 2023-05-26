@@ -22,7 +22,7 @@ const updateUser = (data) => {
 }
 
 const getProductApi = (data, LIMIT, page) => {
-    return axios.get(`api/products?${data?.sortCategory ? `category=${data?.sortCategory}&&` : ""}${data?.sortColor ? `color=${data?.sortColor}&&` : ""}${data?.sortSize ? `size=${data?.sortSize}&&` : ""}${data?.sortPrice ? `sort=${data?.sortPrice}&&` : ""}${data?.sortGtePrice ? `price[gte]=${data?.sortGtePrice}&&` : ""}${data?.sortLtePrice ? `price[lte]=${data?.sortLtePrice}&&` : ""}page=${page}&limit=${LIMIT}`)
+    return axios.get(`api/products?${data?.sortCategory ? `category=${data?.sortCategory}&&` : ""}${data?.brand ? `brand=${data?.brand}&&` : ""}${data?.sortColor ? `color=${data?.sortColor}&&` : ""}${data?.sortSize ? `size=${data?.sortSize}&&` : ""}${data?.sortPrice ? `sort=${data?.sortPrice}&&` : ""}${data?.sortGtePrice ? `price[gte]=${data?.sortGtePrice}&&` : ""}${data?.sortLtePrice ? `price[lte]=${data?.sortLtePrice}&&` : ""}page=${page}&limit=${LIMIT}`)
 }
 //${data?.sortCategory ? `category=${data?.sortCategory}&` : ""}
 
@@ -111,6 +111,10 @@ const putResetPassword = (data, token) => {
     return axios.put(`api/user/reset-password/${token}`, { ...data })
 }
 
+const register = (data) => {
+    return axios.post(`api/user/register`, { ...data })
+}
+
 //admin
 
 const getAllUser = (type) => {
@@ -151,6 +155,87 @@ const createAProduct = (title, description, price, brand, color, category, image
     return axios.post('api/product', data)
 }
 
+const createBrand = (name, images) => {
+    const data = new FormData()
+    data.append('name', name)
+    images.forEach((image) => {
+        data.append('image', image.originFileObj);
+    });
+    return axios.post('api/brand', data)
+}
+
+const editBrand = (id, name, images) => {
+    const data = new FormData()
+    data.append('id', id)
+    data.append('name', name)
+    images.forEach((image) => {
+        data.append('image', image.originFileObj);
+    });
+    return axios.put('api/brand', data)
+}
+
+const deleteBrand = (id) => {
+    return axios.delete(`api/brand/${id}`)
+}
+
+const createCategory = (name, images) => {
+    const data = new FormData()
+    data.append('name', name)
+    images.forEach((image) => {
+        data.append('image', image.originFileObj);
+    });
+    return axios.post('api/category', data)
+}
+
+const editCategory = (id, name, images) => {
+    const data = new FormData()
+    data.append('id', id)
+    data.append('name', name)
+    images.forEach((image) => {
+        data.append('image', image.originFileObj);
+    });
+    return axios.put('api/category', data)
+}
+
+const deleteCartegory = (id) => {
+    return axios.delete(`api/category/${id}`)
+}
+
+const createColor = (color, colorCode) => {
+    return axios.post(`api/product/color`, { color, colorCode })
+}
+const createSize = (name) => {
+    return axios.post(`api/product/size`, { name })
+}
+const getAllSize = () => {
+    return axios.get(`api/sizes`)
+}
+const assignCoupon = (id, coupon) => {
+    return axios.put(`api/product/coupon/${id}`, { coupon })
+}
+const addNewBlog = (title, description, images) => {
+    const data = new FormData()
+    data.append('title', title)
+    data.append('description', description)
+    images.forEach((image) => {
+        data.append('image', image.originFileObj);
+    });
+    return axios.post(`api/blog`, data)
+}
+const getAllBlog = () => {
+    return axios.get(`api/blogs`)
+}
+const getABlog = (id) => {
+    return axios.get(`api/blog/${id}`)
+}
+const deleteBlog = (id) => {
+    return axios.delete(`api/blog/${id}`)
+}
+
+const putFeelingBlog = (id, action) => {
+    return axios.put(`api/feeling/${id}`, { action })
+}
+
 
 export {
     getAllCategory,
@@ -180,6 +265,7 @@ export {
     getBooking,
     postForgotPassword,
     putResetPassword,
+    register,
     putCountProductCart,
     getAllUser,
     unBlockUser,
@@ -187,4 +273,19 @@ export {
     DeleteUser, getAllBooking,
     getAllCategories,
     createAProduct,
+    createBrand,
+    editBrand,
+    deleteBrand,
+    createCategory,
+    editCategory,
+    deleteCartegory,
+    createColor,
+    createSize,
+    getAllSize,
+    assignCoupon,
+    addNewBlog,
+    getAllBlog,
+    getABlog,
+    deleteBlog,
+    putFeelingBlog,
 }

@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactStars from "react-rating-stars-component";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { NumericFormat } from 'react-number-format'
 import '../../scss/cardProduct.scss'
 const CardProduct = (props) => {
-    const { image, brand, title, description, price, slug, width, detailProduct, addWishList, star, active } = props
+    const { image, brand, title, coupon, sold, price, slug, width, detailProduct, addWishList, star, active } = props
     const cardStyle = { width: width ? width : '100%' }
+    const discounted = price * (1 - (+coupon) / 100)
     return (
         <>
             <div
@@ -17,10 +19,38 @@ const CardProduct = (props) => {
                     <img src={image} className="card-img" alt={slug} />
                     <div className="card-body">
                         <p className="card-title mb-1">{title}</p>
-                        <p className='card-price my-2'>${price}</p>
-                        {/* <p className='card-brand mb-1'>{brand}</p> */}
-                        {/* <p className="card-text mb-1">{description}</p> */}
-                        <span className='card-start d-block mb-1'>
+                        <p className='card-price my-2'>
+                            {coupon && coupon !== "0" ?
+
+                                <>
+                                    <span className="original-price">
+                                        <NumericFormat
+                                            value={price}
+                                            displayType="text"
+                                            thousandSeparator={true}
+                                            suffix={'đ'}
+                                        />
+                                    </span>
+                                    <span className="discounted-price">
+                                        <NumericFormat
+                                            value={discounted}
+                                            displayType="text"
+                                            thousandSeparator={true}
+                                            suffix={'đ'}
+                                        />
+                                    </span>
+
+                                </>
+                                :
+                                <NumericFormat
+                                    value={price}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    suffix={'đ'}
+                                />
+                            }
+                        </p>
+                        <span className='card-start mb-1'>
                             <ReactStars
                                 key={star}
                                 count={5}
@@ -29,9 +59,15 @@ const CardProduct = (props) => {
                                 edit={false}
                                 activeColor="#ffd700"
                             />
+                            {sold !== 0 &&
+                                <span className='sold'>{sold} sold</span>
+                            }
                         </span>
                     </div>
                 </div>
+                {coupon && +coupon !== 0 &&
+                    <span className='coupon'>{coupon}%</span>
+                }
                 <span
                     onClick={addWishList}
                     className='wish'>

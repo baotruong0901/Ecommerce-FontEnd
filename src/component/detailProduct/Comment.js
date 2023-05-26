@@ -51,11 +51,11 @@ const Comment = (props) => {
     return (
         <div className='comment'>
             <div className='title'>
-                <span>Review Product</span>
+                <span>Product Ratings</span>
             </div>
-            <div className='total-comment'>
+            {/* <div className='total-comment'>
                 <span>Comments({getComment?.length})</span>
-            </div>
+            </div> */}
             <Form onSubmit={handleSubmit}>
                 <Form.Group className=' star mb-1' controlId="formRating">
                     <ReactStars
@@ -78,7 +78,7 @@ const Comment = (props) => {
                     />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button className='btn-submit' type="submit">
                     Submit
                 </Button>
 
@@ -91,7 +91,7 @@ const Comment = (props) => {
                                     <div className='user-comment'>
                                         <img className='image' src={banner1} alt='comment' />
                                         <div className='review'>
-                                            <span className='comment-username'>{item?.postedBy?.firstname}</span>
+                                            <span className='comment-username'>{item?.postedBy?.firstname} {item?.postedBy?.lastname}</span>
                                             <ReactStars
                                                 key={item?.star}
                                                 starCount={5}

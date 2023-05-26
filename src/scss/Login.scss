@@ -3,7 +3,7 @@
         margin: 0 auto;
         padding: 25px 15px;
         border-radius: 5px;
-        box-shadow: 1px 1px 8px 4px rgba(grey, 0.15);
+        box-shadow: 0px 0px 6px rgba(grey, 0.25);
         input{
             &:focus{
                 box-shadow: none;
@@ -33,6 +33,14 @@
         .forgot{
             font-size: 14px;
             padding-bottom: 5px;
+        }
+        .register{
+            font-size: 14px;
+            padding-bottom: 5px;
+            margin-top: 10px;
+            span{
+                padding-right: 5px;
+            }
         }
     }
 }

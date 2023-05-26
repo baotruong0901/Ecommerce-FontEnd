@@ -8,9 +8,13 @@ p,h2,h3,h4,h5,ul{
 }
 :root{
     --color-131921:#131921;
+    // --color-131921:#ee4d2d;
+    // --color-3b4149:#ee4d2d;
     --color-3b4149:#3b4149;
+    // --color-232f3e:#ee4d2d;
     --color-232f3e:#232f3e;
     --color-007bff:#007bff;
+    --color-254892:#254892;
     --color-131921:#131921;
     --color-febd69:#febd69;
     --color-fff:#fff;
@@ -63,3 +67,71 @@ button{
             }
         } 
     }
+
+.original-price{
+    color: var(--color-777777);
+    margin-right: 5px;
+    text-decoration: line-through;
+}
+.paginate{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 15px;
+        .pagination{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .page-item{
+                margin: 0 15px;  
+                a{
+                    padding: 5px 20px;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                    background-color: transparent;
+                    color: var(--color-777777);
+                }
+                &:hover{
+                    .page-link{
+                        background-color: var(--color-bf4800);   
+                        color: var(--color-fff);   
+                    }
+                }
+            }
+            .active>.page-link{
+                background-color: var(--color-bf4800);
+                border-color: var(--color-bf4800);
+                color: var(--color-fff);
+            }
+            .prev,.next{
+                // margin: 0 20px;
+                cursor: pointer;
+                &:hover{
+                    .next-link,.prev-link{
+                        background-color: transparent;
+                        color: var(--color-bf4800);
+                    }
+                }
+                a{
+                    font-size: 24px;
+                    color: var(--color-bf4800);
+                }
+            }
+            .prev.disabled,.next.disabled{
+                a{
+                    opacity: 0.5;
+                }
+            }
+        }
+        .showing{
+            color: var(--color-777777);
+        }
+        ul{
+            margin: 0;
+            li{
+                --bs-pagination-focus-box-shadow:none;
+            }
+        }
+    }
+
+

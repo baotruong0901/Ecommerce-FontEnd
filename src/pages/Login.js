@@ -81,6 +81,10 @@ const Login = () => {
                                 {isLoading === true && <AiOutlineLoading3Quarters className='loading-icon' />}
                                 Login
                             </button>
+                            <div className='register'>
+                                <span>Do you already have an account?</span>
+                                <Link to="/register" >Register?</Link>
+                            </div>
                         </form>
                     </div>
                 </div>

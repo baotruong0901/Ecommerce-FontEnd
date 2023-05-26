@@ -16,7 +16,6 @@ export const selectProduct = (data) => {
 export const removeSelectedProduct = () => {
     return {
         type: actionTypes.REMOVE_SELECTED_PRODUCT,
-
     }
 }
 

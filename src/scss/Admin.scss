@@ -152,6 +152,7 @@
                     }
                 }
             }
+            
         }
         .add-new{
             &-header{
@@ -161,7 +162,7 @@
                 .tabs-container {
                     width: 100%;
                     .nav-item{
-                        width: 20%;
+                        width: calc(100% / 7);
                         .nav-link {
                             border: none;
                             color: var(--color-777777);
@@ -185,7 +186,7 @@
             }
             
         }
-        .table-category-image{
+        .table-image{
             width: 100px;
             height: 100px;
             img{
@@ -200,8 +201,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .category-list{
-
+        .add-new-blog{
+            .main{
+                background-color: var(--color-fff);
+                padding: 30px;
+            }
         }
     }
 }

@@ -3,7 +3,8 @@ import ReactPaginate from 'react-paginate'
 
 const Paginate = (props) => {
     const handlePageClick = (event) => {
-        window.scrollTo(0, 128);
+        // window.scrollTo(0, 128);
+        props.scroll()
         props.fetchAllProducts(+event.selected + 1)
         props.setCurrentPage(+event.selected + 1);
     };

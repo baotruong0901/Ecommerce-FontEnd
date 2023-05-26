@@ -1,20 +1,23 @@
 import React from 'react';
 import { InboxOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
-import { createAProduct } from '../../service/homeService';
 const { Dragger } = Upload;
 
 const UploadImage = (props) => {
-    const { setImages } = props
+    const { images, setImages, url, type } = props
     const upload = {
         name: 'images',
         multiple: true,
-        action: 'http://localhost:8800/api/product',
+        action: url,
         beforeUpload: () => false,
         onChange(info) {
             const { status } = info.file;
             if (status !== 'uploading') {
-                console.log(info.fileList);
+                if (type === 'only') {
+                    if (info.fileList.length > 1) {
+                        info.fileList.shift();
+                    }
+                }
                 setImages(info.fileList)
             }
             if (status === 'done') {
@@ -31,17 +34,24 @@ const UploadImage = (props) => {
         <>
             <Dragger
                 {...upload}
+                fileList={images}
                 listType='picture'
                 accept='.png,.jpeg'
             >
                 <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                 </p>
-                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                <p className="ant-upload-hint">
-                    Support for a single or bulk upload. Strictly prohibited from uploading company data or other
+                <p className="ant-upload-text">Click or drag image to this area to upload</p>
+                {type === "only" ? <p className="ant-upload-hint">
+                    Just upload only 1 image. Strictly prohibited from uploading company data or other
                     banned files.
                 </p>
+                    :
+                    <p className="ant-upload-hint">
+                        Can upload many image. Strictly prohibited from uploading company data or other
+                        banned files.
+                    </p>
+                }
             </Dragger>
         </>
     );

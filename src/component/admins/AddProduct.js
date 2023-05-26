@@ -77,6 +77,7 @@ const AddProduct = ({ name }) => {
         let res = await createAProduct(title, description, price, brand, color, category, images, quantity)
         if (res && res.success === true) {
             toast.success(res?.msg)
+            setSelectedFiles([])
             setValue(
                 {
                     title: "",
@@ -92,18 +93,7 @@ const AddProduct = ({ name }) => {
             })
         }
     }
-    const handleFileInputChange = (event) => {
-        const files = event.target.files;
-        let fileArr = []
-        for (let i = 0; i < files.length; i++) {
-            fileArr.push(files[i])
-        }
-        console.log("1", files);
-        console.log("2", fileArr);
-        // setImages([...images, ...fileArr])
-        setSelectedFiles([...selectedFiles, ...fileArr]);
-    }
-    // console.log(image);
+
     return (
         <>
             <CustomerInput
@@ -130,6 +120,7 @@ const AddProduct = ({ name }) => {
                 type='number' label='Enter Product Quantity' />
             <CustomerSelect options={categoryOptions}
                 selectedOptions={select.selectCategory}
+                isMulti={true}
                 name="selectCategory"
                 handleSelectChange={handleSelectChange}
                 placeholder='Choose Categories...'
@@ -138,6 +129,7 @@ const AddProduct = ({ name }) => {
             />
             <CustomerSelect options={brandOptions}
                 selectedOptions={select.selectBrand}
+                isMulti={true}
                 handleSelectChange={handleSelectChange}
                 name="selectBrand"
                 placeholder='Choose Brands...'
@@ -146,6 +138,7 @@ const AddProduct = ({ name }) => {
             />
             <CustomerSelect options={colorOptions}
                 selectedOptions={select.selectColor}
+                isMulti={true}
                 handleSelectChange={handleSelectChange}
                 name="selectColor"
                 placeholder='Choose colors...'
@@ -154,6 +147,8 @@ const AddProduct = ({ name }) => {
             />
             <UploadImage
                 setImages={setSelectedFiles}
+                images={selectedFiles}
+                url="http://localhost:8800/api/product"
             />
             {/* <input type="file" ref={fileInputRef} multiple onChange={handleFileInputChange} /> */}
             <button type='button' onClick={handleCreate} className='btn btn-primary mt-3'>Create {name}</button>

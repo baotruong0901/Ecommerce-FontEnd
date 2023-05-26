@@ -9,6 +9,7 @@ import { setCart } from '../store/actions/productActions';
 import NoProduct from '../public/images/no-product.jpeg'
 import { useDispatch } from 'react-redux';
 import { removeAProductInCart } from '../store/actions/productActions';
+import { NumericFormat } from 'react-number-format'
 import '../scss/cart.scss'
 
 
@@ -26,7 +27,6 @@ const Cart = () => {
     useEffect(() => {
         fetchProductInCart()
     }, [])
-
 
     const handleDeleteProduct = async (item) => {
         let productId = item?.product?._id
@@ -64,7 +64,7 @@ const Cart = () => {
                     <div className='container-xxl'>
                         <div className='row'>
                             <div className='col-12 '>
-                                {cartProduct?.products?.length === 0 ?
+                                {cartProduct?.products?.length === 0 || cartProduct?.length === 0 ?
                                     (<div className='col-12'>
                                         <div style={{ backgroundImage: `url(${NoProduct})` }} className='no-product'>
                                         </div>
@@ -94,15 +94,49 @@ const Cart = () => {
                                                                                 <img src={item?.product?.images[0]?.url} className="img-fluid" alt="product image" />
                                                                             </div>
                                                                             <div className='w-75'>
-                                                                                <p className='description'>{item?.product?.description}</p>
+                                                                                <p className='description'
+                                                                                    dangerouslySetInnerHTML={{
+                                                                                        __html: item?.product?.description,
+                                                                                    }}
+                                                                                >
+                                                                                </p>
                                                                                 {item?.size && <p>Size: {item?.size}</p>}
                                                                                 {item?.color && <p>Color: {item?.color}</p>}
                                                                             </div>
                                                                         </div>
                                                                     </td>
                                                                     <td>
+                                                                        <h5 className="price">
+                                                                            {item?.product?.coupon && +item?.product?.coupon !== 0 ?
+                                                                                <>
+                                                                                    <span className="original-price">
+                                                                                        <NumericFormat
+                                                                                            value={item?.product?.price}
+                                                                                            displayType="text"
+                                                                                            thousandSeparator={true}
+                                                                                            suffix={'đ'}
+                                                                                        />
+                                                                                    </span>
+                                                                                    <span className="discounted-price">
+                                                                                        <NumericFormat
+                                                                                            value={(item?.product?.price * (1 - (+item?.product?.coupon) / 100))}
+                                                                                            displayType="text"
+                                                                                            thousandSeparator={true}
+                                                                                            suffix={'đ'}
+                                                                                        />
+                                                                                    </span>
+                                                                                </>
+                                                                                :
+                                                                                <NumericFormat
+                                                                                    value={item?.product?.price}
+                                                                                    displayType={"text"}
+                                                                                    thousandSeparator={true}
+                                                                                    suffix={'đ'}
+                                                                                />
+                                                                            }
 
-                                                                        <h5 className="price">$ {item?.product?.price}</h5>
+
+                                                                        </h5>
 
                                                                     </td>
                                                                     <td>
@@ -124,7 +158,14 @@ const Cart = () => {
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <h5 className="price">$ {item?.price}</h5>
+                                                                        <h5 className="price">
+                                                                            <NumericFormat
+                                                                                value={item?.price}
+                                                                                displayType={"text"}
+                                                                                thousandSeparator={true}
+                                                                                suffix={'đ'}
+                                                                            />
+                                                                        </h5>
                                                                     </td>
                                                                 </tr>
                                                             )
@@ -137,7 +178,13 @@ const Cart = () => {
                                                         Continue To Shopping
                                                     </Link>
                                                     <div className="d-flex flex-column align-items-end">
-                                                        <h4>SubTotal: $ {cartProduct?.cartTotal}</h4>
+                                                        <h4>SubTotal:
+                                                            <NumericFormat
+                                                                value={cartProduct?.cartTotal}
+                                                                displayType={"text"}
+                                                                thousandSeparator={true}
+                                                                suffix={'đ'}
+                                                            /></h4>
                                                         <p>Taxes and shipping calculated at checkout</p>
                                                         <button type='button'
                                                             onClick={() => handleCheckOut()} className="button">

@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import AddProduct from './AddProduct';
+import AddBrand from './AddBrand';
+import AddCategory from './AddCategory';
+import AddColor from './AddColor';
+import AddSize from './AddSize';
+import AddCoupon from './AddCoupon';
+import AssignCoupon from './AssignCoupon';
 
 const Add = () => {
     const [activeTab, setActiveTab] = useState("Product");
@@ -23,20 +29,22 @@ const Add = () => {
                         <AddProduct name={activeTab} />
                     </Tab>
                     <Tab eventKey="Brand" title="New Brand">
-                        {/* <All activeTab={activeTab} /> */}
-                        2
+                        <AddBrand name={activeTab} />
                     </Tab>
                     <Tab eventKey="Category" title="New Category">
-                        {/* <All activeTab={activeTab} /> */}
-                        3
+                        <AddCategory name={activeTab} />
                     </Tab>
                     <Tab eventKey="Color" title="New Color">
-                        {/* <All activeTab={activeTab} /> */}
-                        4
+                        <AddColor name={activeTab} />
                     </Tab>
-                    <Tab eventKey="Blogs" title="New Blogs">
-                        {/* <All activeTab={activeTab} /> */}
-                        5
+                    <Tab eventKey="Size" title="New Size">
+                        <AddSize name={activeTab} />
+                    </Tab>
+                    <Tab eventKey="Coupon" title="New Coupon">
+                        <AddCoupon name={activeTab} />
+                    </Tab>
+                    <Tab eventKey="Coupon to product" title="Assign">
+                        <AssignCoupon name={activeTab} />
                     </Tab>
                 </Tabs>
             </div>

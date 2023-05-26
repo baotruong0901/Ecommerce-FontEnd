@@ -15,7 +15,7 @@ import '../../scss/popular.scss'
 const PopularProduct = () => {
     const [category, setCategory] = useState([])
     const [product, setProduct] = useState([])
-    const [activeIndex, setActiveIndex] = useState(1);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [isExist, setIsExist] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch();
@@ -27,13 +27,12 @@ const PopularProduct = () => {
     }, [])
     useEffect(() => {
         if (category.length > 0) {
-            fetchProductByCategory(category[1])
+            fetchProductByCategory(category[0])
         }
     }, [category])
 
     const fetchCategory = async () => {
         let res = await getCategoryApi()
-        console.log(res);
         if (res && res?.success === true) {
             setCategory(res.data)
             dispatch(fetchCategoryStart(res?.data))
@@ -50,7 +49,7 @@ const PopularProduct = () => {
     const fetchProductByCategory = async (category) => {
         let res = await getAllByCategoryApi(category._id)
         if (res && res?.success === true) {
-            setProduct(res.data)
+            setProduct(res.data.reverse())
         }
     }
     const handleClicktab = async (category, index) => {
@@ -100,7 +99,7 @@ const PopularProduct = () => {
 
     };
     return (<>
-        <section className='popular pb-5'>
+        <section className='popular pb-3'>
             <div className='container-xxl'>
                 <div className='row'>
                     <div className="col-12 mb-3">
@@ -110,9 +109,13 @@ const PopularProduct = () => {
                         <div className=' popular-tabs'>
                             {category && category.length > 0 && category.map((item, index) => {
                                 return (
-                                    <div className={`d-flex item ${index === activeIndex ? 'active' : ''}`} key={`${index}-tab-category`}>
+                                    <div
+                                        className={`d-flex item ${index === activeIndex ? 'active' : ''}`}
+                                        key={`${index}-tab-category`}
+                                        onClick={() => handleClicktab(item, index)}
+                                    >
                                         <img src={item.image[0].url} alt=''></img>
-                                        <button onClick={() => handleClicktab(item, index)}>{item.name}</button>
+                                        <button>{item.name}</button>
                                     </div>
                                 )
                             })}
@@ -132,6 +135,8 @@ const PopularProduct = () => {
                                             image={item?.images[0]?.url}
                                             slug={item?.slug}
                                             star={item?.totalrating}
+                                            coupon={item?.coupon}
+                                            sold={item?.sold}
                                         />
                                     )
                                 })}

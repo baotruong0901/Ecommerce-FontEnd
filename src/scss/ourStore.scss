@@ -65,6 +65,7 @@
                 }
                 .colors{
                     overflow: hidden;
+                    height: 69px!important;
                     .item{
                         width: 30px;
                         height: 30px;
@@ -104,67 +105,6 @@
         &-item{
             display: flex;  
             flex-wrap: wrap;
-        }
-    }
-
-    .paginate{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 5px 15px;
-        .pagination{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            .page-item{
-                margin: 0 15px;  
-                a{
-                    padding: 5px 20px;
-                    border: 1px solid transparent;
-                    border-radius: 4px;
-                    background-color: transparent;
-                    color: var(--color-777777);
-                }
-                &:hover{
-                    .page-link{
-                        background-color: var(--color-bf4800);   
-                        color: var(--color-fff);   
-                    }
-                }
-            }
-            .active>.page-link{
-                background-color: var(--color-bf4800);
-                border-color: var(--color-bf4800);
-                color: var(--color-fff);
-            }
-            .prev,.next{
-                // margin: 0 20px;
-                cursor: pointer;
-                &:hover{
-                    .next-link,.prev-link{
-                        background-color: transparent;
-                        color: var(--color-bf4800);
-                    }
-                }
-                a{
-                    font-size: 24px;
-                    color: var(--color-bf4800);
-                }
-            }
-            .prev.disabled,.next.disabled{
-                a{
-                    opacity: 0.5;
-                }
-            }
-        }
-        .showing{
-            color: var(--color-777777);
-        }
-        ul{
-            margin: 0;
-            li{
-                --bs-pagination-focus-box-shadow:none;
-            }
         }
     }
 }

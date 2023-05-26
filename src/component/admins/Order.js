@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
-import { getAllBooking } from '../../service/homeService';
+import { getAllBooking, confirmBookingApi } from '../../service/homeService';
 import Highlighter from 'react-highlight-words';
 import { AiFillEye } from 'react-icons/ai'
 import BlockAccount from '../modal/BlockAccount';
 import { toast } from 'react-toastify'
+import ViewProducts from '../modal/ViewProducts';
 const Order = () => {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const [data, setData] = useState(null)
     const [show, setShow] = useState(false)
-    const [blocked, setBlocked] = useState([])
+    const [value, setValue] = useState([])
     const searchInput = useRef(null);
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
@@ -133,7 +134,7 @@ const Order = () => {
             render: (text, record) => (
                 <span>
                     <span className='mr-5'>{text}</span>
-                    <Button onClick={() => handleDetail(record)}>View</Button>
+                    <Button onClick={() => handleViewMore(record)}>View</Button>
                 </span>
             )
         },
@@ -150,7 +151,7 @@ const Order = () => {
             key: 'Confirm',
             width: '18%',
             render: (text, record) => {
-                if (record.Status === 'TO CONFIRM') {
+                if (record.Status === 'CONFIRM') {
                     return (
                         <span>
                             <Button className='mr-5' onClick={() => handleConfirm(record)}>Confirm</Button>
@@ -158,7 +159,21 @@ const Order = () => {
                         </span>
                     );
                 } else {
-                    return null;
+                    if (record.CancelBy) {
+                        return (
+                            <span style={{ color: 'red' }}>{record.CancelBy}</span>
+                        )
+                    }
+                    else if (record?.Status === "RECEIVE") {
+                        return (
+                            <Button onClick={() => handleCompleted(record)}>{record.Status}</Button>
+                        )
+                    }
+                    else if (record?.Status === "COMPLETED") {
+                        return (
+                            <span>{record.Status}</span>
+                        )
+                    }
                 }
             },
         },
@@ -169,53 +184,75 @@ const Order = () => {
             width: '3%',
             render: (text, record) => {
                 return (
-                    <span className='detail-order' onClick={() => handleConfirm(record)}><AiFillEye color={'777777'} size='24px' />
+                    <span className='detail-order' onClick={() => handleViewDetail(record)}><AiFillEye color={'777777'} size='24px' />
                     </span >
                 );
             }
         },
 
     ];
-    const fetchAllCustomer = async () => {
-
+    const fetchAllBooking = async () => {
         let res = await getAllBooking()
-        console.log(res);
+        let data = res?.data?.reverse()
         const newCustomer = []
-        for (let i = 0; i < res?.data?.length; i++) {
+        for (let i = 0; i < data?.length; i++) {
             newCustomer.push({
                 key: i,
-                Orderer: `${res?.data[i]?.userId?.firstname} ${res?.data[i]?.userId?.lastname}`,
-                Email: res?.data[i]?.userId?.email,
-                Mobile: res?.data[i]?.mobile,
-                Product: `${res?.data[i]?.products?.reduce((acc, product) => acc + product.count, 0)} Product`,
-                Status: res?.data[i]?.status,
-                id: res?.data[i]?._id
+                Orderer: `${data[i]?.userId?.firstname} ${data[i]?.userId?.lastname}`,
+                Email: data[i]?.userId?.email,
+                Mobile: data[i]?.mobile,
+                Product: `${data[i]?.products?.reduce((acc, product) => acc + product.count, 0)} Product`,
+                Status: data[i]?.status,
+                ProductMore: data[i]?.products?.map((item) => item),
+                CancelBy: data[i]?.cancelBy,
+                id: data[i]?._id
             })
         }
         setData(newCustomer)
     }
 
     useEffect(() => {
-        fetchAllCustomer()
+        fetchAllBooking()
     }, [])
     const handleConfirm = async (record) => {
-        // let res = await BlockUser(record?.id)
-        // if (res && res.success === true) {
-        //     toast.success(res?.msg)
-        //     fetchAllCustomer()
-        //     fetchUserIsBlocked()
-        // } else {
-        //     toast.error(res?.msg)
-        // }
+        const bookingId = record?.id
+        const type = "CONFIRM"
+        console.log(record);
+        let res = await confirmBookingApi(bookingId, type)
+        if (res && res.success == true) {
+            fetchAllBooking()
+            toast.success(res?.msg)
+        }
 
     };
     const handleRefuse = async (record) => {
+        const bookingId = record?.id
+        const type = "CANCELLED"
+        let res = await confirmBookingApi(bookingId, type)
+        if (res && res.success == true) {
+            fetchAllBooking()
+            toast.success(res?.msg)
+        }
+    }
+    const handleCompleted = async (record) => {
+        const bookingId = record?.id
+        const type = "COMPLETED"
+        let res = await confirmBookingApi(bookingId, type)
+        if (res && res.success == true) {
+            fetchAllBooking()
+            toast.success(res?.msg)
+        }
+    }
+
+    const handleViewMore = async (record) => {
+        setShow(true)
+        setValue(record?.ProductMore)
+    }
+
+    const handleViewDetail = async (record) => {
 
     }
 
-    const handleDetail = async (record) => {
-
-    }
 
 
     return (
@@ -224,6 +261,11 @@ const Order = () => {
             <div className='table'>
                 <Table columns={columns} dataSource={data} />
             </div>
+            <ViewProducts
+                show={show}
+                setShow={setShow}
+                value={value}
+            />
         </div>
     );
 }

@@ -1,13 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
-import { getAllBrandApi } from '../../service/homeService';
+import { getAllBrandApi, deleteBrand, editBrand } from '../../service/homeService';
 import Highlighter from 'react-highlight-words';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { toast } from 'react-toastify'
+import UpdateCatalog from '../modal/UpdateCatelog';
 const BrandList = () => {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const [data, setData] = useState(null)
+    const [show, setShow] = useState(false)
+    const [value, setValue] = useState(null)
+    const [selectedFiles, setSelectedFiles] = useState([]);
     const searchInput = useRef(null);
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
@@ -141,8 +146,8 @@ const BrandList = () => {
             render: (text, record) => {
                 return (
                     <span>
-                        <Button className='mr-5' onClick={() => handleUpdate(record)}>Update</Button>
-                        <Button onClick={() => handleDelete(record)}>Detele</Button>
+                        <Button className='mr-5' onClick={() => handleUpdate(record)}><AiFillEdit /></Button>
+                        <Button onClick={() => handleDelete(record)}><AiFillDelete /></Button>
                     </span>
                 );
             }
@@ -168,11 +173,38 @@ const BrandList = () => {
     }, [])
 
     const handleUpdate = async (record) => {
-
+        const fileList = [{
+            uid: '1',
+            name: `${record?.BrandName}.png`,
+            status: 'done',
+            thumbUrl: `${record?.Image}`
+        }]
+        setSelectedFiles(fileList)
+        setValue(record)
+        setShow(true)
     }
 
     const handleDelete = async (record) => {
+        let res = await deleteBrand(record?.Id)
+        if (res && res?.success === true) {
+            toast.success(res?.msg)
+            fetchAllBrand()
+        }
+    }
+    const handleChange = (e) => {
+        setValue({ ...value, [e.target.name]: e.target.value })
+    }
+    console.log(value);
 
+    const handleSubmit = async () => {
+        let id = value?.Id
+        let name = value?.BrandName
+        let res = await editBrand(id, name, selectedFiles)
+        if (res && res?.success === true) {
+            toast.success(res?.msg)
+            fetchAllBrand()
+            setShow(false)
+        }
     }
     return (
         <div className='brand-list'>
@@ -180,6 +212,18 @@ const BrandList = () => {
             <div className='table'>
                 <Table columns={columns} dataSource={data} />
             </div>
+            <UpdateCatalog
+                show={show}
+                setShow={setShow}
+                value={value}
+                setSelectedFiles={setSelectedFiles}
+                selectedFiles={selectedFiles}
+                handleUpdate={handleSubmit}
+                handleChange={handleChange}
+                name="Brand"
+                catalogName={value?.BrandName}
+
+            />
         </div>
     );
 };

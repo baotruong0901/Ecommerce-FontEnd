@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { Button, Input, Space, Table } from 'antd';
 import { getProductApi } from '../../service/homeService';
 import Highlighter from 'react-highlight-words';
+import { NumericFormat } from 'react-number-format'
 import { toast } from 'react-toastify'
 const ProductList = () => {
     const [searchText, setSearchText] = useState('');
@@ -85,14 +87,6 @@ const ProductList = () => {
             }
         },
         render: (text) =>
-            // <div style={{
-            //     display: '-webkit-box',
-            //     WebkitBoxOrient: 'vertical',
-            //     WebkitLineClamp: 2,
-            //     overflow: 'hidden',
-            //     textOverflow: 'ellipsis',
-            // }}>
-            // {
             searchedColumn === dataIndex ? (
                 <Highlighter
                     highlightStyle={{
@@ -105,37 +99,38 @@ const ProductList = () => {
                 />
             ) : (
                 text
-            )
-        // }
-        // </div>
+            ),
     });
     const columns = [
         {
             title: 'No',
             dataIndex: 'No',
             key: 'No',
-            width: '5%',
+            // width: '2%',
         },
         {
             title: 'Id',
             dataIndex: 'Id',
             key: 'Id',
-            width: '20%',
+            // width: '20%',
             ...getColumnSearchProps('Id'),
         },
+
+
         {
             title: 'Product Name',
             dataIndex: 'ProductName',
             key: 'ProductName',
-            width: '25%',
             ...getColumnSearchProps('ProductName'),
-            render: (text) => {
+            width: '27%',
+            render: (text, record) => {
+                console.log(record);
                 return (
                     <div
                         style={{
                             display: '-webkit-box',
                             WebkitBoxOrient: 'vertical',
-                            WebkitLineClamp: 2,
+                            WebkitLineClamp: 1,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                         }}
@@ -158,42 +153,82 @@ const ProductList = () => {
             },
         },
         {
+            title: 'Coupon',
+            dataIndex: 'Coupon',
+            key: 'Coupon',
+            // width: '5%',
+            render: (text) => {
+                return (
+                    <>
+                        < span className='coupon'>{text}%</span >
+                    </>
+                )
+            },
+        },
+
+        {
             title: 'Price',
             dataIndex: 'Price',
             key: 'Price',
-            width: '10%',
+            // width: '18%',
+            render: (text, record) => {
+                return (
+                    <>
+                        {+record?.Coupon !== 0 ?
+                            <>
+                                <span className="original-price">
+                                    <NumericFormat
+                                        value={text}
+                                        displayType="text"
+                                        thousandSeparator={true}
+                                        suffix={'đ'}
+                                    />
+                                </span>
+                                <span className="discounted-price">
+                                    <NumericFormat
+                                        value={(text * (1 - (+record?.Coupon / 100)))}
+                                        displayType="text"
+                                        thousandSeparator={true}
+                                        suffix={'đ'}
+                                    />
+                                </span>
+                            </>
+                            :
+                            < NumericFormat
+                                value={text}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={'đ'}
+                            />
+                        }
+                    </>
+
+                )
+            },
         },
         {
             title: 'Brand',
             dataIndex: 'Brand',
             key: 'Brand',
-            width: '10%',
-            ...getColumnSearchProps('Brand'),
-        },
-
-        {
-            title: 'Categories',
-            dataIndex: 'Categories',
-            key: 'Categories',
-            width: '12%',
-            render: (categories) => (
-                <div>
-                    {categories.map((category) => (
-                        <div className='mr-5' key={category?._id}>{category?.name}</div>
-                    ))}
-                </div>
-            ),
+            // width: '10%',
+            render: (text) => {
+                return (
+                    <>
+                        < span>{text}</span >
+                    </>
+                )
+            },
         },
         {
             title: 'Action',
             dataIndex: 'Action',
             key: 'Action',
-            width: '18%',
+            // width: '18%',
             render: (text, record) => {
                 return (
                     <span>
-                        <Button className='mr-5' onClick={() => handleUpdate(record)}>Update</Button>
-                        <Button onClick={() => handleDelete(record)}>Detele</Button>
+                        <Button className='mr-5' onClick={() => handleUpdate(record)}><AiFillEdit /></Button>
+                        <Button onClick={() => handleDelete(record)}><AiFillDelete /></Button>
                     </span>
                 );
             }
@@ -208,9 +243,10 @@ const ProductList = () => {
                 key: i,
                 No: i + 1,
                 ProductName: res?.data[i]?.title,
+                Coupon: res?.data[i].coupon,
                 Price: res?.data[i]?.price,
                 Brand: res?.data[i]?.brand.map((item) => item?.name),
-                Categories: res?.data[i]?.category,
+                Categories: res?.data[i]?.category.map((item) => item?.name),
                 Id: res?.data[i]?._id
             })
         }

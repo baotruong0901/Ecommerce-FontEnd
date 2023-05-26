@@ -8,6 +8,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { postBooking, emptyCartApi } from '../service/homeService';
 import "../scss/checkout.scss"
 import { useDispatch, useSelector } from 'react-redux';
+import { NumericFormat } from 'react-number-format'
 import { toast } from 'react-toastify'
 import { setBooking, setCart } from '../store/actions/productActions';
 const Checkout = () => {
@@ -206,7 +207,14 @@ const Checkout = () => {
                                             </div>
 
                                             <div className="flex-grow-1">
-                                                <h5 className="price total">$ {item?.price}</h5>
+                                                <h5 className="price total">
+                                                    <NumericFormat
+                                                        value={item?.price}
+                                                        displayType={"text"}
+                                                        thousandSeparator={true}
+                                                        suffix={'đ'}
+                                                    />
+                                                </h5>
                                             </div>
                                         </div>
                                     )
@@ -216,16 +224,37 @@ const Checkout = () => {
                             <div className="border-bottom py-4">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <p className="total">Subtotal</p>
-                                    <p className="total-price">$ {cart?.pCart?.cartTotal}</p>
+                                    <p className="total-price">
+                                        <NumericFormat
+                                            value={cart?.pCart?.cartTotal}
+                                            displayType={"text"}
+                                            thousandSeparator={true}
+                                            suffix={'đ'}
+                                        />
+                                    </p>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <p className="mb-0 total">Shipping</p>
-                                    <p className="mb-0 total-price">$ {totalShipping}</p>
+                                    <p className="mb-0 total-price">
+                                        <NumericFormat
+                                            value={totalShipping}
+                                            displayType={"text"}
+                                            thousandSeparator={true}
+                                            suffix={'đ'}
+                                        />
+                                    </p>
                                 </div>
                             </div>
                             <div className="d-flex justify-content-between align-items-center border-bootom py-4">
                                 <h4 className="total">Total</h4>
-                                <h5 className="total-price">$ {cart?.pCart?.cartTotal + totalShipping}</h5>
+                                <h5 className="total-price">
+                                    <NumericFormat
+                                        value={cart?.pCart?.cartTotal + totalShipping}
+                                        displayType={"text"}
+                                        thousandSeparator={true}
+                                        suffix={'đ'}
+                                    />
+                                </h5>
                             </div>
                         </div>
                     </div>

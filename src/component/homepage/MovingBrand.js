@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Marquee from "react-fast-marquee";
-import { getAllBrandApi } from '../../service/homeService';
-import cartbanner1 from '../../public/images/catbanner-01.jpg'
+import { getAllBrandApi, getProductApi } from '../../service/homeService';
+import { useNavigate } from 'react-router-dom';
 import '../../scss/MovingBrand.scss'
 const MovingBrand = () => {
     const [brands, setBrands] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         fetchAllBrand()
@@ -17,6 +18,11 @@ const MovingBrand = () => {
         }
     }
 
+    const handleProductOnBrand = async (brand) => {
+        window.scrollTo(0, 40);
+        navigate(`/our-store/${`brand=${brand?._id}`}`)
+    }
+
     return (
         <div className='moving-brand pb-5'>
             <div className='container-xxl'>
@@ -26,7 +32,11 @@ const MovingBrand = () => {
                         <Marquee>
                             {brands && brands.length > 0 && brands.map((item, index) => {
                                 return (
-                                    <div key={`${index}-moving-banner`} className='item' style={{ backgroundImage: `url(${item.images[0].url})` }}>
+                                    <div
+                                        key={`${index}-moving-banner`}
+                                        className='item'
+                                        style={{ backgroundImage: `url(${item.images[0].url})` }}
+                                        onClick={() => handleProductOnBrand(item)}>
                                     </div>
                                 )
                             })}

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs'
 import { BiGitCompare, BiCategory } from 'react-icons/bi'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { NumericFormat } from 'react-number-format'
 import "../scss/Header.scss"
 import {
     getAllCategory
@@ -15,6 +16,9 @@ const Header = () => {
     const [category, setCategory] = useState([])
     const [selectedCategory, setSelectedCategory] = useState("Shop categories");
     const isLogin = useSelector(state => state.user.isLogin)
+
+    const navigate = useNavigate()
+
     const fetchAllCategories = async () => {
         let res = await getAllCategory()
         if (res && res.success === true) {
@@ -22,9 +26,10 @@ const Header = () => {
         }
     }
 
-    const handleSelectCategory = (e) => {
+    const handleSelectCategory = (e, item) => {
         const selected = category.find((item) => item.name === e.target.innerText);
         setSelectedCategory(selected.name);
+        // navigate(`/our-store/${item._id}`)
     };
 
     useEffect(() => {
@@ -92,13 +97,24 @@ const Header = () => {
                                         </p>
                                     </NavLink>
                                 }
-
-
                                 <Link to="/cart" className='d-flex justify-content-center align-items-center gap-10'>
                                     <AiOutlineShoppingCart color={"#ccac00"} size='28px' />
                                     <div className='d-flex flex-column'>
-                                        <span className='badge'>{cart?.products?.length === 0 ? 0 : cart?.products?.length}</span>
-                                        <p className='text-white'>$ {cart?.products?.length === 0 ? 0 : cart?.cartTotal}</p>
+                                        <span className='badge'>{cart?.products?.length === 0 || cart?.length === 0 ? 0 : cart?.products?.length}</span>
+                                        <p className='text-white'>{cart?.products?.length === 0 || cart?.length === 0
+                                            ?
+                                            "0.00đ"
+                                            :
+                                            <NumericFormat
+                                                value={
+                                                    cart?.cartTotal
+                                                }
+                                                displayType={"text"}
+                                                thousandSeparator={true}
+                                                suffix={'đ'}
+                                            />
+                                        }
+                                        </p>
                                     </div>
                                 </Link>
 
@@ -123,7 +139,11 @@ const Header = () => {
                                         <Dropdown.Menu>
                                             {category && category.length > 0 && category.map((item, index) => {
                                                 return (
-                                                    < Dropdown.Item onClick={(e) => handleSelectCategory(e)} key={`category ${index}`}>
+                                                    < Dropdown.Item
+                                                        onClick={(e) => handleSelectCategory(e, item)}
+                                                        key={`category ${index}`}
+
+                                                    >
                                                         {item.name}
                                                     </Dropdown.Item>
                                                 )
@@ -134,7 +154,7 @@ const Header = () => {
                                 <div className='menu-links'>
                                     <div className='d-flex align-items-center gap-25'>
                                         <NavLink className='nav-link' to="/">Home</NavLink>
-                                        <NavLink className='nav-link' to="/our-store">Our Store</NavLink>
+                                        <NavLink className='nav-link' to="/our-store/all">Our Store</NavLink>
                                         <NavLink className='nav-link' to="/blogs">Blogs</NavLink>
                                         <NavLink className='nav-link' to="/contact">Contact</NavLink>
                                     </div>

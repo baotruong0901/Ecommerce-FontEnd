@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import "./App.scss"
 import OurStore from "./pages/OurStore";
-import Blogs from "./pages/Blogs";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import WishLish from "./pages/WishList";
@@ -30,6 +29,9 @@ import ProductList from "./component/admins/ProductList";
 import ColorList from "./component/admins/ColorList";
 import BrandList from "./component/admins/BrandList";
 import CategoryList from "./component/admins/CategoryList";
+import Register from "./pages/Register";
+import SizeList from "./component/admins/SizeList";
+import DetailBlog from "./pages/DetailBlog";
 
 const NotFound = () => {
   return (
@@ -45,8 +47,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/our-store" element={<OurStore />} />
-            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/our-store/:filter" element={<OurStore />} />
+            <Route path="/blogs" element={<DetailBlog />} />
+            <Route path="/blogs/:slug" element={<DetailBlog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/wish-list" element={<WishLish />} />
@@ -54,6 +57,7 @@ function App() {
             <Route path="/product/:slug" element={<DetailProduct />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             {/* <Route path="/checkout/shipping" element={<Shipping />} /> */}
             <Route path="/user" element={<Profile />} >
@@ -71,6 +75,7 @@ function App() {
             <Route path="brand-list" element={< BrandList />} />
             <Route path="category-list" element={<CategoryList />} />
             <Route path="color-list" element={<ColorList />} />
+            <Route path="size-list" element={<SizeList />} />
             <Route path="orders" element={<Order />} />
             <Route path="add-blog" element={<AddBlog />} />
             <Route path="blogs-list" element={<BlogList />} />

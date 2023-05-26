@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactStars from "react-rating-stars-component";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getColor, getSize, addProductToWishApi, deleteProductWishlist, getProductApi } from '../service/homeService';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,6 @@ const OurStore = () => {
     const allProducts = useSelector((state) => state?.AllProducts?.products)
     const category = useSelector((state) => state.categories.categories)
     const userId = useSelector((state) => state?.user?.account?._id)
-    const [grid, setGrid] = useState(24.2);
     const [colors, setColors] = useState([])
     const [sizes, setSizes] = useState([])
     const [pageCount, setPageCount] = useState(0)
@@ -37,7 +36,10 @@ const OurStore = () => {
     const [sortGtePrice, setSortGtePrice] = useState(null)
     const [sortLtePrice, setSortLtePrice] = useState(null)
     //sort price desc asc
-    const [sortPrice, setSortPrice] = useState("desc")
+    const [sortPrice, setSortPrice] = useState("")
+    //sort by brand
+    const { filter } = useParams();
+    const sortBrand = filter.split('&')[0];
     const [seemore, setSeemore] = useState({
         category: false,
         color: false,
@@ -46,7 +48,7 @@ const OurStore = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const LIMIT = 25
+    const LIMIT = 15
 
     const fetchAllColors = async () => {
         const res = await getColor()
@@ -58,6 +60,7 @@ const OurStore = () => {
     const fetchAllProducts = async (page) => {
         let pageCount = Math.ceil(+allProducts.length / LIMIT)
         let data = { sortCategory, sortColor, sortSize, sortPrice, sortGtePrice, sortLtePrice }
+        navigate(`/our-store/${data?.sortCategory ? `category=${data?.sortCategory}&` : ""}${sortBrand ? `${sortBrand}&` : ""}${data?.brand ? `brand=${data?.brand}&` : ""}${data?.sortColor ? `color=${data?.sortColor}&` : ""}${data?.sortSize ? `size=${data?.sortSize}&` : ""}${data?.sortGtePrice ? `price[gte]=${data?.sortGtePrice}&` : ""}${data?.sortLtePrice ? `price[lte]=${data?.sortLtePrice}&` : ""}${data?.sortPrice ? `sort=${data?.sortPrice}&` : ""}${page !== undefined ? `page=${page}` : `page=${1}`}`)
         const res = await getProductApi(data, LIMIT, page)
         if (res && res?.success === true) {
             setProd(res.data)
@@ -188,8 +191,10 @@ const OurStore = () => {
             setCurrentPage(Math.ceil(+prod.length / LIMIT))
         }
     }
-    console.log(sortPrice);
 
+    const scroll = () => {
+        window.scrollTo(0, 128)
+    }
 
     return (
         <div className='our-store'>
@@ -356,19 +361,12 @@ const OurStore = () => {
                                         <option selected value="">Price</option>
                                         <option value="asc">Price, low to high</option>
                                         <option value="desc">Price, high to low</option>
-                                        {/* <option value="best-selling">Best selling</option>
-                                        <option value="title-ascending">Alphabetically, A-Z</option>
-                                        <option value="title-descending">
-                                            Alphabetically, Z-A
-                                        </option> */}
-                                        {/* <option value="created-ascending">Date, old to new</option>
-                                        <option value="created-descending">Date, new to old</option> */}
+
                                     </select>
                                 </div>
                             </div>
                             <div className="products-list pb-3">
                                 <div className='products-list-item gap-10'>
-                                    {/* <ProductCard grid={grid} /> */}
                                     {prod && prod.length > 0 && prod.map((item) => {
                                         return (
                                             <>
@@ -384,74 +382,26 @@ const OurStore = () => {
                                                     slug={item?.slug}
                                                     star={item?.totalrating}
                                                     width={`19.2%`}
+                                                    coupon={item?.coupon}
+                                                    sold={item?.sold}
                                                 />
-                                                <CardProduct
-                                                    active={!item.active ? false : item.active}
-                                                    addWishList={() => addWishList(item)}
-                                                    detailProduct={() => detailProduct(item)}
-                                                    brand={item?.brand[0]?.name}
-                                                    description={item?.description}
-                                                    title={item?.title}
-                                                    price={item?.price}
-                                                    image={item?.images[0]?.url}
-                                                    slug={item?.slug}
-                                                    star={item?.totalrating}
-                                                    width={`19.2%`}
-                                                />
-                                                <CardProduct
-                                                    active={!item.active ? false : item.active}
-                                                    addWishList={() => addWishList(item)}
-                                                    detailProduct={() => detailProduct(item)}
-                                                    brand={item?.brand[0]?.name}
-                                                    description={item?.description}
-                                                    title={item?.title}
-                                                    price={item?.price}
-                                                    image={item?.images[0]?.url}
-                                                    slug={item?.slug}
-                                                    star={item?.totalrating}
-                                                    width={`19.2%`}
-                                                />
-                                                <CardProduct
-                                                    active={!item.active ? false : item.active}
-                                                    addWishList={() => addWishList(item)}
-                                                    detailProduct={() => detailProduct(item)}
-                                                    brand={item?.brand[0]?.name}
-                                                    description={item?.description}
-                                                    title={item?.title}
-                                                    price={item?.price}
-                                                    image={item?.images[0]?.url}
-                                                    slug={item?.slug}
-                                                    star={item?.totalrating}
-                                                    width={`19.2%`}
-                                                />
-                                                <CardProduct
-                                                    active={!item.active ? false : item.active}
-                                                    addWishList={() => addWishList(item)}
-                                                    detailProduct={() => detailProduct(item)}
-                                                    brand={item?.brand[0]?.name}
-                                                    description={item?.description}
-                                                    title={item?.title}
-                                                    price={item?.price}
-                                                    image={item?.images[0]?.url}
-                                                    slug={item?.slug}
-                                                    star={item?.totalrating}
-                                                    width={`19.2%`}
-                                                />
-
                                             </>
                                         )
                                     })}
 
                                 </div>
                             </div>
-                            <div className='paginate'>
-                                <Paginate
-                                    pageCount={pageCount}
-                                    fetchAllProducts={fetchAllProducts}
-                                    currentPage={currentPage}
-                                    setCurrentPage={setCurrentPage}
-                                />
-                            </div>
+                            {pageCount !== 1 &&
+                                <div className='paginate'>
+                                    <Paginate
+                                        pageCount={pageCount}
+                                        fetchAllProducts={fetchAllProducts}
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}
+                                        scroll={scroll}
+                                    />
+                                </div>
+                            }
                         </div>
 
                     </div>

@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { getWishList, deleteProductWishlist } from "../service/homeService";
 import { toast } from 'react-toastify'
 import NoProduct from '../public/images/no-product.jpeg'
+import { NumericFormat } from 'react-number-format'
 import '.././scss/wishList.scss'
-import { setWishList } from "../store/actions/productActions";
 const Wishlist = () => {
     const userId = useSelector((state) => state?.user?.account?._id)
-    // const wishlist = useSelector((state) => state?.wishList?.pWishList?.data)
     const [wishlist, setWishlist] = useState([])
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
 
     useEffect(() => {
         fetchWishListUser()
@@ -23,7 +23,6 @@ const Wishlist = () => {
         let res = await getWishList()
         if (res && res?.success === true) {
             setWishlist(res?.wishlist)
-            // dispatch(setWishList(res?.wishlist))
         }
     }
 
@@ -40,7 +39,6 @@ const Wishlist = () => {
         navigate(`/product/${item.slug}&${item._id}`)
     }
 
-    console.log(wishlist);
     return (
         <>
             <div className="wishlist">
@@ -65,7 +63,41 @@ const Wishlist = () => {
                                         <img className="card-image" src={item?.images[0]?.url} alt="Product image" />
                                         <div className="card-body">
                                             <h5 className="card-title">{item.title}</h5>
-                                            <p className="card-price">${item.price}</p>
+                                            <p className="card-price">
+                                                {item?.coupon && +item?.coupon !== 0 ?
+                                                    <>
+                                                        <span className="original-price">
+                                                            <NumericFormat
+                                                                value={item?.price}
+                                                                displayType="text"
+                                                                thousandSeparator={true}
+                                                                suffix={'đ'}
+                                                            />
+                                                        </span>
+                                                        <span className="discounted-price">
+                                                            <NumericFormat
+                                                                value={(item?.price * (1 - (+item?.coupon) / 100))}
+                                                                displayType="text"
+                                                                thousandSeparator={true}
+                                                                suffix={'đ'}
+                                                            />
+                                                        </span>
+                                                    </>
+                                                    :
+                                                    <NumericFormat
+                                                        value={item?.price}
+                                                        displayType={"text"}
+                                                        thousandSeparator={true}
+                                                        suffix={'đ'}
+                                                    />
+                                                }
+                                                {/* <NumericFormat
+                                                    value={item?.price}
+                                                    displayType={"text"}
+                                                    thousandSeparator={true}
+                                                    suffix={'đ'}
+                                                /> */}
+                                            </p>
                                         </div>
                                         <span onClick={() => handleRemoveProduct(item)} className="close-wish"><AiOutlineClose size={"20px"} /></span>
                                         <span className="detail" onClick={() => handleViewDetail(item)}><AiOutlineEye size={"20px"} /></span>

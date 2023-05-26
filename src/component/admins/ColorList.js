@@ -3,6 +3,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
 import { getColor } from '../../service/homeService';
 import Highlighter from 'react-highlight-words';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 const ColorList = () => {
     const [searchText, setSearchText] = useState('');
@@ -135,8 +136,8 @@ const ColorList = () => {
             render: (text, record) => {
                 return (
                     <span>
-                        <Button className='mr-5' onClick={() => handleUpdate(record)}>Update</Button>
-                        <Button onClick={() => handleDelete(record)}>Detele</Button>
+                        <Button className='mr-5' onClick={() => handleUpdate(record)}><AiFillEdit /></Button>
+                        <Button onClick={() => handleDelete(record)}><AiFillDelete /></Button>
                     </span>
                 );
             }

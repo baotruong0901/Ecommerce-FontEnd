@@ -1,14 +1,15 @@
 .comment{
     background-color: var(--color-fff);
-    padding: 30px 15px;
-    margin: 25px 0.25rem;
-    border-radius: 10px;
-    box-shadow:1px 1px 80px 2px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 0.25rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);   
     .title{
         span{
-            text-transform: uppercase;
-            font-size: 20px;
+            display: block;
+            font-size: 18px;
             font-weight: 500;
+            margin-bottom: 10px;
         }
     }
     .total-comment{
@@ -20,10 +21,17 @@
         display: flex;
         justify-content: right;
     }
+    .btn-submit{
+        background-color: var(--color-bf4800);
+        border: inherit;
+        padding: 4px 25px;
+        display: block;
+        margin: 0 calc(100% - 104px);
+    }
     &-item{
         background-color: var(--color-fff);
-         border-radius: 8px;
-        box-shadow:1px 1px 8px 2px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        box-shadow:0px 0px 5px rgba(0, 0, 0, 0.1);
         padding: 10px 15px;
         margin-top: 15px;
         .top{
