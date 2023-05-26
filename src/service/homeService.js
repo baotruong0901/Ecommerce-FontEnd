@@ -213,9 +213,10 @@ const getAllSize = () => {
 const assignCoupon = (id, coupon) => {
     return axios.put(`api/product/coupon/${id}`, { coupon })
 }
-const addNewBlog = (title, description, images) => {
+const addNewBlog = (title, topic, description, images) => {
     const data = new FormData()
     data.append('title', title)
+    data.append('topic', topic)
     data.append('description', description)
     images.forEach((image) => {
         data.append('image', image.originFileObj);
@@ -234,6 +235,10 @@ const deleteBlog = (id) => {
 
 const putFeelingBlog = (id, action) => {
     return axios.put(`api/feeling/${id}`, { action })
+}
+
+const putOutstandingBlog = (id) => {
+    return axios.put(`api/outstanding/${id}`)
 }
 
 
@@ -288,4 +293,5 @@ export {
     getABlog,
     deleteBlog,
     putFeelingBlog,
+    putOutstandingBlog,
 }

@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
 import CustomerInput from './CustomerInput';
 import QuillText from './QuillText';
+import CustomerSelect from './CustomerSelect';
 import UploadImage from './UploadImage';
 import { addNewBlog } from '../../service/homeService';
 import { toast } from 'react-toastify'
 
 const AddBlog = () => {
-    const [title, setTitle] = useState('')
+    const [value, setValue] = useState({
+        title: '',
+        topic: ''
+    })
     const [description, setDescription] = useState('')
     const [selectedFiles, setSelectedFiles] = useState([]);
 
     const handleChange = (e) => {
-        setTitle(e.target.value)
+        setValue({ ...value, [e.target.name]: e.target.value })
     }
     const handleDesc = (value) => {
         setDescription(value)
     }
     const handleCreate = async () => {
-        let res = await addNewBlog(title, description, selectedFiles)
+        let res = await addNewBlog(value.title, value.topic, description, selectedFiles)
         if (res && res?.success === true) {
             toast.success(res?.msg)
-            setTitle('')
+            setValue({
+                title: '',
+                topic: ''
+            })
             setDescription('')
             setSelectedFiles([])
         }
@@ -30,11 +37,26 @@ const AddBlog = () => {
         <div className='add-new-blog'>
             <h3 className='title mb-3'>Create Blog</h3>
             <div className='main'>
+                {/* <CustomerSelect options={topicOptions}
+                    selectedOptions={select.selectTopic}
+                    isMulti={true}
+                    handleSelectChange={handleSelectChange}
+                    name="selectColor"
+                    placeholder='Choose topic...'
+                    className='select mb-3'
+                    classNamePrefix='select'
+                /> */}
                 <CustomerInput
                     name="title"
                     placeholder='example: We are one'
                     handleChange={handleChange}
-                    value={title} type='text' label='Enter Blog Title'
+                    value={value.title} type='text' label='Title'
+                />
+                <CustomerInput
+                    name="topic"
+                    placeholder='example: football'
+                    handleChange={handleChange}
+                    value={value.topic} type='text' label='Topic'
                 />
                 <QuillText
                     text={description}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { fetchABlog, removeBlog } from '../store/actions/blogAction';
 import { putFeelingBlog } from '../service/homeService';
 import moment from 'moment';
@@ -13,11 +13,15 @@ import { toast } from 'react-toastify';
 const DetailBlog = () => {
     const userId = useSelector((state) => state.user.account._id)
     const detailBlog = useSelector((state) => state.blogs.blog)
+    const allBlog = useSelector((state) => state.blogs.blogs)
     const { slug } = useParams();
     const [blogSlug, id] = slug.split('&');
     const [like, setLike] = useState(false)
     const [dislike, setDislike] = useState(false)
+    const [outstanding, setOutstanding] = useState([])
+    const [sameTopic, setSameTopic] = useState([])
     const dispash = useDispatch()
+    const navigate = useNavigate()
     const getABlog = () => {
         dispash(fetchABlog(id))
     }
@@ -47,7 +51,21 @@ const DetailBlog = () => {
         }
 
     }, [detailBlog])
-    console.log(like, dislike);
+
+    const fetchOutstangdingBlog = () => {
+        const outstandingBlog = allBlog.filter(blog => blog?.outstanding === true && blog?._id !== id);
+        const sameTopicBlog = allBlog.filter(blog => blog?.topic === detailBlog?.topic && blog?._id !== id && blog?.outstanding === false);
+        setOutstanding(outstandingBlog)
+        setSameTopic(sameTopicBlog)
+    }
+    useEffect(() => {
+        fetchOutstangdingBlog()
+    }, [detailBlog])
+
+    const handleDetailBlog = (blog) => {
+        navigate(`/blogs/${blog.slug}&${blog._id}`)
+    }
+
     return (
         <div className='detail-blog'>
             <div className="header">
@@ -56,8 +74,7 @@ const DetailBlog = () => {
                         <div className="col-12">
                             <Breadcrumb className='new-header'>
                                 <NavLink to="/" className="breadcrumb-item">Home</NavLink>
-                                <NavLink to="/blogs" className="breadcrumb-item">Blogs</NavLink>
-                                <Breadcrumb.Item active>{detailBlog?.title}</Breadcrumb.Item>
+                                <Breadcrumb.Item active>{detailBlog?.topic}</Breadcrumb.Item>
                             </Breadcrumb>
                         </div>
                     </div>
@@ -65,10 +82,10 @@ const DetailBlog = () => {
             </div>
             <div className='main'>
                 <div className='container-xxl'>
-                    <div className='row '>
+                    <div className='row content'>
                         <div className='col-9'>
                             {detailBlog !== null &&
-                                <div className='content'>
+                                <div className='post'>
                                     <h3 className='title py-3'>{detailBlog?.title}</h3>
                                     <div className='post-date py-2'>
                                         <span>{formattedDate} (GMT+7)</span>
@@ -110,6 +127,42 @@ const DetailBlog = () => {
                                     </div>
                                 </div>
                             }
+                        </div>
+                        <div className='col-3'>
+                            <div className='outstanding'>
+                                <h4 className='title'>tin nổi bật</h4>
+                                <div className='outstanding-item'>
+                                    {outstanding?.map((item, index) => {
+                                        return (
+                                            <div className='item'
+                                                onClick={() => handleDetailBlog(item)}
+                                            >
+                                                <span className='order'>{index + 1}</span>
+                                                <img className='image' src={item?.image[0].url} alt={item?.slug} />
+                                                <span className='text-title'>{item?.title}</span>
+                                            </div>
+
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                            <div className='same-topic'>
+                                <h4 className='title'>cùng chuyên mục</h4>
+                                <div className='same-topic-item'>
+                                    {sameTopic?.map((item, index) => {
+                                        return (
+                                            <div className='item'
+                                                key={`${index}-same-topic`}
+                                                onClick={() => handleDetailBlog(item)}
+                                            >
+                                                <img className='image' src={item?.image[0].url} alt={item?.slug} />
+                                                <span className='text-title'>{item?.title}</span>
+                                            </div>
+
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

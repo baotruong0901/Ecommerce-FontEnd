@@ -82,7 +82,6 @@ const DetailProduct = () => {
             }
         }
     }
-    console.log(productByCategory);
 
     const addWishList = async (item) => {
         let productId = item?._id

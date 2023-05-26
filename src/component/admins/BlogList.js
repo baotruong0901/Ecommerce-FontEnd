@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table } from 'antd';
-import { getAllBlog, deleteBlog } from '../../service/homeService';
+import { getAllBlog, deleteBlog, putOutstandingBlog } from '../../service/homeService';
 import Highlighter from 'react-highlight-words';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { toast } from 'react-toastify'
@@ -127,7 +127,7 @@ const BlogList = () => {
             render: (text) => {
                 return (
                     <div className='table-image'>
-                        <img src={text} />
+                        <img className='image' src={text} />
                     </div>
                 )
             }
@@ -136,14 +136,14 @@ const BlogList = () => {
             title: 'Title',
             dataIndex: 'Title',
             key: 'Title',
-            width: '30%',
+            width: '25%',
             ...getColumnSearchProps('Title'),
         },
         {
             title: 'Post date',
             dataIndex: 'Date',
             key: 'Date',
-            width: '20%',
+            width: '15%',
             render: (text) => {
                 const formattedDate = moment(text).format('HH:mm:ss DD/MM/YY');
                 return (
@@ -152,13 +152,26 @@ const BlogList = () => {
                     </span>
                 )
             }
-
+        },
+        {
+            title: 'Outstanding',
+            dataIndex: 'Outstanding',
+            key: 'Outstanding',
+            width: '10%',
+            render: (text, record) => {
+                return (
+                    <span className='outstanding'>
+                        <span className={text === false ? "active" : ""} onClick={() => handleOutstanding(record)}>Off</span>
+                        <span className={text === true ? "active" : ""} onClick={() => handleOutstanding(record)}>On</span>
+                    </span>
+                );
+            }
         },
         {
             title: 'Action',
             dataIndex: 'Action',
             key: 'Action',
-            width: '15%',
+            width: '12%',
             render: (text, record) => {
                 return (
                     <span>
@@ -180,6 +193,7 @@ const BlogList = () => {
                 Image: res?.data[i]?.image?.map((item) => item?.url),
                 Title: res?.data[i]?.title,
                 Date: res?.data[i]?.createdAt,
+                Outstanding: res?.data[i]?.outstanding,
                 Id: res?.data[i]?._id
             })
         }
@@ -192,6 +206,15 @@ const BlogList = () => {
     const handleUpdate = async (record) => {
 
     }
+    const handleOutstanding = async (record) => {
+        let id = record?.Id
+        let res = await putOutstandingBlog(id)
+        if (res && res?.success === true) {
+            fetchAllBlog()
+            toast.success(res?.msg)
+        }
+    }
+
 
     const handleDelete = async (record) => {
         let res = await deleteBlog(record.Id)
@@ -202,8 +225,8 @@ const BlogList = () => {
     }
 
     return (
-        <div className='brand-list'>
-            <h3 className='title mb-3'>Brand List</h3>
+        <div className='blog-list'>
+            <h3 className='title mb-3'>Blog List</h3>
             <div className='table'>
                 <Table columns={columns} dataSource={data} />
             </div>
