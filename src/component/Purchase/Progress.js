@@ -3,11 +3,11 @@ import { MdArrowBackIosNew } from 'react-icons/md'
 import { Stepper, Step } from 'react-form-stepper';
 import { NumericFormat } from 'react-number-format'
 import { AiOutlineShop } from 'react-icons/ai'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Progress = (props) => {
     const { setProgress, value } = props
-    console.log(value);
+    const navigate = useNavigate()
     const [activeStep, setActiveStep] = useState(0);
     useEffect(() => {
         if (value?.status === "CONFIRM") {
@@ -23,10 +23,15 @@ const Progress = (props) => {
             setActiveStep(0);
         }
     }, [value?.status]);
+
+    const handleBack = () => {
+        setProgress(false)
+        navigate(`/user/purchase/type=ALL`)
+    }
     return (
         <>
             <div className='progress-header'>
-                <span onClick={() => setProgress(false)} className='back'>
+                <span onClick={() => handleBack()} className='back'>
                     <MdArrowBackIosNew size={"20px"} />
                     <span className='btn-back'>back</span>
                 </span>

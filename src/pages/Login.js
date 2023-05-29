@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../component/Input';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { LoginApi, getProductCart } from '../service/homeService';
 import "../scss/Login.scss"
 import { useDispatch } from 'react-redux';
@@ -11,6 +11,8 @@ import { toast } from 'react-toastify'
 import { setCart } from '../store/actions/productActions';
 
 const Login = () => {
+    const location = useLocation();
+    const returnUrl = location.state?.returnUrl || "/";
     const [values, setValues] = useState({
         email: "",
         password: ""
@@ -18,7 +20,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
 
     const dispatch = useDispatch()
-    const navidate = useNavigate()
+    const navigate = useNavigate()
 
     const fetchCart = async () => {
         let res = await getProductCart()
@@ -35,7 +37,7 @@ const Login = () => {
                 setIsLoading(false)
                 fetchCart()
                 toast.success(res.msg)
-                navidate('/')
+                navigate(returnUrl)
             } else {
                 toast.error(res.msg)
                 setIsLoading(false)

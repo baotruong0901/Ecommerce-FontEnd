@@ -95,7 +95,11 @@ const emptyCartApi = () => {
 }
 
 const getBooking = (data) => {
-    return axios.get(`api/booking?limit=${data.limit}&page=${data.page}&type=${data.type}`)
+    return axios.get(`api/booking?limit=${data?.limit}&page=${data?.page}&type=${data?.type}`)
+}
+
+const getABooking = (bookingId) => {
+    return axios.get(`api/booking/${bookingId}`)
 }
 
 const confirmBookingApi = (bookingId, type) => {
@@ -114,6 +118,23 @@ const putResetPassword = (data, token) => {
 const register = (data) => {
     return axios.post(`api/user/register`, { ...data })
 }
+
+const createAddress = (data) => {
+    return axios.post(`api/address`, { ...data })
+}
+
+const getAddress = (userId) => {
+    return axios.get(`api/address`, { userId })
+}
+
+const getAnAddress = (id) => {
+    return axios.get(`api/address/${id}`)
+}
+
+const editAddress = (id, data) => {
+    return axios.put(`api/address/${id}`, { ...data })
+}
+
 
 //admin
 
@@ -136,6 +157,9 @@ const getAllBooking = () => {
     return axios.get(`api/bookings`)
 }
 
+const getBookingForMonth = (month) => {
+    return axios.get(`api/booking/month/${month}`)
+}
 const getAllCategories = () => {
     return axios.get('api/categorys')
 }
@@ -294,4 +318,10 @@ export {
     deleteBlog,
     putFeelingBlog,
     putOutstandingBlog,
+    getAddress,
+    editAddress,
+    getAnAddress,
+    createAddress,
+    getABooking,
+    getBookingForMonth,
 }

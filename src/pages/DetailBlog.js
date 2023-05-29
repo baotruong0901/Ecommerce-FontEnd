@@ -11,7 +11,8 @@ import '../scss/detailBlog.scss'
 import { toast } from 'react-toastify';
 
 const DetailBlog = () => {
-    const userId = useSelector((state) => state.user.account._id)
+    const isLogin = useSelector((state) => state?.user?.isLogin)
+    const userId = useSelector((state) => state?.user?.account?._id)
     const detailBlog = useSelector((state) => state.blogs.blog)
     const allBlog = useSelector((state) => state.blogs.blogs)
     const { slug } = useParams();
@@ -34,10 +35,16 @@ const DetailBlog = () => {
         }
     }, [slug])
     const handleFeeling = async (action) => {
-        let res = await putFeelingBlog(id, action)
-        if (res && res?.success === true) {
-            getABlog()
-            toast.success(res?.msg)
+        if (!isLogin) {
+            window.scrollTo(0, 128)
+            const returnUrl = window.location.pathname + window.location.search;
+            navigate('/login', { state: { returnUrl } });
+        } else {
+            let res = await putFeelingBlog(id, action)
+            if (res && res?.success === true) {
+                getABlog()
+                toast.success(res?.msg)
+            }
         }
     }
     useEffect(() => {
@@ -63,7 +70,7 @@ const DetailBlog = () => {
     }, [detailBlog])
 
     const handleDetailBlog = (blog) => {
-        navigate(`/blogs/${blog.slug}&${blog._id}`)
+        navigate(`/blogs/${blog?.slug}&${blog?._id}`)
     }
 
     return (

@@ -2,7 +2,8 @@
 import actionTypes from "../actions/actionTypes";
 const INITIAL_STATE = {
     account: null,
-    isLogin: false
+    isLogin: false,
+    shippingAddress: null
 };
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -27,6 +28,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case actionTypes.RESET_PASSWORD:
             return {
                 ...state
+            };
+
+        case actionTypes.GET_ADDRESS_SHIPPING:
+            return {
+                ...state,
+                shippingAddress: action.payload
             };
 
         default: return state;

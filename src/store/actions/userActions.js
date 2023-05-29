@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-import { postForgotPassword, putResetPassword } from "../../service/homeService";
+import { postForgotPassword, putResetPassword, getAnAddress } from "../../service/homeService";
 import { toast } from 'react-toastify'
 
 export const login = (data) => {
@@ -49,3 +49,28 @@ export const resetPasswordStart = (data, token) => {
         }
     };
 };
+
+export const addressShipping = (id) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: actionTypes.GET_ADDRESS_SHIPPING });
+            let res = await getAnAddress(id);
+            if (res && res.success === true) {
+                dispatch(addressShippingSucceed(res?.data));
+                console.log(res);
+            } else {
+                dispatch(addressShippingFaild());
+            }
+        } catch (err) {
+            console.log("Error", err);
+        }
+    };
+}
+
+export const addressShippingSucceed = (data) => ({
+    type: actionTypes.GET_ADDRESS_SHIPPING_SUCCESS,
+    payload: data,
+});
+export const addressShippingFaild = () => ({
+    type: actionTypes.GET_ADDRESS_SHIPPING_FAILED,
+});

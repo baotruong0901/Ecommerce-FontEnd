@@ -14,6 +14,7 @@ import '../scss/ourStore.scss'
 import Paginate from '../component/Paginate';
 // import { setProducts } from '../store/actions/productActions';
 const OurStore = () => {
+    const isLogin = useSelector(state => state.user.isLogin)
     const allProducts = useSelector((state) => state?.AllProducts?.products)
     const category = useSelector((state) => state.categories.categories)
     const userId = useSelector((state) => state?.user?.account?._id)
@@ -89,21 +90,27 @@ const OurStore = () => {
     }
 
     const addWishList = async (item) => {
-        let productId = item?._id
-        if (item.active) {
-            let res = await deleteProductWishlist(productId, userId)
-            if (res && res.success === true) {
-                item.active = false
-                toast.success(res.msg)
-            }
+        if (!isLogin) {
+            window.scrollTo(0, 128)
+            const returnUrl = window.location.pathname + window.location.search;
+            navigate('/login', { state: { returnUrl } });
         } else {
-            let res = await addProductToWishApi({ userId, productId })
-            if (res && res.success === true) {
-                item.active = true
-                toast.success(res.msg)
-                dispatch(setWishList(res?.data))
+            let productId = item?._id
+            if (item.active) {
+                let res = await deleteProductWishlist(productId, userId)
+                if (res && res.success === true) {
+                    item.active = false
+                    toast.success(res.msg)
+                }
             } else {
-                toast.error(res.msg)
+                let res = await addProductToWishApi({ userId, productId })
+                if (res && res.success === true) {
+                    item.active = true
+                    toast.success(res.msg)
+                    dispatch(setWishList(res?.data))
+                } else {
+                    toast.error(res.msg)
+                }
             }
         }
     }

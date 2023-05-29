@@ -181,7 +181,6 @@ const CategoryList = () => {
             status: 'done',
             thumbUrl: `${record?.Image}`
         }]
-        console.log(record);
         setSelectedFiles(fileList)
         setValue(record)
         setShow(true)
@@ -201,7 +200,6 @@ const CategoryList = () => {
     const handleSubmit = async () => {
         let id = value?.Id
         let name = value?.CategoryName
-        console.log(id, name);
         let res = await editCategory(id, name, selectedFiles)
         if (res && res?.success === true) {
             toast.success(res?.msg)

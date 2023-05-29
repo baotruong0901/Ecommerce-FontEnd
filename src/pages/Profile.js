@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { NavLink, useNavigate, useLocation, Outlet, Link } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation, Outlet, Link, useParams } from 'react-router-dom';
 import { CgArrowsExchange, CgLogOut } from "react-icons/cg"
 import { TbClipboardText } from "react-icons/tb"
 import { AiOutlineUser } from "react-icons/ai"
@@ -14,7 +14,9 @@ const Profile = () => {
     const dispash = useDispatch()
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
-    // location.pathname
+    const { type } = useParams()
+    // const purchase=param?.
+    console.log(type);
     const handleLogout = async () => {
         await dispash(logout())
         navigate("/login")
@@ -23,8 +25,8 @@ const Profile = () => {
         setShow(true)
     }
     return (
-        <div className='profile'>
-            <div className='header mb-5'>
+        <div className='profile pt-5'>
+            {/* <div className='header mb-5'>
                 <div className='container-xxl'>
                     <div className='row'>
                         <div className='col-12'>
@@ -33,13 +35,17 @@ const Profile = () => {
                                 <Breadcrumb.Item active>{
                                     location.pathname === "/user/change-password" && "Change Password" ||
                                     location.pathname === "/user/account" && "Profile" ||
-                                    location.pathname === "/user/purchase" && "Purchase"
+                                    location.pathname === "/user/purchase/type=ALL" && "Purchase"
+                                    || location.pathname === "/user/purchase/type=CONFIRM" && "Purchase"
+                                    || location.pathname === "/user/purchase/type=RECEIVE" && "Purchase"
+                                    || location.pathname === "/user/purchase/type=CANCELLED" && "Purchase"
+                                    || location.pathname === "/user/purchase/type=COMPLETED" && "Purchase"
                                 }</Breadcrumb.Item>
                             </Breadcrumb>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className='profile-main'>
                 <div className='container-xxl'>
                     <div className='profile-item d-flex pb-5'>
@@ -52,7 +58,7 @@ const Profile = () => {
                                         <NavLink end className='nav-link' to="change-password"><span className="px-2"> Change Password</span> </NavLink>
                                     </div>
                                 }
-                                <NavLink onClick={() => setShow(false)} end className='nav-link' to="purchase"><TbClipboardText size={"24px"} /><span className="px-2"> My Purchase</span> </NavLink>
+                                <NavLink onClick={() => setShow(false)} end className='nav-link' to={`purchase/${type === undefined ? "type=ALL" : type}`}><TbClipboardText size={"24px"} /><span className="px-2"> My Purchase</span> </NavLink>
                                 <Link onClick={() => handleLogout()} className='nav-link'><CgLogOut size={"24px"} />
                                     <span className='px-2'>Log Out</span>
                                 </Link>

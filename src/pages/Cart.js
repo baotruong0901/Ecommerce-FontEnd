@@ -42,7 +42,7 @@ const Cart = () => {
 
 
     const handleCheckOut = () => {
-        navigate("/checkout")
+        navigate("/checkout/shipping")
     }
 
     return (
@@ -60,7 +60,7 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-                <div className='cart-main'>
+                <div className='cart-main mt-3'>
                     <div className='container-xxl'>
                         <div className='row'>
                             <div className='col-12 '>
@@ -96,7 +96,7 @@ const Cart = () => {
                                                                             <div className='w-75'>
                                                                                 <p className='description'
                                                                                     dangerouslySetInnerHTML={{
-                                                                                        __html: item?.product?.description,
+                                                                                        __html: item?.product?.title,
                                                                                     }}
                                                                                 >
                                                                                 </p>
@@ -172,7 +172,7 @@ const Cart = () => {
                                                         })}
                                                 </tbody>
                                             </table>
-                                            <div className="pt-2 pb-4">
+                                            <div className="mt-5 pb-5">
                                                 <div className="d-flex justify-content-between align-items-baseline">
                                                     <Link to="/our-store" className="button">
                                                         Continue To Shopping

@@ -4,12 +4,15 @@ import Tabs from 'react-bootstrap/Tabs';
 import '../scss/purchase.scss'
 import All from './Purchase/All';
 import Progress from './Purchase/Progress';
+import { useNavigate } from 'react-router-dom';
 const Purchase = () => {
     const [activeTab, setActiveTab] = useState("ALL");
     const [progress, setProgress] = useState(false)
     const [value, setValue] = useState([])
+    const navigate = useNavigate()
     const handleTabSelect = (eventKey) => {
         setActiveTab(eventKey);
+        navigate(`/user/purchase/type=${eventKey}`)
     }
 
     return (

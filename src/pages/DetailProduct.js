@@ -21,6 +21,7 @@ import Paginate from '../component/Paginate';
 // import Review from '../component/modal/Review';
 
 const DetailProduct = () => {
+    const isLogin = useSelector(state => state.user.isLogin)
     const product = useSelector((state) => state.Product)
     const userId = useSelector((state) => state?.user?.account?._id)
     const reviewBoxRef = useRef(null);
@@ -114,7 +115,7 @@ const DetailProduct = () => {
 
     const handleNavigate = () => {
         window.scrollTo(0, 40);
-        navigate(`/our-store/${`category=${product?.category[0]._id}`}`)
+        navigate(`/our-store/all`)
     }
 
     const fetchDetailProduct = async () => {
@@ -182,31 +183,39 @@ const DetailProduct = () => {
     const handleAddToCart = async () => {
         cart.productId = product?._id
         cart.count = +quantity
-        if (size && size?.length > 0) {
-            let newSize = size.find(item => item.isSelected === true)
-            if (!newSize) {
-                toast.error("Please choose Size!")
-                return
+        if (!isLogin) {
+            window.scrollTo(0, 128)
+            const returnUrl = window.location.pathname + window.location.search;
+            navigate('/login', { state: { returnUrl } });
+        }
+        else {
+
+            if (size && size?.length > 0) {
+                let newSize = size.find(item => item.isSelected === true)
+                if (!newSize) {
+                    toast.error("Please choose Size!")
+                    return
+                }
+                cart.size = newSize?.name
             }
-            cart.size = newSize?.name
-        }
-        if (color && color?.length > 0) {
-            let newColor = color.find(item => item.isSelected === true)
-            if (!newColor) {
-                toast.error("Please choose color!")
-                return
+            if (color && color?.length > 0) {
+                let newColor = color.find(item => item.isSelected === true)
+                if (!newColor) {
+                    toast.error("Please choose color!")
+                    return
+                }
+                cart.color = newColor?.color
             }
-            cart.color = newColor?.color
-        }
-        let data = {
-            cart: [
-                cart
-            ]
-        }
-        let res = await postAddToCart(data)
-        if (res && res.success === true) {
-            dispash(setCart(res?.data))
-            toast.success(res.msg)
+            let data = {
+                cart: [
+                    cart
+                ]
+            }
+            let res = await postAddToCart(data)
+            if (res && res.success === true) {
+                dispash(setCart(res?.data))
+                toast.success(res.msg)
+            }
         }
     }
 
@@ -445,7 +454,7 @@ const DetailProduct = () => {
                     <div className='description'>
                         <div className='container-xxl'>
                             <div className='row'>
-                                <div className='col-9'>
+                                <div className='col-10'>
                                     <div className='main'>
                                         <span className='title'>Product Description</span>
                                         <div className='text'
@@ -461,7 +470,7 @@ const DetailProduct = () => {
                     <div className='detail-product-comment'>
                         <div className='container-xxl'>
                             <div className='row'>
-                                <div ref={reviewBoxRef} className='col-9'>
+                                <div ref={reviewBoxRef} className='col-10'>
                                     <Comment />
                                 </div>
                             </div>

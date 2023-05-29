@@ -1,23 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs'
-import { BiGitCompare, BiCategory } from 'react-icons/bi'
+import { BiCategory } from 'react-icons/bi'
+import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { NumericFormat } from 'react-number-format'
+import { Typeahead } from 'react-bootstrap-typeahead'
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 import "../scss/Header.scss"
 import {
     getAllCategory
 } from '../service/homeService';
 import { useSelector } from 'react-redux';
 
+
 const Header = () => {
     const cart = useSelector((state) => state?.cart?.pCart)
     const [category, setCategory] = useState([])
     const [selectedCategory, setSelectedCategory] = useState("Shop categories");
-    const isLogin = useSelector(state => state.user.isLogin)
-
+    const isLogin = useSelector(state => state?.user?.isLogin)
+    const userInfo = useSelector(state => state?.user?.account)
+    const productState = useSelector(state => state?.AllProducts?.products)
+    const blogState = useSelector(state => state?.blogs?.blogs)
+    const [dataOpt, setDataOpt] = useState([])
+    const [paginate, setPaginate] = useState(true);
     const navigate = useNavigate()
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isSearching, setIsSearching] = useState(false);
+    useEffect(() => {
+        let data = []
+        for (let i = 0; i < productState?.length; i++) {
+            const ele = productState[i]
+            data.push({ id: ele?._id, data: ele?._id, slug: ele?.slug, title: ele?.title })
+        }
+        for (let i = 0; i < blogState?.length; i++) {
+            const ele = blogState[i]
+            data.push({ id: ele?._id, data: ele?._id, title: ele?.title })
+        }
+        setDataOpt(data)
+    }, [productState, blogState])
+
 
     const fetchAllCategories = async () => {
         let res = await getAllCategory()
@@ -31,6 +54,7 @@ const Header = () => {
         setSelectedCategory(selected.name);
         // navigate(`/our-store/${item._id}`)
     };
+
 
     useEffect(() => {
         fetchAllCategories()
@@ -61,66 +85,174 @@ const Header = () => {
                                 <Link className='text-white' to="/">Shop Web</Link>
                             </h2>
                         </div>
-                        <div className='col-6 my-3'>
-                            <div className="input-group">
-                                <input type="search"
-                                    className="form-control"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                    aria-describedby="search-addon" />
-                                <span className="input-group-text" id="search-addon">
-                                    <BsSearch />
-                                </span>
-                            </div>
-                        </div>
-                        <div className='col-4'>
-                            <div className='header-middle-links '>
-                                <NavLink to="wish-list" className='nav-link d-flex justify-content-center align-items-center gap-10'>
-                                    <AiOutlineHeart color='white' size='28px' />
-                                    <p className='text-white'>
-                                        Favourite <br /> Wishlist
-                                    </p>
-                                </NavLink>
-
-                                {isLogin === true ?
-                                    <NavLink to='/user/account' className=' nav-link d-flex justify-content-center align-items-center gap-10'>
-                                        <AiOutlineUser color='white' size='28px' />
-                                        <p className='text-white'>
-                                            My Account
-                                        </p>
-                                    </NavLink>
-                                    :
-                                    <NavLink to='/login' className='nav-link d-flex justify-content-center align-items-center gap-10'>
-                                        <AiOutlineUser color='white' size='28px' />
-                                        <p className='text-white'>
-                                            Log in
-                                        </p>
-                                    </NavLink>
-                                }
-                                <Link to="/cart" className='d-flex justify-content-center align-items-center gap-10'>
-                                    <AiOutlineShoppingCart color={"#ccac00"} size='28px' />
-                                    <div className='d-flex flex-column'>
-                                        <span className='badge'>{cart?.products?.length === 0 || cart?.length === 0 ? 0 : cart?.products?.length}</span>
-                                        <p className='text-white'>{cart?.products?.length === 0 || cart?.length === 0
-                                            ?
-                                            "0.00đ"
-                                            :
-                                            <NumericFormat
-                                                value={
-                                                    cart?.cartTotal
+                        {userInfo && userInfo.role === "admin" ?
+                            <>
+                                <div className='col-5 my-3'>
+                                    <div className="input-group">
+                                        <Typeahead
+                                            id="pagination-example"
+                                            onPaginate={() => console.log('Results paginated')}
+                                            minLength={'2'}
+                                            onChange={(selected) => {
+                                                setSelectedProduct(selected[0])
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    navigate(`/product/${selectedProduct?.slug}&${selectedProduct?.data}`);
                                                 }
-                                                displayType={"text"}
-                                                thousandSeparator={true}
-                                                suffix={'đ'}
-                                            />
-                                        }
-                                        </p>
+                                            }}
+                                            options={dataOpt}
+                                            paginate={paginate}
+                                            labelKey={'title'}
+                                            placeholder="Search..."
+                                        />
+                                        <span className="input-group-text" id="search-addon">
+                                            <BsSearch />
+                                        </span>
                                     </div>
-                                </Link>
+                                </div>
+                                <div className='col-5'>
+                                    <div className='header-middle-links '>
+                                        <NavLink to="/admin" className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                            <MdOutlineAdminPanelSettings color={'white'} size='28px' />
+                                            <p className='text-white'>
+                                                Admin
+                                            </p>
+                                        </NavLink>
+                                        <NavLink to="wish-list" className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                            <AiOutlineHeart color='white' size='28px' />
+                                            <p className='text-white'>
+                                                Favourite <br /> Wishlist
+                                            </p>
+                                        </NavLink>
 
-                            </div>
-                        </div>
+                                        {isLogin === true ?
+                                            <NavLink to='/user/account' className=' nav-link d-flex justify-content-center align-items-center gap-10'>
+                                                <AiOutlineUser color='white' size='28px' />
+                                                <p className='text-white'>
+                                                    My Account
+                                                </p>
+                                            </NavLink>
+                                            :
+                                            <NavLink to='/login' className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                                <AiOutlineUser color='white' size='28px' />
+                                                <p className='text-white'>
+                                                    Log in
+                                                </p>
+                                            </NavLink>
+                                        }
+                                        <Link to="/cart" className='d-flex justify-content-center align-items-center gap-10'>
+                                            <AiOutlineShoppingCart color={"#ccac00"} size='28px' />
+                                            <div className='d-flex flex-column'>
+                                                <span className='badge'>{cart?.products?.length === 0 || cart?.length === 0 ? 0 : cart?.products?.length}</span>
+                                                <p className='text-white'>{cart?.products?.length === 0 || cart?.length === 0
+                                                    ?
+                                                    "0.00đ"
+                                                    :
+                                                    <NumericFormat
+                                                        value={
+                                                            cart?.cartTotal
+                                                        }
+                                                        displayType={"text"}
+                                                        thousandSeparator={true}
+                                                        suffix={'đ'}
+                                                    />
+                                                }
+                                                </p>
+                                            </div>
+                                        </Link>
 
+                                    </div>
+                                </div>
+                            </>
+                            :
+                            <>
+                                <div className='col-6 my-3'>
+                                    <div className="input-group">
+                                        <Typeahead
+                                            id="pagination-example"
+                                            onPaginate={() => console.log('Results paginated')}
+                                            minLength={'2'}
+                                            onChange={(selected) => {
+                                                setSelectedProduct(selected[0]);
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter") {
+                                                    setIsSearching(false);
+                                                    navigate(`/product/${selectedProduct?.slug}&${selectedProduct?.data}`);
+                                                }
+                                            }}
+                                            onFocus={() => {
+                                                setIsSearching(true);
+                                            }}
+                                            onSelect={() => {
+                                                setIsSearching(false);
+                                                navigate(`/product/${selectedProduct?.slug}&${selectedProduct?.data}`);
+                                            }}
+                                            options={dataOpt}
+                                            paginate={paginate}
+                                            labelKey={'title'}
+                                            placeholder="Search..."
+                                        />
+                                        {/* <input type="search"
+                                            className="form-control"
+                                            placeholder="Search"
+                                            aria-label="Search"
+                                            aria-describedby="search-addon" /> */}
+                                        <span className="input-group-text" id="search-addon">
+                                            <BsSearch />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className='col-4'>
+                                    <div className='header-middle-links '>
+                                        <NavLink to="wish-list" className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                            <AiOutlineHeart color='white' size='28px' />
+                                            <p className='text-white'>
+                                                Favourite <br /> Wishlist
+                                            </p>
+                                        </NavLink>
+
+                                        {isLogin === true ?
+                                            <NavLink to='/user/account' className=' nav-link d-flex justify-content-center align-items-center gap-10'>
+                                                <AiOutlineUser color='white' size='28px' />
+                                                <p className='text-white'>
+                                                    My Account
+                                                </p>
+                                            </NavLink>
+                                            :
+                                            <NavLink to='/login' className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                                <AiOutlineUser color='white' size='28px' />
+                                                <p className='text-white'>
+                                                    Log in
+                                                </p>
+                                            </NavLink>
+                                        }
+                                        <Link to="/cart" className='d-flex justify-content-center align-items-center gap-10'>
+                                            <AiOutlineShoppingCart color={"#ccac00"} size='28px' />
+                                            <div className='d-flex flex-column'>
+                                                <span className='badge'>{cart?.products?.length === 0 || cart?.length === 0 ? 0 : cart?.products?.length}</span>
+                                                <p className='text-white'>{cart?.products?.length === 0 || cart?.length === 0
+                                                    ?
+                                                    "0.00đ"
+                                                    :
+                                                    <NumericFormat
+                                                        value={
+                                                            cart?.cartTotal
+                                                        }
+                                                        displayType={"text"}
+                                                        thousandSeparator={true}
+                                                        suffix={'đ'}
+                                                    />
+                                                }
+                                                </p>
+                                            </div>
+                                        </Link>
+
+                                    </div>
+                                </div>
+                            </>
+                        }
                     </div>
                 </div>
             </section>

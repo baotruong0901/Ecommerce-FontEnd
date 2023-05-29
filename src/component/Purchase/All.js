@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setBooking, setCart } from '../../store/actions/productActions';
 import { AiOutlineShop } from 'react-icons/ai'
 import { SiVirustotal } from 'react-icons/si'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NoProduct from '../../public/images/no-product.jpeg'
 import { toast } from 'react-toastify'
 import { NumericFormat } from 'react-number-format'
@@ -17,6 +17,7 @@ const All = (props) => {
     const [show, setShow] = useState(false)
     const [value, setValue] = useState([])
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const fetchBooking = async () => {
         let data = {
             type,
@@ -45,9 +46,10 @@ const All = (props) => {
         setShow(true)
         setValue(product)
     }
-    const handleProgress = (product) => {
+    const handleProgress = (booking) => {
+        navigate(`/user/purchase/orderId=${booking?._id}`)
         setProgress(true)
-        setVal(product)
+        setVal(booking)
     }
 
     return (

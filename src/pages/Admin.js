@@ -15,10 +15,12 @@ import { Layout, Menu, Button, theme } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import user from '../public/images/user-1.jpeg'
 import '../scss/Admin.scss'
+import { useSelector } from 'react-redux';
 const { Header, Sider, Content } = Layout;
 const Admin = () => {
     const navigate = useNavigate()
     const params = useLocation()
+    const account = useSelector((state) => state?.user?.account)
     const [collapsed, setCollapsed] = useState(false);
     return (
         <div className='admin-container'>
@@ -31,7 +33,8 @@ const Admin = () => {
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={params.pathname.split('/admin/')[1]}
+                        defaultSelectedKeys={''}
+                        // defaultSelectedKeys={params.pathname.split('/admin/')[1]} Dashboard
                         onClick={({ key }) => {
                             if (key == "signout") {
 
@@ -135,8 +138,8 @@ const Admin = () => {
                                     src={user}
                                     alt='image-user' />
                                 <div>
-                                    <h6>Admin</h6>
-                                    <p>admin@gmail.com</p>
+                                    <h6>{account?.firstname}</h6>
+                                    <p>{account?.email}</p>
                                 </div>
                             </div>
                         </div>

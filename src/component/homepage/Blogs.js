@@ -19,7 +19,7 @@ const Blogs = () => {
         getBlogs()
     }, [])
     const detailBlog = async (item) => {
-        navigate(`/blogs/${item.slug}&${item._id}`)
+        navigate(`/blogs/${item?.slug}&${item?._id}`)
     }
     const settings = {
         dots: false,

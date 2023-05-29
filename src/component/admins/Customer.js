@@ -187,7 +187,7 @@ const Customer = () => {
             fetchAllCustomer()
             fetchUserIsBlocked()
         } else {
-            toast.error("You are not admin")
+            toast.error(res?.msg)
         }
 
     };

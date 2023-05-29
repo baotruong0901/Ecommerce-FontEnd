@@ -38,6 +38,76 @@
             background-color: var(--color-fff);
             padding: 15px;
             border-radius: 10px;
+            .title{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                h4{
+                    margin-bottom: 0;
+                }
+                .new-address{
+                    padding: 4px 8px;
+                    background-color: var(--color-ededed);
+                    display: flex;
+                    align-items: center;
+                    span{
+                        color: var(--color-4267b2);
+                        margin-left: 5px;
+                    }
+                    &:hover{
+                        background-color: var(--color-eaeaea);
+                    }
+                }
+            }
+            .address-shipping{
+                max-height: 210px;
+                overflow-y: scroll;
+            }
+            .infor{
+                padding: 10px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom:1px dashed var(--color-eaeaea);
+                cursor: pointer;
+                &:hover{
+                    background-color: var(--color-eaeaea);
+                }
+                .name{
+                    font-weight: 500;
+                    padding-right: 10px;
+                    border-right: 1px solid var(--color-777777);
+                }
+                .phone{
+                    padding-left: 10px;
+                    color: var(--color-777777);
+                }
+                .address{
+                    width: 300px;
+                    margin-top: 10px;
+                    color: var(--color-777777);
+
+                }
+                .change{
+                    background-color: var(--color-eaeaea);
+                    border: 1px solid var(--color-777777);
+                    transition: all 0.25s ease-in-out;
+                    &:hover{
+                        background-color: var(--color-febd69);
+                        color: var(--color-fff);
+                        border: 1px solid  var(--color-febd69);
+                    }
+                    
+                }
+            }
+            
+            
+            .shipping{
+                margin-top: 10px;
+                padding: 0 10px;
+            }
             .back-to-cart{
                 background-color: var(--color-232f3e);
                 color: var(--color-fff);
@@ -62,7 +132,7 @@
         font-size: 14px;
         color: var(--color-1c1c1b);
     }
-    .total-price {
+    .total-price,.description {
         font-size: 16px;
         color: var(--color-777777);
     }

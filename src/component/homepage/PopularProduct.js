@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import '../../scss/popular.scss'
 
 const PopularProduct = () => {
+    const isLogin = useSelector(state => state.user.isLogin)
     const [category, setCategory] = useState([])
     const [product, setProduct] = useState([])
     const [activeIndex, setActiveIndex] = useState(0);
@@ -69,23 +70,29 @@ const PopularProduct = () => {
         // } else {
         //     toast.error(res.msg)
         // }
-        let productId = item?._id
-        if (isExist === false) {
-            let res = await addProductToWishApi({ userId, productId })
-            if (res && res.success === true) {
-                item.active = true
-                toast.success(res.msg)
-                dispatch(setWishList(res?.data))
-                setIsExist(true)
-            } else {
-                toast.error(res.msg)
-            }
+        if (!isLogin) {
+            window.scrollTo(0, 128)
+            const returnUrl = window.location.pathname + window.location.search;
+            navigate('/login', { state: { returnUrl } });
         } else {
-            let res = await deleteProductWishlist(productId, userId)
-            if (res && res.success === true) {
-                item.active = false
-                toast.success(res.msg)
-                setIsExist(false)
+            let productId = item?._id
+            if (isExist === false) {
+                let res = await addProductToWishApi({ userId, productId })
+                if (res && res.success === true) {
+                    item.active = true
+                    toast.success(res.msg)
+                    dispatch(setWishList(res?.data))
+                    setIsExist(true)
+                } else {
+                    toast.error(res.msg)
+                }
+            } else {
+                let res = await deleteProductWishlist(productId, userId)
+                if (res && res.success === true) {
+                    item.active = false
+                    toast.success(res.msg)
+                    setIsExist(false)
+                }
             }
         }
     }

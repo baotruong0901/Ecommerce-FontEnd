@@ -120,11 +120,11 @@ const Order = () => {
             ...getColumnSearchProps('Email'),
         },
         {
-            title: 'Mobile',
-            dataIndex: 'Mobile',
-            key: 'Mobile',
+            title: 'PhoneNumber',
+            dataIndex: 'PhoneNumber',
+            key: 'PhoneNumber',
             width: '12%',
-            ...getColumnSearchProps('Mobile'),
+            ...getColumnSearchProps('PhoneNumber'),
         },
         {
             title: 'Product',
@@ -194,13 +194,14 @@ const Order = () => {
     const fetchAllBooking = async () => {
         let res = await getAllBooking()
         let data = res?.data?.reverse()
+        console.log(data);
         const newCustomer = []
         for (let i = 0; i < data?.length; i++) {
             newCustomer.push({
                 key: i,
                 Orderer: `${data[i]?.userId?.firstname} ${data[i]?.userId?.lastname}`,
                 Email: data[i]?.userId?.email,
-                Mobile: data[i]?.mobile,
+                PhoneNumber: data[i]?.phoneNumber,
                 Product: `${data[i]?.products?.reduce((acc, product) => acc + product.count, 0)} Product`,
                 Status: data[i]?.status,
                 ProductMore: data[i]?.products?.map((item) => item),

@@ -90,16 +90,22 @@
             border: 1px solid rgba(#777777, 0.4);
         }
         .dashboard{
-            .title{
-                margin-bottom: 20px;
-            }
             &-header{
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 30px;
-                &-item{
-                    width: 33.33%;
+                margin-bottom: 20px;
+                .select-month{
+                    width: 120px;
+                }
+            }
+            &-main{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+                .item{
+                    width: 100%;
                     background-color: var(--color-fff);
                     padding: 20px;
                     box-shadow: 0px 0px 5px rgba(#000, 0.1);
@@ -107,7 +113,7 @@
                         color: var(--color-777777);
                     }
                     .top{
-                        margin-bottom: 10px;
+                        margin-bottom: 30px;
                     }
                     .bottom{
                         display: flex;
