@@ -15,6 +15,7 @@ import Paginate from '../component/Paginate';
 // import { setProducts } from '../store/actions/productActions';
 const OurStore = () => {
     const isLogin = useSelector(state => state.user.isLogin)
+    const wishlist = useSelector((state) => state?.wishList?.pWishList)
     const allProducts = useSelector((state) => state?.AllProducts?.products)
     const category = useSelector((state) => state.categories.categories)
     const userId = useSelector((state) => state?.user?.account?._id)
@@ -89,6 +90,19 @@ const OurStore = () => {
         navigate(`/product/${item.slug}&${item._id}`)
     }
 
+    const checkIsExitsWishList = () => {
+        for (let item of wishlist) {
+            if (allProducts.includes(item)) {
+                item.active = true
+            } else {
+                item.active = false
+            }
+        }
+    }
+    useEffect(() => {
+        // checkIsExitsWishList()
+    }, [wishlist])
+
     const addWishList = async (item) => {
         if (!isLogin) {
             window.scrollTo(0, 128)
@@ -96,11 +110,14 @@ const OurStore = () => {
             navigate('/login', { state: { returnUrl } });
         } else {
             let productId = item?._id
-            if (item.active) {
+            let check = wishlist.includes(productId)
+            console.log(check, productId);
+            if (check) {
                 let res = await deleteProductWishlist(productId, userId)
                 if (res && res.success === true) {
                     item.active = false
                     toast.success(res.msg)
+                    dispatch(setWishList(res?.data))
                 }
             } else {
                 let res = await addProductToWishApi({ userId, productId })
@@ -108,8 +125,6 @@ const OurStore = () => {
                     item.active = true
                     toast.success(res.msg)
                     dispatch(setWishList(res?.data))
-                } else {
-                    toast.error(res.msg)
                 }
             }
         }
@@ -378,7 +393,7 @@ const OurStore = () => {
                                         return (
                                             <>
                                                 <CardProduct
-                                                    active={!item.active ? false : item.active}
+                                                    active={item?.active ? item?.active : ''}
                                                     addWishList={() => addWishList(item)}
                                                     detailProduct={() => detailProduct(item)}
                                                     brand={item?.brand[0]?.name}

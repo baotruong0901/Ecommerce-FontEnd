@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import NoProduct from '../public/images/no-product.jpeg'
 import { NumericFormat } from 'react-number-format'
 import '.././scss/wishList.scss'
+import { setWishList } from "../store/actions/productActions";
 const Wishlist = () => {
     const userId = useSelector((state) => state?.user?.account?._id)
     const [wishlist, setWishlist] = useState([])
@@ -31,6 +32,7 @@ const Wishlist = () => {
         let res = await deleteProductWishlist(productId, userId)
         if (res && res.success === true) {
             toast.success(res.msg)
+            dispatch(setWishList(res?.data))
             fetchWishListUser()
         }
     }

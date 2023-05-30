@@ -7,6 +7,7 @@ const CardProduct = (props) => {
     const { image, brand, title, coupon, sold, price, slug, width, detailProduct, addWishList, star, active } = props
     const cardStyle = { width: width ? width : '100%' }
     const discounted = price * (1 - (+coupon) / 100)
+    console.log(active);
     return (
         <>
             <div

@@ -1,35 +1,55 @@
-.view-product{
-    .product{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid var(--color-eaeaea);
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-        position: relative;
-        cursor: pointer;
-        .content{
-            width: calc(100% - 200px);
-            .title{
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 1;
-                overflow: hidden;
-                text-overflow: ellipsis;
+.modal-review{      
+    .total{
+        .total-order{
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-eaeaea);
+            .text{
+                text-align: right;
+                width: 80%;
+                padding-right: 20px;
+                color: var(--color-777777);
+                font-size: 14px;
+                border-right: 1px solid var(--color-eaeaea);
+            }
+            .total-price{
+                color: var(--color-bf4800);
+                font-size: 18px;
             }
         }
-        .image{
-            width: 80px;
-            height: 80px;
-            border: 1px solid var(--color-eaeaea);
-            margin-right: 20px;
-        }
-        .price{
-            color: var(--color-bf4800);
-            font-weight: 400;
-            font-size: 14px;
-            text-align: right;
-            margin-bottom: 0;
+    }
+    .view-product{
+        .product{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--color-eaeaea);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            cursor: pointer;
+            .content{
+                width: calc(100% - 200px);
+                .title{
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .image{
+                width: 80px;
+                height: 80px;
+                border: 1px solid var(--color-eaeaea);
+                margin-right: 20px;
+            }
+            .price{
+                color: var(--color-bf4800);
+                font-weight: 400;
+                font-size: 14px;
+                text-align: right;
+                margin-bottom: 0;
+            }
         }
     }
 }

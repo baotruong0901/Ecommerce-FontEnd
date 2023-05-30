@@ -7,7 +7,8 @@ const ViewProducts = (props) => {
     const handleClose = () => {
         setShow(false)
     }
-
+    console.log(value);
+    const total = value.reduce((accumulator, product) => accumulator + product.price, 0)
     return (
         <>
             <Modal show={show}
@@ -22,7 +23,7 @@ const ViewProducts = (props) => {
                     <div className='view-product'>
                         {value?.length > 0 && value?.map((item, index) => {
                             return (
-                                <div className='product'>
+                                <div key={`${index}-view-product`} className='product'>
                                     <div className='image'>
                                         <img src={item?.product?.images[0].url} className="img-fluid" alt="product image" />
                                     </div>
@@ -69,6 +70,19 @@ const ViewProducts = (props) => {
                                 </div>
                             )
                         })}
+                    </div>
+                    <div className='total'>
+                        <div className='total-order d-flex align-item-center justify-content-between'>
+                            <span className='text'>Order Total</span>
+                            <span className='total-price'>
+                                <NumericFormat
+                                    value={total}
+                                    displayType={"text"}
+                                    thousandSeparator={true}
+                                    suffix={' Vnđ'}
+                                />
+                            </span>
+                        </div>
                     </div>
                 </Modal.Body>
             </Modal >

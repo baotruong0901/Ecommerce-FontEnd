@@ -106,21 +106,21 @@ const Order = () => {
     });
     const columns = [
         {
-            title: 'Orderer',
-            dataIndex: 'Orderer',
-            key: 'Orderer',
+            title: 'OrderId',
+            dataIndex: 'Id',
+            key: 'Id',
             width: '15%',
-            ...getColumnSearchProps('Orderer'),
+            ...getColumnSearchProps('Id'),
         },
         {
-            title: 'Email',
+            title: 'Order By',
             dataIndex: 'Email',
             key: 'Email',
             width: '20%',
             ...getColumnSearchProps('Email'),
         },
         {
-            title: 'PhoneNumber',
+            title: 'Mobile',
             dataIndex: 'PhoneNumber',
             key: 'PhoneNumber',
             width: '12%',
@@ -199,7 +199,7 @@ const Order = () => {
         for (let i = 0; i < data?.length; i++) {
             newCustomer.push({
                 key: i,
-                Orderer: `${data[i]?.userId?.firstname} ${data[i]?.userId?.lastname}`,
+                Id: data[i]?._id,
                 Email: data[i]?.userId?.email,
                 PhoneNumber: data[i]?.phoneNumber,
                 Product: `${data[i]?.products?.reduce((acc, product) => acc + product.count, 0)} Product`,

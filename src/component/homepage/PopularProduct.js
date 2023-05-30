@@ -14,6 +14,8 @@ import '../../scss/popular.scss'
 
 const PopularProduct = () => {
     const isLogin = useSelector(state => state.user.isLogin)
+    const wishlist = useSelector((state) => state?.wishList?.pWishList)
+
     const [category, setCategory] = useState([])
     const [product, setProduct] = useState([])
     const [activeIndex, setActiveIndex] = useState(0);
@@ -62,36 +64,27 @@ const PopularProduct = () => {
     }
 
     const addWishList = async (item) => {
-        // let productId = item?._id
-        // let res = await addProductToWishApi({ userId, productId })
-        // if (res && res.success === true) {
-        //     toast.success(res.msg)
-        //     dispatch(setWishList(res))
-        // } else {
-        //     toast.error(res.msg)
-        // }
+
         if (!isLogin) {
             window.scrollTo(0, 128)
             const returnUrl = window.location.pathname + window.location.search;
             navigate('/login', { state: { returnUrl } });
         } else {
             let productId = item?._id
-            if (isExist === false) {
+            let check = wishlist.includes(productId)
+            if (check) {
+                let res = await deleteProductWishlist(productId, userId)
+                if (res && res.success === true) {
+                    item.active = false
+                    toast.success(res.msg)
+                    dispatch(setWishList(res?.data))
+                }
+            } else {
                 let res = await addProductToWishApi({ userId, productId })
                 if (res && res.success === true) {
                     item.active = true
                     toast.success(res.msg)
                     dispatch(setWishList(res?.data))
-                    setIsExist(true)
-                } else {
-                    toast.error(res.msg)
-                }
-            } else {
-                let res = await deleteProductWishlist(productId, userId)
-                if (res && res.success === true) {
-                    item.active = false
-                    toast.success(res.msg)
-                    setIsExist(false)
                 }
             }
         }
@@ -132,7 +125,7 @@ const PopularProduct = () => {
                                 {product && product.length > 0 && product.map((item, index) => {
                                     return (
                                         <CardProduct
-                                            isExist={item?.active}
+                                            active={item?.active ? item?.active : ''}
                                             addWishList={() => addWishList(item)}
                                             detailProduct={() => detailProduct(item)}
                                             brand={item?.brand[0]?.name}

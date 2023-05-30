@@ -5,12 +5,36 @@ header{
     .header-middle{
         background: var(--color-131921);
         border-top: 1px solid var(--color-3b4149);
-        .form-control{
-            &:focus{
-                box-shadow: none;
-                border-color:var(--color-fff);
+        
+        .input-group{
+
+            .form-control{
+                &:focus{
+                    box-shadow: none;
+                    border-color:var(--color-fff);
+                }
             }
+            .search-item{
+                display: flex;
+                align-items: center;
+                .search-image{
+                    width: 80px;
+                    margin: 5px 15px 5px 0;
+                }
+                .search-title{
+                    font-size:12px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+            .dropdown-item.active{
+                background-color: var(--color-777777)!important;
+            }
+            
+            
         }
+        
         &-links{
             display: flex;
             justify-content: right;

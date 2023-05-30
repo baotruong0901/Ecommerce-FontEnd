@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs'
 import { BiCategory } from 'react-icons/bi'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
@@ -23,20 +23,22 @@ const Header = () => {
     const userInfo = useSelector(state => state?.user?.account)
     const productState = useSelector(state => state?.AllProducts?.products)
     const blogState = useSelector(state => state?.blogs?.blogs)
-    const [dataOpt, setDataOpt] = useState([])
     const [paginate, setPaginate] = useState(true);
     const navigate = useNavigate()
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [isSearching, setIsSearching] = useState(false);
+
+    //search 
+    const [dataOpt, setDataOpt] = useState([])
+
+    //end search
     useEffect(() => {
         let data = []
         for (let i = 0; i < productState?.length; i++) {
             const ele = productState[i]
-            data.push({ id: ele?._id, data: ele?._id, slug: ele?.slug, title: ele?.title })
+            data.push({ _id: ele?._id, image: ele?.images[0]?.url, slug: ele?.slug, title: ele?.title, type: "product" })
         }
         for (let i = 0; i < blogState?.length; i++) {
             const ele = blogState[i]
-            data.push({ id: ele?._id, data: ele?._id, title: ele?.title })
+            data.push({ _id: ele?._id, image: ele?.image[0]?.url, title: ele?.title, type: "blog" })
         }
         setDataOpt(data)
     }, [productState, blogState])
@@ -55,7 +57,22 @@ const Header = () => {
         // navigate(`/our-store/${item._id}`)
     };
 
-
+    const handleChange = (selected) => {
+        if (selected[0]) {
+            if (selected[0]?.type === "product") {
+                navigate(`/product/${selected[0]?.slug}&${selected[0]?._id}`);
+            }
+            if (selected[0]?.type === "blog") {
+                navigate(`/blogs/${selected[0]?.slug}&${selected[0]?._id}`);
+            }
+        }
+    }
+    const renderMenuItemChildren = (option, props, index) => (
+        <div className='search-item' key={option.id}>
+            <img className='search-image' src={option.image} alt={option.title} />
+            <p className='search-title'>{option.title}</p>
+        </div>
+    );
     useEffect(() => {
         fetchAllCategories()
     }, [])
@@ -93,18 +110,12 @@ const Header = () => {
                                             id="pagination-example"
                                             onPaginate={() => console.log('Results paginated')}
                                             minLength={'2'}
-                                            onChange={(selected) => {
-                                                setSelectedProduct(selected[0])
-                                            }}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    navigate(`/product/${selectedProduct?.slug}&${selectedProduct?.data}`);
-                                                }
-                                            }}
+                                            onChange={handleChange}
                                             options={dataOpt}
                                             paginate={paginate}
                                             labelKey={'title'}
                                             placeholder="Search..."
+                                            renderMenuItemChildren={renderMenuItemChildren}
                                         />
                                         <span className="input-group-text" id="search-addon">
                                             <BsSearch />
@@ -113,8 +124,8 @@ const Header = () => {
                                 </div>
                                 <div className='col-5'>
                                     <div className='header-middle-links '>
-                                        <NavLink to="/admin" className='nav-link d-flex justify-content-center align-items-center gap-10'>
-                                            <MdOutlineAdminPanelSettings color={'white'} size='28px' />
+                                        <NavLink to="admin" className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                            <MdOutlineAdminPanelSettings color='white' size='28px' />
                                             <p className='text-white'>
                                                 Admin
                                             </p>
@@ -173,32 +184,12 @@ const Header = () => {
                                             id="pagination-example"
                                             onPaginate={() => console.log('Results paginated')}
                                             minLength={'2'}
-                                            onChange={(selected) => {
-                                                setSelectedProduct(selected[0]);
-                                            }}
-                                            onKeyDown={(e) => {
-                                                if (e.key === "Enter") {
-                                                    setIsSearching(false);
-                                                    navigate(`/product/${selectedProduct?.slug}&${selectedProduct?.data}`);
-                                                }
-                                            }}
-                                            onFocus={() => {
-                                                setIsSearching(true);
-                                            }}
-                                            onSelect={() => {
-                                                setIsSearching(false);
-                                                navigate(`/product/${selectedProduct?.slug}&${selectedProduct?.data}`);
-                                            }}
+                                            onChange={handleChange}
                                             options={dataOpt}
                                             paginate={paginate}
                                             labelKey={'title'}
                                             placeholder="Search..."
                                         />
-                                        {/* <input type="search"
-                                            className="form-control"
-                                            placeholder="Search"
-                                            aria-label="Search"
-                                            aria-describedby="search-addon" /> */}
                                         <span className="input-group-text" id="search-addon">
                                             <BsSearch />
                                         </span>
@@ -253,9 +244,9 @@ const Header = () => {
                                 </div>
                             </>
                         }
-                    </div>
-                </div>
-            </section>
+                    </div >
+                </div >
+            </section >
             <section className='header-bottom'>
                 <div className='container-xxl'>
                     <div className='row'>
@@ -286,7 +277,7 @@ const Header = () => {
                                 <div className='menu-links'>
                                     <div className='d-flex align-items-center gap-25'>
                                         <NavLink className='nav-link' to="/">Home</NavLink>
-                                        <NavLink className='nav-link' to="/our-store/all">Our Store</NavLink>
+                                        <NavLink className='nav-link' to={`/our-store/all&page=1`}>Our Store</NavLink>
                                         <NavLink className='nav-link' to="/blogs">Blogs</NavLink>
                                         <NavLink className='nav-link' to="/contact">Contact</NavLink>
                                     </div>
@@ -297,7 +288,7 @@ const Header = () => {
                 </div>
             </section>
 
-        </header>
+        </header >
     );
 };
 
