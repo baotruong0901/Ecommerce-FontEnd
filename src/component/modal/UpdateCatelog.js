@@ -30,7 +30,7 @@ const UpdateCatalog = (props) => {
                         setImages={setSelectedFiles}
                         type="only"
                         images={selectedFiles}
-                        url="http://localhost:8800/api/brand"
+                        url="https://ecommerce-bga8.onrender.com/api/brand"
                     />
                     <button type='button' onClick={handleUpdate} className='btn btn-primary mt-3'>Update {name}</button>
                 </Modal.Body>

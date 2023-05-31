@@ -31,7 +31,7 @@ const AddCategory = ({ name }) => {
                 setImages={setSelectedFiles}
                 images={selectedFiles}
                 type="only"
-                url="http://localhost:8800/api/category"
+                url="https://ecommerce-bga8.onrender.com/api/category"
             />
             <button type='button' onClick={handleCreate} className='btn btn-primary mt-3'>Create {name}</button>
         </>

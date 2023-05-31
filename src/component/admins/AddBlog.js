@@ -67,7 +67,7 @@ const AddBlog = () => {
                     setImages={setSelectedFiles}
                     type="only"
                     images={selectedFiles}
-                    url="http://localhost:8800/api/blog"
+                    url="https://ecommerce-bga8.onrender.com/api/blog"
                 />
                 <button type='button' onClick={handleCreate} className='btn btn-primary mt-3'>Create Blog</button>
 
