@@ -7,7 +7,7 @@ NProgress.configure({
 
 })
 const instance = axios.create({
-    baseURL: process.env.BACKEND_URL
+    baseURL: "https://ecommerce-bga8.onrender.com/"
 })
 
 // Add a request interceptor
