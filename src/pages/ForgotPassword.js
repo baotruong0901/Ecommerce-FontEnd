@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { NavLink } from 'react-router-dom';
 import Input from '../component/Input';
@@ -14,6 +14,9 @@ const forgotPassword = yup.object({
 })
 const ForgotPassword = () => {
     const dispatch = useDispatch()
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
     const formik = useFormik({
         initialValues: {
             email: ""

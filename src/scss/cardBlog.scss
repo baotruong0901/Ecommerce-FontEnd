@@ -6,17 +6,16 @@
         transform: translateY(-1px);
     }
     .card-main{
-        height: 250px;
         .card-img{
             height: 180px;
             cursor: pointer;
         }
         .card-body{
-            padding: 15px 8px;
+            padding: 15px 8px 5px;
             .card-title{
                 cursor: pointer;
                 font-weight: 500;
-                font-size: 14px;
+                font-size: 0.875rem;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2; // Hiển thị tối đa 2 dòng
@@ -29,4 +28,25 @@
             }
         }
     }
+}
+
+@media (max-width: 768px) {
+  .card-blog{
+    .card-main{
+        .card-img{
+            height: 150px;
+        }
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .card-blog{
+    .card-main{
+        .card-img{
+            height: 160px;
+            cursor: pointer;
+        }
+    }
+  }
 }

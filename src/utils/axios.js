@@ -7,6 +7,7 @@ NProgress.configure({
 
 })
 const instance = axios.create({
+    // baseURL: "http://localhost:8800"
     baseURL: "https://ecommerce-bga8.onrender.com/"
 })
 

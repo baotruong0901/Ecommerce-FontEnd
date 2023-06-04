@@ -47,3 +47,27 @@
         }
     }
 }
+
+@media (max-width: 425px) {
+    .booking-success{
+        margin: 50px 0;
+        .main{
+            .text{
+                font-size: 14px;
+                text-align: center;
+            }
+            .button{
+                .detail-booking{
+                    width: 100%;
+                    margin: 0;
+                    margin-bottom: 10px;
+                }
+                .continue{
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+        }
+        
+    }
+}

@@ -4,6 +4,12 @@ import { BsSearch } from 'react-icons/bs'
 import { BiCategory } from 'react-icons/bi'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { NumericFormat } from 'react-number-format'
 import { Typeahead } from 'react-bootstrap-typeahead'
@@ -25,7 +31,11 @@ const Header = () => {
     const blogState = useSelector(state => state?.blogs?.blogs)
     const [paginate, setPaginate] = useState(true);
     const navigate = useNavigate()
+    const [showMenu, setShowMenu] = useState(false);
 
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+    };
     //search 
     const [dataOpt, setDataOpt] = useState([])
 
@@ -96,10 +106,10 @@ const Header = () => {
             </section>
             <section className='header-middle py-2'>
                 <div className='container-xxl'>
-                    <div className='row align-items-center'>
+                    {/* <div className='row align-items-center'>
                         <div className='col-2'>
                             <h2>
-                                <Link className='text-white' to="/">Shop Web</Link>
+                                <Link className='text-white' to="/">E-commerce</Link>
                             </h2>
                         </div>
                         {userInfo && userInfo.role === "admin" ?
@@ -124,7 +134,7 @@ const Header = () => {
                                 </div>
                                 <div className='col-5'>
                                     <div className='header-middle-links '>
-                                        <NavLink to="admin" className='nav-link d-flex justify-content-center align-items-center gap-10'>
+                                        <NavLink to="admin/dashboard" className='nav-link d-flex justify-content-center align-items-center gap-10'>
                                             <MdOutlineAdminPanelSettings color='white' size='28px' />
                                             <p className='text-white'>
                                                 Admin
@@ -244,8 +254,86 @@ const Header = () => {
                                 </div>
                             </>
                         }
-                    </div >
+                    </div > */}
+                    <Navbar expand="lg">
+                        <Navbar.Brand><NavLink className='nav-link' to="/">E-commerce</NavLink></Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Form className="d-flex me-auto search">
+                                <Typeahead
+                                    className="me-2"
+                                    id="pagination-example"
+                                    onPaginate={() => console.log('Results paginated')}
+                                    minLength={'2'}
+                                    onChange={handleChange}
+                                    options={dataOpt}
+                                    paginate={paginate}
+                                    labelKey={'title'}
+                                    placeholder="Search..."
+                                    renderMenuItemChildren={renderMenuItemChildren}
+                                />
+                                <span className="input-group-text" id="search-addon">
+                                    <BsSearch />
+                                </span>
+                            </Form>
+                            <Nav >
+                                <NavLink to="admin/dashboard" className='nav-link d-flex align-items-center d-flex gap-10'>
+                                    <MdOutlineAdminPanelSettings color='white' size='28px' />
+                                    <p className='text-white'>
+                                        Admin
+                                    </p>
+                                </NavLink>
+                                <NavLink to="wish-list" className='nav-link d-flex align-items-center gap-10'>
+                                    <AiOutlineHeart color='white' size='28px' />
+                                    <p className='text-white'>
+                                        Wishlist
+                                    </p>
+                                </NavLink>
+
+                                {isLogin === true ?
+                                    <NavLink to='/user/account' className='account nav-link d-flex align-items-center gap-10'>
+                                        <AiOutlineUser color='white' size='28px' />
+                                        <p className='text-white'>
+                                            Welcome! {userInfo?.firstname}
+                                        </p>
+                                    </NavLink>
+                                    :
+                                    <NavLink to='/login' className='nav-link d-flex align-items-center gap-10'>
+                                        <AiOutlineUser color='white' size='28px' />
+                                        <p className='text-white'>
+                                            Log in
+                                        </p>
+                                    </NavLink>
+                                }
+                                <Link to="/cart" className='total d-flex align-items-center gap-10'>
+                                    <AiOutlineShoppingCart color={"#ccac00"} size='28px' />
+                                    <div className='d-flex flex-column'>
+                                        <span className='badge'>{cart?.products?.length === 0 || cart?.length === 0 ? 0 : cart?.products?.length}</span>
+                                        <p className=' text-white'>{cart?.products?.length === 0 || cart?.length === 0
+                                            ?
+                                            "0.00đ"
+                                            :
+                                            <NumericFormat
+                                                value={
+                                                    cart?.cartTotal
+                                                }
+                                                displayType={"text"}
+                                                thousandSeparator={true}
+                                                suffix={'đ'}
+                                            />
+                                        }
+                                        </p>
+                                    </div>
+                                </Link>
+
+                            </Nav>
+
+                        </Navbar.Collapse>
+
+                    </Navbar>
+
                 </div >
+
             </section >
             <section className='header-bottom'>
                 <div className='container-xxl'>
@@ -274,13 +362,11 @@ const Header = () => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
-                                <div className='menu-links'>
-                                    <div className='d-flex align-items-center gap-25'>
-                                        <NavLink className='nav-link' to="/">Home</NavLink>
-                                        <NavLink className='nav-link' to={`/our-store/all&page=1`}>Our Store</NavLink>
-                                        <NavLink className='nav-link' to="/blogs">Blogs</NavLink>
-                                        <NavLink className='nav-link' to="/contact">Contact</NavLink>
-                                    </div>
+                                <div className='menu-links d-flex align-items-center gap-25'>
+                                    <NavLink className='nav-link' to="/">Home</NavLink>
+                                    <NavLink className='nav-link' to={`/our-store/all&page=1`}>Our Store</NavLink>
+                                    <NavLink className='nav-link' to="/blogs">Blogs</NavLink>
+                                    <NavLink className='nav-link' to="/contact">Contact</NavLink>
                                 </div>
                             </div>
                         </div>

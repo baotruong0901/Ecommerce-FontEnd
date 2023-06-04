@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from './Input';
 import { changePasswordApi } from '../service/homeService';
 import { toast } from 'react-toastify'
@@ -7,6 +7,11 @@ import { useNavigate } from 'react-router-dom';
 const ChangePassword = () => {
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+
+    useEffect(() => {
+        document.title = "Change password"; // Thay đổi title của trang web
+    }, []);
+
     const handleChangePassword = async (e) => {
         e.preventDefault()
         let res = await changePasswordApi({ password })

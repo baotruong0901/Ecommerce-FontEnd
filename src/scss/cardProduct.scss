@@ -10,19 +10,19 @@
            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
         }
         .card-img{
-            height: 180px;
+            height: 11.25rem;
             cursor: pointer;
         }
         .card-body{   
-            padding: 10px;
+            padding: 0.625rem;
             .card-brand{
                 font-weight: 500;
-                font-size: 14px;
+                font-size: 0.875rem;
                 color: var(--color-bf4800);
             }
             .card-title{
                 cursor: pointer;
-                font-size: 14px;
+                font-size: 0.875rem;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2; // Hiển thị tối đa 2 dòng
@@ -34,24 +34,26 @@
             }
             .card-price{
                 font-weight: 400;
-                font-size: 16px;
+                font-size: 1rem;
                 color: var(--color-bf4800);
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 1; // Hiển thị tối đa 2 dòng
                 overflow: hidden;
                 text-overflow: ellipsis;
+                margin: 0.5rem 0;
                 .original-price{
-                    font-size: 12px;
+                    font-size: 0.75rem;
                 }
             }
             .card-start{
                 display: flex;
                 align-items: center;
                 justify-content: left;
+                height: 1.5rem;
                 .sold{
-                    font-size: 12px;
-                    margin-left: 5px;
+                    font-size: 0.75rem;
+                    margin-left: 0.4rem;
                 }
             }
         }
@@ -66,15 +68,40 @@
         }
         .coupon{
             position: absolute;
-            top: 5px;
-            left: 5px;
+            top: 0.3rem;
+            left: 0.3rem;
             background-color: var(--color-febd69);
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 1.875rem;
+            height: 1.875rem;
             color: var(--color-fff);
-            font-size: 12px;
+            font-size: 0.75rem;
             display: block;
-            padding: 6px 4px;
+            padding: 0.325rem 0.25rem;
         }
+}
+
+@media (max-width: 425px) {
+  .card-product{
+    .card-img{
+        height: 160px;
+        cursor: pointer;
+    }
+    .card-body{
+        padding: 10px;
+            .card-price{
+                font-size: 14px;
+                margin: 4px 0;
+                .original-price{
+                    font-size: 10px;
+                }
+            }
+            .card-start{
+                height: 20px;
+                .sold{
+                    font-size: 10px;
+                }
+            }
+    }
+  }
 }

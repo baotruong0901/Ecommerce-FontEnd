@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -22,29 +22,35 @@ const Admin = () => {
     const params = useLocation()
     const account = useSelector((state) => state?.user?.account)
     const [collapsed, setCollapsed] = useState(false);
+
+    useEffect(() => {
+        document.title = 'E-commerce | Dashboard'; // Thay đổi title của trang web
+    }, []);
+
+
     return (
         <div className='admin-container'>
             <Layout>
                 <Sider trigger={null} collapsible collapsed={collapsed}>
-                    <div className="logo" >
-                        <span className='lg-logo'>Shop Web</span>
-                        <span className='sm-logo'>S</span>
+                    <div onClick={() => navigate("/")} className="logo" >
+                        <span className='lg-logo'>E-commerce</span>
+                        <span className='sm-logo'>E</span>
                     </div>
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={''}
-                        // defaultSelectedKeys={params.pathname.split('/admin/')[1]} Dashboard
+                        defaultSelectedKeys={"dashboard"}
                         onClick={({ key }) => {
                             if (key == "signout") {
 
                             } else {
                                 navigate(key)
+                                document.title = `E-commerce | ${key}`; // Thay đổi title của trang web
                             }
                         }}
                         items={[
                             {
-                                key: '',
+                                key: 'dashboard',
                                 icon: <AiOutlineDashboard />,
                                 label: 'Dashboard',
                             },

@@ -14,6 +14,9 @@ const Shipping = () => {
     const user = useSelector((state) => state?.user?.account)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    useEffect(() => {
+        document.title = 'E-commerce Shipping'; // Thay đổi title của trang web
+    }, []);
     const [values, setValues] = useState({
         fullName: "",
         phoneNumber: "",
@@ -138,7 +141,7 @@ const Shipping = () => {
                     <form
                         className='row'
                     >
-                        <div className="col-6">
+                        <div className="col-12 col-sm-6">
                             <Input
                                 name="fullName"
                                 type="text"
@@ -151,7 +154,7 @@ const Shipping = () => {
                             />
                         </div>
 
-                        <div className="col-6">
+                        <div className="col-sm-6 col-12">
                             <Input
                                 name="phoneNumber"
                                 type="text"

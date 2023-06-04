@@ -11,7 +11,8 @@
         top: -20px;
     }
     .slick-prev{
-        left: 95.2%;
+        left: 100%;
+        transform: translate(-300%,-50%);
     }
     .slick-next{
         right: 10px;
@@ -20,4 +21,19 @@
         font-size:28px;
         color: var(--color-bf4800);
     }
+}
+
+@media (max-width: 425px) {
+  .blog{
+    .section-heading{
+        font-size: 18px;
+    }
+    .slick-slide {
+        padding: 0 4px;
+        box-sizing: border-box;
+    }
+    .slick-prev,.slick-next{
+        display: none!important;
+    }
+  }
 }

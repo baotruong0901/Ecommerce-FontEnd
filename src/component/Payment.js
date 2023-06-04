@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { useDispatch, useSelector } from 'react-redux';
 import { emptyCartApi, postBooking } from '../service/homeService';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,6 +16,9 @@ const Payment = () => {
     const handleChangeAddress = () => {
         navigate('/checkout/shipping')
     }
+    useEffect(() => {
+        document.title = 'E-commerce Payment'; // Thay đổi title của trang web
+    }, []);
     const handleSubmit = async () => {
         setIsLoading(true)
 
@@ -54,8 +56,11 @@ const Payment = () => {
 
     return (
         <div className='checkout-left-data'>
-            <h4 className='title'>Confirm Information</h4>
-            <div className='infor mb-3'>
+            <div className='title'>
+                <h4 className='title'>Confirm Information</h4>
+            </div>
+
+            <div className='infor mb-2 mb-sm-3'>
                 <div className='left'>
                     <div className='fullname'>
                         <span className='name'>{address?.fullName}</span>

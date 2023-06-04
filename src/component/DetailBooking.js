@@ -42,7 +42,7 @@ const DetailBooking = () => {
                         <div className='main'>
                             <div className='progress-bar'>
                                 {value?.status !== "CANCELLED" ?
-                                    <Stepper activeStep={activeStep}>
+                                    <Stepper className='progress-bar-item' activeStep={activeStep}>
 
                                         <Step label="Order Placed" />
                                         <Step label="Order Confirm" />
@@ -51,7 +51,7 @@ const DetailBooking = () => {
 
                                     </Stepper>
                                     :
-                                    <Stepper activeStep={activeStep}>
+                                    <Stepper className='progress-bar-item' activeStep={activeStep}>
                                         <Step label="Order Placed" />
                                         <Step label="Order Cancelled" />
                                     </Stepper>
@@ -63,7 +63,7 @@ const DetailBooking = () => {
                                         <div className='product'>
 
                                             <div className='image'>
-                                                <img src={item?.product?.images[0].url} className="img-fluid" alt="product image" />
+                                                <img src={item?.product?.images[0].url} alt="product image" />
                                             </div>
                                             <div className='content'>
                                                 <p>Name: {item?.product?.title}</p>

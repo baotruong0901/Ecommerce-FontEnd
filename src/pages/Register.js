@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../component/Input';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
@@ -21,6 +21,11 @@ const Register = () => {
     })
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)

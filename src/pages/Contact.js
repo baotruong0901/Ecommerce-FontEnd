@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import '../scss/contact.scss'
 import BreadCrumb from '../component/homepage/BreadCrumb';
@@ -7,14 +7,16 @@ import { BsTelephoneFill } from 'react-icons/bs'
 
 const Contact = () => {
     const product = useSelector((state) => state?.AllProducts?.products)
-    console.log(product);
+
     const images = product[0]?.images?.map((img) => ({
         original: img.url,
         thumbnail: img.url,
         originalClass: 'featured-slide',
         thumbnailClass: 'featured-thumb',
     }));
-
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
     return (
         <div className="contact">
             <div className="header">

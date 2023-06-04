@@ -23,6 +23,11 @@ const DetailBlog = () => {
     const [sameTopic, setSameTopic] = useState([])
     const dispash = useDispatch()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        document.title = detailBlog?.title; // Thay đổi title của trang web
+    }, []);
+
     const getABlog = () => {
         dispash(fetchABlog(id))
     }

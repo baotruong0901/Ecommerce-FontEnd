@@ -10,6 +10,7 @@
             tbody{
                 td{
                     padding: 20px 10px;
+                    border-bottom: none;
                 }
                 p{
                     color: var(--color-777777);
@@ -29,6 +30,11 @@
                     text-overflow: ellipsis;
                 }
                 .price{
+                    font-size: 14px;
+                    color: var(--color-1c1c1b);
+                    padding-top: 35px;
+                }
+                .price-total{
                     font-size: 14px;
                     color: var(--color-1c1c1b);
                     padding-top: 35px;
@@ -59,6 +65,172 @@
                 width: 50%;
                 height: 400px;
                 margin:20px auto 50px;
+        }
+    }
+}
+
+@media (max-width: 768px) and (min-width: 426px) {
+    .cart{
+        &-main{
+        padding: 0px;
+        .table{
+            tbody{
+                td{
+                    padding: 10px 5px;
+
+                }
+                p{
+                    font-size: 12px;
+                }
+                .image{
+                    img{
+                        height: 70px;
+                        width: 100%;
+                    }
+                }
+                .price{
+                    font-size: 12px;
+                }
+                .quantity{
+                    padding-top: 20px;
+                }
+                
+            }
+        }
+    }
+    .no-product{
+                width: 50%;
+                height: 250px;
+        }
+    }
+    .sub-total{
+        h4{
+            font-size: 18px;
+        }
+        .button{
+            font-size: 12px;
+            padding: 4px 15px;
+        }
+        p{
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .cart{
+        position: relative;
+    }
+    .header{
+        display: none;
+    }
+    .cart{
+        &-main{
+        padding: 0px;
+        .table{
+            margin-top: 24px;
+            .box-cart{
+                display: flex;
+                align-items: start!important;
+            }
+            th{
+                display: none;
+            }
+            tbody{
+                tr{
+                    position: relative;
+                }
+                td{
+                    display: inline-block;
+                    padding: 0;
+                    margin-bottom: 10px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid var(--color-febd69);
+                }
+                p{
+                    font-size: 12px;
+                    margin: 0;
+                }
+                .image{
+                    width: 60%!important;
+                    img{
+                        height: 120px;
+                        width: 100%;
+                    }
+                }
+                .price{
+                    width: 40%;
+                    font-size: 12px;
+                    padding: 0;
+                    position: absolute;
+                    top: 50px;
+                    left: 25px;
+                    transform: translate(100%,100%);
+                }
+                .quantity{
+                    width: 40%;
+                    padding: 0px;
+                    position: absolute;
+                    top: 55px;
+                    left: 25px;
+                     transform: translate(100%,100%);
+                    input{
+                        width: 50px;
+                        padding: 2px 4px;
+                    }
+                }
+                .price-total{
+                    display: none;
+                }
+                .description{
+                    padding-bottom: 5px;
+                }
+                
+            }
+        }
+    }
+    .no-product{
+                width: 50%;
+                height: 250px;
+        }
+    }
+    .sub-total{
+        h4{
+            font-size: 18px;
+        }
+        .button{
+            font-size: 12px;
+            padding: 4px 15px;
+        }
+        .back{
+            position: absolute;
+            top: 10px;
+            background-color: transparent!important;
+            color: var(--colot-777777);
+            padding: 0;
+        }
+        .bottom{
+            display: flex;
+            flex-direction: column;
+            align-items: start!important;
+            padding: 20px 20px;
+            background-color: var(--color-fff);
+            width: 100%;
+            .button{
+                width: 100%;
+                padding: 4px 20px;
+                font-size: 16px;
+            }
+            h4{
+                width: 100%;
+                span{
+                    display: inline-block;
+                    width: 50%;
+                }
+            }
+        }
+        p{
+            font-size: 14px;
         }
     }
 }

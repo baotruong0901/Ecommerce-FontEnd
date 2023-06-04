@@ -92,7 +92,7 @@ function App() {
 
             </Route>
             <Route path="/admin" element={<Admin />}>
-              <Route index element={<Dashboard />} />
+              <Route index path="dashboard" element={<Dashboard />} />
               <Route path="customers" element={<Customer />} />
               <Route path="add" element={<Add />} />
               <Route path="product-list" element={<ProductList />} />

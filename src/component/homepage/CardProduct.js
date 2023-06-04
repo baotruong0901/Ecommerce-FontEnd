@@ -19,8 +19,8 @@ const CardProduct = (props) => {
                 >
                     <img src={image} className="card-img" alt={slug} />
                     <div className="card-body">
-                        <p className="card-title mb-1">{title}</p>
-                        <p className='card-price my-2'>
+                        <p className="card-title mb-sm-1">{title}</p>
+                        <p className='card-price'>
                             {coupon && coupon !== "0" ?
 
                                 <>
@@ -51,7 +51,7 @@ const CardProduct = (props) => {
                                 />
                             }
                         </p>
-                        <span className='card-start mb-1'>
+                        <span className='card-start mb-sm-1'>
                             <ReactStars
                                 key={star}
                                 count={5}

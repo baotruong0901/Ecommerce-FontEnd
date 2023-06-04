@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import '../scss/purchase.scss'
@@ -10,6 +10,9 @@ const Purchase = () => {
     const [progress, setProgress] = useState(false)
     const [value, setValue] = useState([])
     const navigate = useNavigate()
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
     const handleTabSelect = (eventKey) => {
         setActiveTab(eventKey);
         navigate(`/user/purchase/type=${eventKey}`)

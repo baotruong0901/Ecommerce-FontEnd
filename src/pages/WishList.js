@@ -15,6 +15,9 @@ const Wishlist = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        document.title = 'E-commerce Wish List'; // Thay đổi title của trang web
+    }, []);
 
     useEffect(() => {
         fetchWishListUser()

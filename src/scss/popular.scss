@@ -2,18 +2,18 @@
     &-container{
         display: flex;
         justify-content: space-between;
+
     }
     .section-heading{
         margin-right: 4px;
     }
     &-tabs{   
-        width: 19%;
         border-radius: 4px;
-        box-shadow: 0px 0px 5px rgba(#000, 0.2);
+        box-shadow: 0px 0px 5px rgba(#000, 0.1);
         background-color: var(--color-fff);
-        margin: 10px 4px;
+        margin: 0px 4px;
         .item{
-            padding: 8px;
+            padding: 10px 8px;
             cursor: pointer;
             button{
                 background-color: transparent;
@@ -37,16 +37,18 @@
         
     }
     &-product{
-        width: 80%;
+        padding-right: 6px;
+
         .slick-slide {
-            padding: 10px 0 10px 10px;
+            padding: 0px 0 0px 10px;
             box-sizing: border-box;
         }
         .slick-arrow{
             top: -20px;
         }
         .slick-prev{
-            left: 94%;
+            left: 100%;
+            transform: translate(-300%,-50%);
         }
         .slick-next{
             right: 10px;
@@ -55,11 +57,48 @@
             font-size:28px;
             color: var(--color-bf4800);
         }
-        // display: flex;
-        // justify-content: space-between;
-        // align-items: center;
-        // flex-wrap: wrap;
-        // gap: 15px;
     }
 
+}
+
+@media (max-width: 425px) {
+  .popular{
+    .section-heading{
+        font-size: 18px;
+    }
+    &-container{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .popular-tabs{
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            overflow-x: scroll;
+            margin: 0;
+            margin-bottom: 20px;
+            .item{
+                padding: 8px;
+                img{
+                    width: 30px;
+                    height: 30px;
+                }
+                button{
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+            }
+        }
+        .popular-product{
+            padding: 0 ;
+            .slick-slide {
+                padding: 0 5px;
+                box-sizing: border-box;
+            }
+            .slick-prev,.slick-next{
+                display: none!important;
+            }
+        }
+    }
+  }
 }

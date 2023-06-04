@@ -24,10 +24,10 @@ const Banner = () => {
         <section className='banner'>
             <div className='container-xxl'>
                 <div className='row'>
-                    <div className='col-6'>
-                        <div className='banner-main'>
+                    <div className='col-12 col-lg-6'>
+                        <div className='banner-main '>
                             <Slider {...settings}>
-                                <div className='banner-item my-5'>
+                                <div className='banner-item my-4'>
                                     <div className='image' style={{ backgroundImage: `url(${banner1})` }}>
 
                                     </div>
@@ -41,7 +41,7 @@ const Banner = () => {
                                         <button><Link >buy now</Link></button>
                                     </div>
                                 </div>
-                                <div className='banner-item my-5'>
+                                <div className='banner-item my-4'>
                                     <div className='image' style={{ backgroundImage: `url(${banner2})` }}>
 
                                     </div>
@@ -58,8 +58,8 @@ const Banner = () => {
                             </Slider>
                         </div>
                     </div>
-                    <div className='col-6'>
-                        <div className='banner-right my-5'>
+                    <div className='col-12 my-4 col-lg-6'>
+                        <div className='banner-right'>
                             <div className='item' style={{ backgroundImage: `url(${cartbanner1})` }}>
                                 <div className='banner-content'>
                                     <span>best sale</span>
@@ -80,7 +80,7 @@ const Banner = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className='item ' style={{ backgroundImage: `url(${cartbanner3})` }}>
+                            <div className='item' style={{ backgroundImage: `url(${cartbanner3})` }}>
                                 <div className='banner-content'>
                                     <span>15% off</span>
                                     <h2>Smartwatch 7</h2>

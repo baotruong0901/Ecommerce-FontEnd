@@ -50,6 +50,10 @@ const OurStore = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
+
     const LIMIT = 15
 
     const fetchAllColors = async () => {

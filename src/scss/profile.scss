@@ -1,13 +1,13 @@
 .profile{
     background-color: var(--color-ededed);
+    padding-top: 30px;
     &-item{
-        display: flex;
-        gap: 30px;
+        // display: flex;
+        // gap: 30px;
         .left{
-            width: 15%;
+            // width: 15%;
             padding: 20px 10px;
             .menu-links{
-                width: 100%;
                 .sub-menu{
                     margin-left: 25px;
                 }
@@ -35,8 +35,26 @@
             }   
         }
         .right{
-            width: 85%;
+        }
+    }
+}
 
+@media (max-width: 768px) {
+    .left{
+        padding:30px 20px 42px 20px!important;
+        
+        .menu-links{
+            position: relative;
+            display: flex;
+            .nav-link{
+                padding: 0 20px!important;
+            }
+            .sub-menu{
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(10%,50%);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet } from "react-router-dom";
 import "../scss/checkout.scss"
 import { useSelector } from 'react-redux';
@@ -6,16 +6,18 @@ import { NumericFormat } from 'react-number-format'
 const Checkout = () => {
     const cart = useSelector((state) => state?.cart)
     const [totalShipping, setTotalShipping] = useState(0)
-
+    // useEffect(() => {
+    //     document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    // }, []);
     return (
         <div className='checkout'>
             <div className='checkout-main py-4'>
                 <div className='container-xxl'>
-                    <div className="row">
-                        <div className="col-7">
+                    <div className="row main">
+                        <div className="col-12 col-sm-7">
                             <Outlet />
                         </div>
-                        <div className="col-5 right">
+                        <div className="col-12 col-sm-5 right">
                             <div className="border-bottom pb-2">
                                 {cart && cart?.pCart?.products.length > 0 && cart?.pCart?.products.map((item, index) => {
                                     return (
@@ -53,7 +55,7 @@ const Checkout = () => {
                                 })}
 
                             </div>
-                            <div className="border-bottom py-4">
+                            <div className="border-bottom py-2 py-sm-4">
                                 <div className="d-flex justify-content-between align-items-center">
                                     <p className="total">Subtotal</p>
                                     <p className="total-price">
@@ -77,7 +79,7 @@ const Checkout = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-between align-items-center border-bootom py-4">
+                            <div className="d-flex justify-content-between align-items-center border-bootom py-2 py-sm-4">
                                 <h4 className="total">Total</h4>
                                 <h5 className="total-price">
                                     <NumericFormat

@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-import { NavLink, useNavigate, useLocation, Outlet, Link, useParams } from 'react-router-dom';
-import { CgArrowsExchange, CgLogOut } from "react-icons/cg"
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate, Outlet, Link, useParams } from 'react-router-dom';
+import { CgLogOut } from "react-icons/cg"
 import { TbClipboardText } from "react-icons/tb"
 import { AiOutlineUser } from "react-icons/ai"
-
-import { LogoutApi } from '../service/homeService';
-import '../scss/profile.scss'
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/actions/userActions';
+import '../scss/profile.scss'
 const Profile = () => {
-    const location = useLocation()
+
     const dispash = useDispatch()
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
     const { type } = useParams()
-    // const purchase=param?.
-    console.log(type);
+
+    useEffect(() => {
+        document.title = "Profile"; // Thay đổi title của trang web
+    }, []);
+
     const handleLogout = async () => {
         await dispash(logout())
         navigate("/login")
@@ -25,7 +25,7 @@ const Profile = () => {
         setShow(true)
     }
     return (
-        <div className='profile pt-5'>
+        <div className='profile'>
             {/* <div className='header mb-5'>
                 <div className='container-xxl'>
                     <div className='row'>
@@ -48,8 +48,8 @@ const Profile = () => {
             </div> */}
             <div className='profile-main'>
                 <div className='container-xxl'>
-                    <div className='profile-item d-flex pb-5'>
-                        <div className='left'>
+                    <div className='profile-item row d-flex pb-5'>
+                        <div className='left col-12 col-lg-2'>
                             <div className='menu-links'>
                                 <Link onClick={handleShow} className='nav-link' to="account"><AiOutlineUser size={"24px"} color={'4267b2'} /><span className="px-2"> My Account</span> </Link>
                                 {show === true &&
@@ -64,7 +64,7 @@ const Profile = () => {
                                 </Link>
                             </div>
                         </div>
-                        <div className='right'>
+                        <div className='right col-12 col-lg-10'>
                             <Outlet />
                         </div>
                     </div>

@@ -17,6 +17,10 @@ const Cart = () => {
     const dispash = useDispatch()
     const navigate = useNavigate()
     const [cartProduct, setCartProduct] = useState([])
+    useEffect(() => {
+        document.title = 'E-commerce Cart'; // Thay đổi title của trang web
+    }, []);
+
     const fetchProductInCart = async () => {
         const res = await getProductCart()
         if (res && res.success === true) {
@@ -60,10 +64,10 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-                <div className='cart-main mt-3'>
+                <div className='cart-main pt-3'>
                     <div className='container-xxl'>
                         <div className='row'>
-                            <div className='col-12 '>
+                            <div className='col-12'>
                                 {cartProduct?.products?.length === 0 || cartProduct?.length === 0 ?
                                     (<div className='col-12'>
                                         <div style={{ backgroundImage: `url(${NoProduct})` }} className='no-product'>
@@ -89,7 +93,7 @@ const Cart = () => {
                                                             return (
                                                                 <tr key={`${index}-cart`}>
                                                                     <td>
-                                                                        <div className="gap-15 d-flex align-items-center">
+                                                                        <div className="box-cart gap-15 d-flex align-items-center">
                                                                             <div className='w-25 image'>
                                                                                 <img src={item?.product?.images[0]?.url} className="img-fluid" alt="product image" />
                                                                             </div>
@@ -158,7 +162,7 @@ const Cart = () => {
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <h5 className="price">
+                                                                        <h5 className="price-total">
                                                                             <NumericFormat
                                                                                 value={item?.price}
                                                                                 displayType={"text"}
@@ -172,19 +176,21 @@ const Cart = () => {
                                                         })}
                                                 </tbody>
                                             </table>
-                                            <div className="mt-5 pb-5">
+                                            <div className="sub-total mt-sm-5 pb-2 pb-sm-5">
                                                 <div className="d-flex justify-content-between align-items-baseline">
-                                                    <Link to="/our-store" className="button">
+                                                    <Link to="/our-store/all&page=1" className="button back">
                                                         Continue To Shopping
                                                     </Link>
-                                                    <div className="d-flex flex-column align-items-end">
-                                                        <h4>SubTotal:
+                                                    <div className="bottom d-flex flex-column align-items-end">
+                                                        <h4>
+                                                            <span>SubTotal: </span>
                                                             <NumericFormat
                                                                 value={cartProduct?.cartTotal}
                                                                 displayType={"text"}
                                                                 thousandSeparator={true}
-                                                                suffix={'đ'}
-                                                            /></h4>
+                                                                suffix={' đ'}
+                                                            />
+                                                        </h4>
                                                         <p>Taxes and shipping calculated at checkout</p>
                                                         <button type='button'
                                                             onClick={() => handleCheckOut()} className="button">

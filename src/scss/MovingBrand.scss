@@ -2,13 +2,23 @@
     .item{
         height: 140px;
         margin: 0 15px;
-        width: calc(100% / 8);
+        width:12.5%;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover; 
         cursor: pointer;
     }
      .marquee-container{
-        box-shadow: 1px 1px 4px 4px rgba(#000, 0.05);
+        box-shadow: 0px 0px 5px  rgba(#000, 0.1);
      }
+}
+
+@media (max-width: 425px) {
+  .moving-brand{
+    padding: 20px 0;
+    .item{
+        height: 80px;
+        width: 80px;
+    }
+  }
 }

@@ -41,6 +41,10 @@ const DetailProduct = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        document.title = title; // Thay đổi title của trang web
+    }, []);
+
     const cart = {
         productId: "",
         count: "",

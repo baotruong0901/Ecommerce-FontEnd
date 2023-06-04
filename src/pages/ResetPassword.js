@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Input from '../component/Input';
@@ -19,8 +19,12 @@ const ResetPassword = () => {
     const navigate = useNavigate()
     const token = location.pathname.split("/")[2]
     const [isLoading, setIsLoading] = useState(false)
-    console.log(token);
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
+
     const formik = useFormik({
         initialValues: {
             password: ""

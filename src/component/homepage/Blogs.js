@@ -27,17 +27,39 @@ const Blogs = () => {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
-        centerPadding: 30
+        centerPadding: 30,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 425,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: false,
+                    centerMode: true,
+                    centerPadding: '10px'
+                }
+            },
+        ]
 
     };
     return (
-        <section className='blog pb-5'>
+        <section className='blog'>
             <div className='container-xxl'>
                 <div className='row'>
-                    <div className="col-12 mb-3">
+                    <div className="col-12 mb-sm-3">
                         <h3 className="section-heading">News</h3>
                     </div>
-                    <div className='main'>
+                    <div className='col-12 main'>
                         <Slider {...settings}>
                             {blogs && blogs.length > 0 && blogs.map((item, index) => {
                                 return (

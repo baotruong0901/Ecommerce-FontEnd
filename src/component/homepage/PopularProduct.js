@@ -95,18 +95,48 @@ const PopularProduct = () => {
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
-        centerPadding: 30
-
+        centerPadding: 30,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 425,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: false,
+                    centerMode: true,
+                    centerPadding: '15px 0'
+                }
+            },
+        ]
     };
     return (<>
-        <section className='popular pb-3'>
+        <section className='popular pb-4'>
             <div className='container-xxl'>
                 <div className='row'>
-                    <div className="col-12 mb-3">
+                    <div className="col-12 mb-sm-3">
                         <h3 className="section-heading">Our Popular Products</h3>
                     </div>
-                    <div className='popular-container'>
-                        <div className=' popular-tabs'>
+                    <div className='col-12 popular-container'>
+                        <div className='col-12 col-md-3 col-lg-2 popular-tabs'>
                             {category && category.length > 0 && category.map((item, index) => {
                                 return (
                                     <div
@@ -120,7 +150,7 @@ const PopularProduct = () => {
                                 )
                             })}
                         </div>
-                        <div className='popular-product'>
+                        <div className='col-12 col-md-9 col-lg-10 popular-product'>
                             <Slider {...settings}>
                                 {product && product.length > 0 && product.map((item, index) => {
                                     return (

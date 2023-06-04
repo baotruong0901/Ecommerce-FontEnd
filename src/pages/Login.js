@@ -22,6 +22,10 @@ const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
+
     const fetchCart = async () => {
         let res = await getProductCart()
         dispatch(setCart(res?.data))

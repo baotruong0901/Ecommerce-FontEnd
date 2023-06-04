@@ -4,12 +4,12 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import App from './App';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'nprogress/nprogress.css'
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import App from './App';
-import { ProSidebarProvider } from 'react-pro-sidebar';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

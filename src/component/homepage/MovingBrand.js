@@ -24,7 +24,7 @@ const MovingBrand = () => {
     }
 
     return (
-        <div className='moving-brand pb-5'>
+        <div className='moving-brand py-sm-4'>
             <div className='container-xxl'>
                 <div className='row'>
                     <div className='col-12'>

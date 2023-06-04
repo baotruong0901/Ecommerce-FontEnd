@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MdOutlineDone } from 'react-icons/md'
 import "../scss/bookingSuccedd.scss"
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,7 +6,9 @@ const BookingSuccedd = () => {
     const navigate = useNavigate()
     const param = useParams()
     const bookingId = param?.state?.split('&')[1]
-
+    useEffect(() => {
+        document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
+    }, []);
 
     const handleContinute = () => {
         navigate('/our-store/all')
