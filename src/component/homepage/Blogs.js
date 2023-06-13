@@ -41,12 +41,12 @@ const Blogs = () => {
             {
                 breakpoint: 425,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 1,
                     slidesToScroll: 1,
                     infinite: true,
                     dots: false,
                     centerMode: true,
-                    centerPadding: '10px'
+                    centerPadding: '12px'
                 }
             },
         ]
@@ -56,14 +56,13 @@ const Blogs = () => {
         <section className='blog'>
             <div className='container-xxl'>
                 <div className='row'>
-                    <div className="col-12 mb-sm-3">
+                    <div className="col-12 mb-2 mb-sm-3">
                         <h3 className="section-heading">News</h3>
                     </div>
                     <div className='col-12 main'>
                         <Slider {...settings}>
                             {blogs && blogs.length > 0 && blogs.map((item, index) => {
                                 return (
-
                                     <CardBlog
                                         description={item?.description}
                                         title={item?.title}

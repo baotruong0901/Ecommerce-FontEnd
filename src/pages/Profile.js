@@ -25,7 +25,7 @@ const Profile = () => {
         setShow(true)
     }
     return (
-        <div className='profile'>
+        <div className='profile py-3 py-md-4'>
             {/* <div className='header mb-5'>
                 <div className='container-xxl'>
                     <div className='row'>
@@ -48,7 +48,7 @@ const Profile = () => {
             </div> */}
             <div className='profile-main'>
                 <div className='container-xxl'>
-                    <div className='profile-item row d-flex pb-5'>
+                    <div className='profile-item row d-flex'>
                         <div className='left col-12 col-lg-2'>
                             <div className='menu-links'>
                                 <Link onClick={handleShow} className='nav-link' to="account"><AiOutlineUser size={"24px"} color={'4267b2'} /><span className="px-2"> My Account</span> </Link>

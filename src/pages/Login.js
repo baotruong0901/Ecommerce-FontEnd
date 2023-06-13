@@ -54,15 +54,11 @@ const Login = () => {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
     return (
-        <div className='login pb-5'>
+        <div className='login'>
             <div className='container-xxl'>
-                <div className='row'>
+                <div className='row main'>
                     <div className='col-12'>
-                        <Breadcrumb className='container new-header d-flex justify-content-center mt-2 mb-3'>
-                            <NavLink to="/" className="breadcrumb-item">Home</NavLink>
-                            <Breadcrumb.Item active>Login</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <form className='col-3'>
+                        <form className='col-12 col-sm-3 col-md-5'>
                             <h4 className='mb-2'>Login</h4>
                             <Input
                                 placeholder="Enter Email"

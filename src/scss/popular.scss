@@ -20,8 +20,8 @@
                 padding-left: 10px;
             }
             img{
-            width: 40px;
-            height: 40px;
+                width: 40px;
+                height: 40px;
             }
             &:hover{
                 button{
@@ -58,7 +58,6 @@
             color: var(--color-bf4800);
         }
     }
-
 }
 
 @media (max-width: 425px) {
@@ -76,7 +75,11 @@
             overflow: hidden;
             overflow-x: scroll;
             margin: 0;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            border-radius: 0;
+            box-shadow:none!important;
+            background-color: transparent!important;
+
             .item{
                 padding: 8px;
                 img{
@@ -86,6 +89,7 @@
                 button{
                     font-size: 12px;
                     font-weight: 500;
+                    
                 }
             }
         }

@@ -333,15 +333,15 @@ const OurStore = () => {
                                 </div>
                             </div>
                             <div className="filter-card mb-3">
-                                <h3 className="filter-title">
+                                <h3 className="filter-title mb-2">
                                     <span>
                                         Product Tags
                                     </span>
                                 </h3>
                                 <div>
-                                    <div className="product-tags d-flex flex-wrap align-items-center gap-10">
+                                    <div className="product-tags pb-3 d-flex flex-wrap align-items-center gap-10">
                                         <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                                            Headphone
+                                            Case
                                         </span>
                                         <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
                                             Laptop
@@ -353,26 +353,26 @@ const OurStore = () => {
                                             Wire
                                         </span>
                                         <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                                            Headphone
+                                            phụ kiện
                                         </span>
                                         <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                                            Laptop
+                                            sạc dự phòng
                                         </span>
                                         <span className="badge bg-light text-secondary rounded-3 py-2 px-3">
-                                            Mobile
+                                            ipad
                                         </span>
 
                                     </div>
                                 </div>
                             </div>
-                            <div className="filter-card mb-3">
+                            {/* <div className="filter-card mb-3">
                                 <h3 className="filter-title">
                                     <span>Random Product</span>
                                 </h3>
                                 <div>
 
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="right">
                             <div className="filter-sort-grid mb-3">
@@ -407,8 +407,8 @@ const OurStore = () => {
                                                     image={item?.images[0]?.url}
                                                     slug={item?.slug}
                                                     star={item?.totalrating}
-                                                    width={`19.2%`}
                                                     coupon={item?.coupon}
+                                                    width={`19.2%`}
                                                     sold={item?.sold}
                                                 />
                                             </>

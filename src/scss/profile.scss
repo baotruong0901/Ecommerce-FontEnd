@@ -1,6 +1,5 @@
 .profile{
     background-color: var(--color-ededed);
-    padding-top: 30px;
     &-item{
         // display: flex;
         // gap: 30px;
@@ -39,21 +38,27 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
     .left{
-        padding:30px 20px 42px 20px!important;
-        
+        padding: 10px 20px 30px 20px!important;
         .menu-links{
             position: relative;
             display: flex;
             .nav-link{
                 padding: 0 20px!important;
+                display: flex;
             }
             .sub-menu{
                 position: absolute;
                 top: 0;
-                left: 0;
+                left: 10px;
+                background-color: var(--color-fff);
+                box-shadow: 0px 0px 5px rgba(#000, 0.1);
+                width: 160px;
                 transform: translate(10%,50%);
+                a{
+                     padding: 0px 5px!important;
+                }
             }
         }
     }

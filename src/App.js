@@ -39,6 +39,7 @@ import BookingSuccedd from "./component/BookingSuccedd";
 import DetailBooking from "./component/DetailBooking";
 import PrivateRoute from "./component/PrivateRoute";
 import Blogs from './component/homepage/Blogs';
+import Splash from './component/Splash';
 
 const NotFound = () => {
   return (
@@ -50,9 +51,9 @@ const NotFound = () => {
 function App() {
   return (
     <>
-      <Suspense fallback={<div>Loading</div>}>
 
-        <BrowserRouter>
+      <BrowserRouter>
+        <Suspense fallback={<Splash />}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
@@ -108,20 +109,20 @@ function App() {
             <Route path='*' element={<NotFound />} />
 
           </Routes>
-        </BrowserRouter >
-        <ToastContainer
-          position="bottom-center"
-          autoClose={2500}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-      </Suspense>
+        </Suspense>
+      </BrowserRouter >
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }

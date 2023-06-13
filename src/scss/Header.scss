@@ -6,60 +6,90 @@ header{
         background: var(--color-131921);
         border-top: 1px solid var(--color-3b4149);
         .navbar{
+            .hide{
+                display: none;
+            }
             .navbar-brand{
                 color: var(--color-fff);
                 font-size: 30px;
                 margin-right: 60px;
             }
-            .navbar-collapse{
+            .navbar-collapse{ 
                 .search{
-                    width: 90%;
+                    width: 100%;
+                    position: relative;
+                    .rbt{
+                        width: 100%;
+                        margin: 0!important;
+                        .dropdown-menu {
+                            .dropdown-item{
+                                .search-item{
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    .search-image{
+                                        height: 70px;
+                                        margin-right: 20px;
+                                    }
+                                    .search-title{
+                                         display: -webkit-box;
+                                            -webkit-box-orient: vertical;
+                                            -webkit-line-clamp: 1; // Hiển thị tối đa 2 dòng
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .input-group-text{
+                        position: absolute;
+                        top: 4px;
+                        right: 4px;
+                        padding: 6px 30px;
+                    }
+                    .form-control{
+                        &:focus{
+                            box-shadow: none;
+                            border-color:var(--color-fff);
+                        }
+                    }
+                
+                }
+                .navbar-nav{
+                    .nav-link{
+                        margin:0 10px;
+                    }
+                    .account{
+                        p{
+                            min-width: 140px;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1; // Hiển thị tối đa 2 dòng
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                    a.active{
+                        svg,p{
+                            color: var(--color-007bff)!important;
+                        }   
+                    }
+                    p{
+                        margin: 0;
+                    }
+                    a{
+                        text-decoration: none;
+                        display: inline-block;
+                    }
                 }
             }
             .navbar-toggler{
                 background-color: var(--color-fff);
+                
             }
-            .search{
-                position: relative;
-                width: 100%;
-                .rbt{
-                    width: 100%;
-                    margin: 0!important;
-                    margin-bottom: 20px;
-                }
-                .input-group-text{
-                    position: absolute;
-                    top: 4px;
-                    right: 4px;
-                    padding: 6px 30px;
-                }
-                .form-control{
-                    &:focus{
-                        box-shadow: none;
-                        border-color:var(--color-fff);
-                    }
-                }
-            }
-            .navbar-nav{
-                margin-left: 30px;
-                .account{
-                    p{
-                     min-width: 130px;
-                    }
-                }
-                a.active{
-                    svg,p{
-                        color: var(--color-007bff)!important;
-                    }   
-                }
-                p{
-                    margin: 0;
-                }
-                a{
-                    text-decoration: none;
-                    display: inline-block;
-                }
-            }
+            
+            
         }
         // .input-group{
         //     .form-control{
@@ -233,9 +263,9 @@ header{
     .header-middle{
         .navbar{
             .nav-link{
-                margin:0;
-                padding: 8px 15px;
-                width: 91%;
+                margin:0!important;
+                padding:14px 16px;
+                width: 100%;
                 
                 p,svg{
                     color: var(--color-777777)!important;

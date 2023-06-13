@@ -132,7 +132,7 @@ const PopularProduct = () => {
         <section className='popular pb-4'>
             <div className='container-xxl'>
                 <div className='row'>
-                    <div className="col-12 mb-sm-3">
+                    <div className="col-12 mb-2 mb-sm-3">
                         <h3 className="section-heading">Our Popular Products</h3>
                     </div>
                     <div className='col-12 popular-container'>

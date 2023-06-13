@@ -24,10 +24,10 @@ const MovingBrand = () => {
     }
 
     return (
-        <div className='moving-brand py-sm-4'>
+        <div className='moving-brand'>
             <div className='container-xxl'>
                 <div className='row'>
-                    <div className='col-12'>
+                    <div className='col-12 pb-4 pb-sm-4'>
 
                         <Marquee>
                             {brands && brands.length > 0 && brands.map((item, index) => {

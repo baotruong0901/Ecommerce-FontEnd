@@ -6,9 +6,9 @@ import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { AiOutlineHeart, AiOutlineUser, AiOutlineShoppingCart } from 'react-icons/ai'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
+// import Container from 'react-bootstrap/Container';
+// import NavDropdown from 'react-bootstrap/NavDropdown';
+// import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { NumericFormat } from 'react-number-format'
@@ -31,11 +31,16 @@ const Header = () => {
     const blogState = useSelector(state => state?.blogs?.blogs)
     const [paginate, setPaginate] = useState(true);
     const navigate = useNavigate()
-    const [showMenu, setShowMenu] = useState(false);
+    const [isNavOpen, setNavOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setShowMenu(!showMenu);
+    const handleNavToggle = () => {
+        setNavOpen(false);
     };
+    // const [showMenu, setShowMenu] = useState(false);
+
+    // const toggleMenu = () => {
+    //     setShowMenu(!showMenu);
+    // };
     //search 
     const [dataOpt, setDataOpt] = useState([])
 
@@ -104,7 +109,7 @@ const Header = () => {
                     </div>
                 </div>
             </section>
-            <section className='header-middle py-2'>
+            <section className='header-middle py-sm-2'>
                 <div className='container-xxl'>
                     {/* <div className='row align-items-center'>
                         <div className='col-2'>
@@ -257,8 +262,8 @@ const Header = () => {
                     </div > */}
                     <Navbar expand="lg">
                         <Navbar.Brand><NavLink className='nav-link' to="/">E-commerce</NavLink></Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
+                        <Navbar.Toggle />
+                        <Navbar.Collapse>
                             <Form className="d-flex me-auto search">
                                 <Typeahead
                                     className="me-2"
@@ -277,12 +282,14 @@ const Header = () => {
                                 </span>
                             </Form>
                             <Nav >
-                                <NavLink to="admin/dashboard" className='nav-link d-flex align-items-center d-flex gap-10'>
-                                    <MdOutlineAdminPanelSettings color='white' size='28px' />
-                                    <p className='text-white'>
-                                        Admin
-                                    </p>
-                                </NavLink>
+                                {userInfo && userInfo.role === "admin" &&
+                                    <NavLink to="admin/dashboard" className='nav-link d-flex align-items-center d-flex gap-10'>
+                                        <MdOutlineAdminPanelSettings color='white' size='28px' />
+                                        <p className='text-white'>
+                                            Admin
+                                        </p>
+                                    </NavLink>
+                                }
                                 <NavLink to="wish-list" className='nav-link d-flex align-items-center gap-10'>
                                     <AiOutlineHeart color='white' size='28px' />
                                     <p className='text-white'>
@@ -293,7 +300,7 @@ const Header = () => {
                                 {isLogin === true ?
                                     <NavLink to='/user/account' className='account nav-link d-flex align-items-center gap-10'>
                                         <AiOutlineUser color='white' size='28px' />
-                                        <p className='text-white'>
+                                        <p className='text-white '>
                                             Welcome! {userInfo?.firstname}
                                         </p>
                                     </NavLink>

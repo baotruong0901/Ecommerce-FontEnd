@@ -141,7 +141,7 @@ const Shipping = () => {
                     <form
                         className='row'
                     >
-                        <div className="col-12 col-sm-6">
+                        <div className="col-12 col-lg-6">
                             <Input
                                 name="fullName"
                                 type="text"
@@ -154,7 +154,7 @@ const Shipping = () => {
                             />
                         </div>
 
-                        <div className="col-sm-6 col-12">
+                        <div className="col-lg-6 col-12">
                             <Input
                                 name="phoneNumber"
                                 type="text"

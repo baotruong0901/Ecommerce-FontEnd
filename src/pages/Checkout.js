@@ -14,16 +14,16 @@ const Checkout = () => {
             <div className='checkout-main py-4'>
                 <div className='container-xxl'>
                     <div className="row main">
-                        <div className="col-12 col-sm-7">
+                        <div className="col-12 col-sm-6">
                             <Outlet />
                         </div>
-                        <div className="col-12 col-sm-5 right">
+                        <div className="col-12 col-sm-6 right">
                             <div className="border-bottom pb-2">
                                 {cart && cart?.pCart?.products.length > 0 && cart?.pCart?.products.map((item, index) => {
                                     return (
                                         <div key={`${index}-checkout`} className="d-flex gap-10 mb-3 align-items-center">
-                                            <div className="w-75 d-flex align-items-center d-flex gap-10">
-                                                <div className="w-25 product">
+                                            <div className="d-flex align-items-center d-flex gap-10">
+                                                <div className="product">
                                                     <span
                                                         className="count"
                                                     >

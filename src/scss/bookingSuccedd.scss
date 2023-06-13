@@ -47,7 +47,11 @@
         }
     }
 }
-
+@media (max-width: 820px) {
+    .booking-success{
+        margin: 150px 0 170px;
+    }
+}
 @media (max-width: 425px) {
     .booking-success{
         margin: 50px 0;

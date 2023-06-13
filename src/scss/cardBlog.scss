@@ -36,6 +36,21 @@
         .card-img{
             height: 150px;
         }
+        .card-body{
+            padding: 15px 8px 0px 8px;
+        }
+    }
+  }
+}
+@media (max-width: 425px) {
+  .card-blog{
+    .card-main{
+        .card-img{
+            height: 150px;
+        }
+        .card-body{
+            padding: 15px 8px 0px 8px;
+        }
     }
   }
 }
@@ -44,7 +59,7 @@
   .card-blog{
     .card-main{
         .card-img{
-            height: 160px;
+            height: 180px;
             cursor: pointer;
         }
     }

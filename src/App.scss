@@ -1,17 +1,10 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-p,h2,h3,h4,h5,ul{
-    margin: 0;
+
+p,h2,h3,h4,h5,ul,ol{
+    margin-bottom: 0!important;
 }
 :root{
     --color-131921:#131921;
-    // --color-131921:#ee4d2d;
-    // --color-3b4149:#ee4d2d;
     --color-3b4149:#3b4149;
-    // --color-232f3e:#ee4d2d;
     --color-232f3e:#232f3e;
     --color-007bff:#007bff;
     --color-254892:#254892;
@@ -34,8 +27,8 @@ ul,li{
     list-style: none;
 }
 a{
-    text-decoration: none;
-    display: inline-block;
+    text-decoration: none!important;
+    display: inline-block!important;
 }
 button{
     border: none;
@@ -51,6 +44,7 @@ button{
     gap: 25px;
 }
 .form-control{
+    box-shadow: none!important;
     &:focus{
         box-shadow: none;
     }
@@ -59,18 +53,17 @@ button{
     margin-right: 5px;
 }
 .header{
-        background-color: var(--color-fff);
-        box-shadow: 1px 1px 5px rgba(#000, 0.1);    
-        .new-header{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0!important;
-            ol{
-                margin:15px;
-            }
-        } 
-    }
+    background-color: var(--color-fff);
+    box-shadow: 1px 1px 5px rgba(#000, 0.1);    
+    .new-header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        ol{
+            padding: 15px;
+        }
+    } 
+}
 
 .original-price{
     color: var(--color-777777);
@@ -139,3 +132,10 @@ button{
     }
 
 
+
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+}

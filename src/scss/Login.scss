@@ -44,3 +44,19 @@
         }
     }
 }
+
+@media (max-width: 820px) and (min-width:426px) {
+    .login{
+        .main{
+            padding: 120px 0;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .login{
+        .main{
+            padding: 30px 0;
+        }
+    }
+}
