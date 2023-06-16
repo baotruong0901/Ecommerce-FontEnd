@@ -125,7 +125,7 @@ const BrandList = () => {
             width: '20%',
             render: (text) => {
                 return (
-                    <div className='table-category-image'>
+                    <div className='table-image'>
                         <img src={text} />
                     </div>
                 )

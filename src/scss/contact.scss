@@ -5,8 +5,6 @@
         height: 550px;
     }
     .contact-form{
-        display: flex;
-        gap: 30px;
         padding: 30px;
         justify-content: space-between;
         background: var(--color-fff);
@@ -14,7 +12,6 @@
         border-radius: 4px;
         box-shadow: 0px 0px 5px rgba(#000,0.1);
         &-left{
-            width: 50%;
             form{
            input{
                 margin-bottom: 15px;
@@ -30,7 +27,7 @@
         }
         }
         &-right{
-            width: 50%;
+            padding: 0 30px;
             .item{
                 display: flex;
                 align-items: center;
@@ -42,5 +39,23 @@
             }
         }
         
+    }
+}
+
+@media (max-width: 425px) {
+    .contact{
+        .maps{
+            width: 100%;
+            height: 250px;
+        }
+        .contact-form{
+            padding: 20px;
+            margin-top: 30px!important;
+            &-right{
+                padding: 0!important;
+                margin-top: 20px;
+            }
+        }
+
     }
 }

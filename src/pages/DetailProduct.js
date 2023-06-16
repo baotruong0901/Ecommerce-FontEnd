@@ -21,8 +21,8 @@ import Paginate from '../component/Paginate';
 // import Review from '../component/modal/Review';
 
 const DetailProduct = () => {
-    const isLogin = useSelector(state => state.user.isLogin)
-    const product = useSelector((state) => state.Product)
+    const isLogin = useSelector(state => state?.user?.isLogin)
+    const product = useSelector((state) => state?.Product)
     const userId = useSelector((state) => state?.user?.account?._id)
     const reviewBoxRef = useRef(null);
     const [show, setShow] = useState(false)
@@ -38,12 +38,33 @@ const DetailProduct = () => {
     const [pageCount, setPageCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [productByCategory, setProductByCategory] = useState([])
+    const [seemore, setSeemore] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const [isFixed, setIsFixed] = useState(false);
 
     useEffect(() => {
-        document.title = title; // Thay đổi title của trang web
+        const handleScroll = () => {
+            const scrollY = window.scrollY || window.pageYOffset;
+
+            if (scrollY >= 3800) {
+                setIsFixed(false);
+            } else {
+                setIsFixed(true);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
+    useEffect(() => {
+        if (title) {
+            document.title = title; // Thay đổi title của trang web
+        }
+    }, [title]);
 
     const cart = {
         productId: "",
@@ -235,300 +256,312 @@ const DetailProduct = () => {
         window.scrollTo(0, 2310)
     }
 
+    const handleSeemore = () => {
+        setSeemore(!seemore)
+        window.scrollTo(0, 1020)
+
+    }
+
     return (
-        <div className='detail-product pb-5'>
+        <div className='detail-product'>
             {Object.keys(product).length === 0 ? (
                 <div className='container-xxl'>
-                    <div className='loading pt-3'>Loading
+                    <div className='loading py-2 py-sm-5'>Loading
                         <span className='dots'>...</span>
                     </div>
                 </div>
             )
                 :
-                (<>
-                    < div className='detail-product-container mb-4' >
-                        <div className='container-xxl'>
-                            <div className='row'>
-                                <div className='col-12'>
-                                    <Breadcrumb className='new-header'>
-                                        <NavLink to="/" className="breadcrumb-item">Home</NavLink>
-                                        <Breadcrumb.Item active>{title}</Breadcrumb.Item>
-                                    </Breadcrumb>
+                (
+                    <>
+                        < div className='detail-product-container mb-sm-4' >
+                            <div className='container-xxl'>
+                                <div className='row'>
+                                    <div className='col-12'>
+                                        <Breadcrumb className='new-header'>
+                                            <NavLink to="/" className="breadcrumb-item">Home</NavLink>
+                                            <Breadcrumb.Item active>{title}</Breadcrumb.Item>
+                                        </Breadcrumb>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div >
-                    < div className='detail-product-content' >
-                        <div className='container-xxl'>
-                            <div className='row item p-3 m-1'>
-                                <div className='col-5 p-0'>
-                                    <div className='box-image'>
-                                        <ImageGallery items={images}
-                                            showPlayButton={false}
-                                            showNav={false}
-                                            thumbnailClass={(isSelected) =>
-                                                `featured-thumb ${isSelected ? 'active' : ''}`
-                                            }
-                                            slideDuration={0}
-                                        />
-                                    </div>
-
-                                </div>
-                                <div className='col-7'>
-                                    <div className="main-product-details">
-                                        <div>
-                                            <h4 className="title">
-                                                {title}
-                                            </h4>
-                                        </div>
-                                        <div className="box-price pt-3">
-                                            <div className="rating gap-10">
-                                                <ReactStars
-                                                    key={totalrating}
-                                                    count={5}
-                                                    size={16}
-                                                    value={totalrating}
-                                                    edit={false}
-                                                    activeColor="#ffd700"
-                                                />
-                                                <p onClick={handleRemoveToReview} className="mb-0 count-review"> {product?.ratings?.length} Reviews </p>
-                                                {+product?.sold !== 0 && <span className='sold'>{product?.sold} sold</span>}
-                                            </div>
-
-                                            <p className="price ">
-                                                {coupon && +coupon !== 0 ?
-                                                    <>
-                                                        <span className="original-price">
-                                                            <NumericFormat
-                                                                value={price}
-                                                                displayType="text"
-                                                                thousandSeparator={true}
-                                                                suffix={'đ'}
-                                                            />
-                                                        </span>
-                                                        <span className="discounted-price">
-                                                            <NumericFormat
-                                                                value={discounted}
-                                                                displayType="text"
-                                                                thousandSeparator={true}
-                                                                suffix={'đ'}
-                                                            />
-                                                        </span>
-                                                        <span className='coupon'>{coupon}%</span>
-                                                    </>
-
-                                                    :
-                                                    <NumericFormat
-                                                        value={price}
-                                                        displayType={"text"}
-                                                        thousandSeparator={true}
-                                                        suffix={'đ'}
-                                                    />
+                        </div >
+                        < div className='detail-product-content' >
+                            <div className='container-xxl'>
+                                <div className='row item p-sm-3 m-sm-1'>
+                                    <div className='col-12 col-sm-5 p-0'>
+                                        <div className='box-image'>
+                                            <ImageGallery items={images}
+                                                showPlayButton={false}
+                                                showNav={false}
+                                                thumbnailClass={(isSelected) =>
+                                                    `featured-thumb ${isSelected ? 'active' : ''}`
                                                 }
-                                            </p>
-
+                                                slideDuration={0}
+                                            />
                                         </div>
-                                        <div className="pb-3">
-                                            <div className="d-flex gap-10 align-items-center my-2">
-                                                <h3 className="product-heading">Type :</h3>
-                                                <p className="product-data">Watch</p>
-                                            </div>
-                                            <div className="d-flex gap-10 align-items-center my-2">
-                                                <h3 className="product-heading">Brand :</h3>
-                                                <p className="product-data">{product?.brand[0]?.name}</p>
-                                            </div>
-                                            <div className="d-flex gap-10 align-items-center my-2">
-                                                <h3 className="product-heading">Category :</h3>
-                                                <p className="product-data">{product?.category[0]?.name}</p>
-                                            </div>
-                                            <div className="d-flex gap-10 align-items-center my-2">
-                                                <h3 className="product-heading">Tags :</h3>
-                                                <p className="product-data">Watch</p>
-                                            </div>
-                                            <div className="d-flex gap-10 align-items-center my-2">
-                                                <h3 className="product-heading">Availablity :</h3>
-                                                <p className="product-data">In Stock</p>
-                                            </div>
-                                            {
-                                                productSize?.length > 0 &&
-                                                <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                                                    <h3 className="product-heading">Size :</h3>
-                                                    <div className="d-flex flex-wrap gap-15">
-                                                        {productSize && productSize.length > 0 && productSize.map((item, index) => {
-                                                            return (
-                                                                <button key={`${index}-size`}
-                                                                    className={item.isSelected === true ? "size active" : "size"}
-                                                                    onClick={() => handleClickBtnSize(item)}
-                                                                >
-                                                                    {item?.name}
-                                                                </button>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                </div>
-                                            }
-                                            {
-                                                productColor?.length > 0 &&
-                                                <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                                                    <h3 className="product-heading">Color :</h3>
-                                                    <div className="d-flex flex-wrap gap-15">
-                                                        {productColor && productColor.length > 0 && productColor.map((item, index) => {
-                                                            return (
-                                                                <button key={`${index}-size`} className={item.isSelected === true ? "color active" : "color"}
-                                                                    style={{ backgroundColor: `${item.colorCode}` }}
-                                                                    onClick={() => handleClickBtnColor(item)}
-                                                                >
-                                                                </button>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                </div>
-                                            }
 
-                                            <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                                                <h3 className="product-heading">Quantity :</h3>
-                                                <div className="">
-                                                    <input
-                                                        type="number"
-                                                        name=""
-                                                        // defaultValue={1}
-                                                        value={quantity}
-                                                        min={1}
-                                                        max={10}
-                                                        className="form-control"
-                                                        style={{ width: "70px" }}
-                                                        onChange={(e) => handleOnchangeQuantity(e)}
+                                    </div>
+                                    <div className='col-sm-7 col-12'>
+                                        <div className="main-product-details">
+                                            <div>
+                                                <h4 className="title">
+                                                    {title}
+                                                </h4>
+                                            </div>
+                                            <div className="box-price pt-3">
+                                                <div className="rating gap-10">
+                                                    <ReactStars
+                                                        key={totalrating}
+                                                        count={5}
+                                                        size={16}
+                                                        value={totalrating}
+                                                        edit={false}
+                                                        activeColor="#ffd700"
                                                     />
+                                                    <p onClick={handleRemoveToReview} className="mb-0 count-review"> {product?.ratings?.length} Reviews </p>
+                                                    {+product?.sold !== 0 && <span className='sold'>{product?.sold} sold</span>}
                                                 </div>
-                                            </div>
-                                            <div className="d-flex align-items-center gap-30">
-                                                <button
-                                                    className="button button-add border-0"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#staticBackdrop"
-                                                    type="button"
-                                                    onClick={() => handleAddToCart()}
-                                                >
-                                                    <BsCartPlus size={"22px"} />
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                                <button className="button button-buy signup">Buy It Now</button>
-                                            </div>
 
-                                            <div className="d-flex gap-10 flex-column  my-3">
-                                                <h3
-                                                    className="product-heading"
-                                                    onClick={() => setShow(!show)}
-                                                >
-                                                    Shipping & Returns
-                                                    <div>
-                                                        {show === true ?
-                                                            <MdOutlineKeyboardArrowUp size={"25px"} />
-                                                            :
-                                                            <MdOutlineKeyboardArrowDown size={"25px"} />
-                                                        }</div>
-                                                </h3>
-                                                {show === true &&
-                                                    <p className="product-data">
-                                                        Free shipping and returns available on all orders! <br /> We
-                                                        ship all US domestic orders within
-                                                        <b>5-10 business days!</b>
-                                                    </p>
-                                                }
-                                            </div>
-                                            <div className="d-flex gap-10 align-items-center my-3">
-                                                <h3 className="product-heading">Product Link:</h3>
-                                                <a
-                                                // href="javascript:void(0);"
-                                                // onClick={() => {
-                                                //     copyToClipboard(
-                                                //         "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
-                                                //     );
-                                                // }}
-                                                >
-                                                    Copy Product Link
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div >
-                    <div className='description'>
-                        <div className='container-xxl'>
-                            <div className='row'>
-                                <div className='col-10'>
-                                    <div className='main'>
-                                        <span className='title'>Product Description</span>
-                                        <div className='text'
-                                            dangerouslySetInnerHTML={{
-                                                __html: description,
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='detail-product-comment'>
-                        <div className='container-xxl'>
-                            <div className='row'>
-                                <div ref={reviewBoxRef} className='col-10'>
-                                    <Comment />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='same-product'>
-                        <div className='container-xxl'>
-                            <div className='row'>
-                                <div className='col-12'>
-                                    <div className='main'>
-                                        <div className='main-header'>
-                                            <span className='title'>FROM THE SAME PRODUCT</span>
-                                            <span className='see-all' onClick={() => handleNavigate()}><span>See All</span> <BsChevronCompactRight /></span>
-                                        </div>
-                                        <div className='item gap-15'>
-                                            {sameProduct && sameProduct?.length > 0 && sameProduct.map((item, index) => {
-                                                return (
-                                                    <>
-                                                        <CardProduct
-                                                            active={!item.active ? false : item.active}
-                                                            addWishList={() => addWishList(item)}
-                                                            detailProduct={() => detailProduct(item)}
-                                                            brand={item?.brand[0]?.name}
-                                                            description={item?.description}
-                                                            title={item?.title}
-                                                            price={item?.price}
-                                                            image={item?.images[0]?.url}
-                                                            slug={item?.slug}
-                                                            star={item?.totalrating}
-                                                            width={`15.67%`}
-                                                            coupon={item?.coupon}
-                                                            sold={item?.sold}
+                                                <p className="price ">
+                                                    {coupon && +coupon !== 0 ?
+                                                        <>
+                                                            <span className="original-price">
+                                                                <NumericFormat
+                                                                    value={price}
+                                                                    displayType="text"
+                                                                    thousandSeparator={true}
+                                                                    suffix={'đ'}
+                                                                />
+                                                            </span>
+                                                            <span className="discounted-price">
+                                                                <NumericFormat
+                                                                    value={discounted}
+                                                                    displayType="text"
+                                                                    thousandSeparator={true}
+                                                                    suffix={'đ'}
+                                                                />
+                                                            </span>
+                                                            <span className='coupon'>{coupon}%</span>
+                                                        </>
+
+                                                        :
+                                                        <NumericFormat
+                                                            value={price}
+                                                            displayType={"text"}
+                                                            thousandSeparator={true}
+                                                            suffix={'đ'}
                                                         />
-                                                    </>
-                                                )
-                                            })}
-                                        </div>
-                                        {pageCount !== 1 &&
-                                            <div className='paginate'>
-                                                <Paginate
-                                                    pageCount={pageCount}
-                                                    fetchAllProducts={fetchTheSameProduct}
-                                                    currentPage={currentPage}
-                                                    setCurrentPage={setCurrentPage}
-                                                    scroll={scroll}
-                                                />
+                                                    }
+                                                </p>
+
                                             </div>
-                                        }
+                                            <div className="pb-3">
+                                                <div className="d-flex gap-10 align-items-center my-2">
+                                                    <h3 className="product-heading">Type :</h3>
+                                                    <p className="product-data">Watch</p>
+                                                </div>
+                                                <div className="d-flex gap-10 align-items-center my-2">
+                                                    <h3 className="product-heading">Brand :</h3>
+                                                    <p className="product-data">{product?.brand[0]?.name}</p>
+                                                </div>
+                                                <div className="d-flex gap-10 align-items-center my-2">
+                                                    <h3 className="product-heading">Category :</h3>
+                                                    <p className="product-data">{product?.category[0]?.name}</p>
+                                                </div>
+                                                <div className="d-flex gap-10 align-items-center my-2">
+                                                    <h3 className="product-heading">Tags :</h3>
+                                                    <p className="product-data">Watch</p>
+                                                </div>
+                                                <div className="d-flex gap-10 align-items-center my-2">
+                                                    <h3 className="product-heading">Availablity :</h3>
+                                                    <p className="product-data">In Stock</p>
+                                                </div>
+                                                {
+                                                    productSize?.length > 0 &&
+                                                    <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                                                        <h3 className="product-heading">Size :</h3>
+                                                        <div className="d-flex flex-wrap gap-15">
+                                                            {productSize && productSize.length > 0 && productSize.map((item, index) => {
+                                                                return (
+                                                                    <button key={`${index}-size`}
+                                                                        className={item.isSelected === true ? "size active" : "size"}
+                                                                        onClick={() => handleClickBtnSize(item)}
+                                                                    >
+                                                                        {item?.name}
+                                                                    </button>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                }
+                                                {
+                                                    productColor?.length > 0 &&
+                                                    <div className="d-flex gap-10 flex-column my-1 mt-sm-2 mb-sm-3">
+                                                        <h3 className="product-heading">Color :</h3>
+                                                        <div className="d-flex flex-wrap gap-15">
+                                                            {productColor && productColor.length > 0 && productColor.map((item, index) => {
+                                                                return (
+                                                                    <button key={`${index}-size`} className={item.isSelected === true ? "color active" : "color"}
+                                                                        style={{ backgroundColor: `${item.colorCode}` }}
+                                                                        onClick={() => handleClickBtnColor(item)}
+                                                                    >
+                                                                    </button>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                <div className="d-flex align-items-center gap-15 flex-row my-1 mt-sm-2 mb-sm-3">
+                                                    <h3 className="product-heading">Quantity :</h3>
+                                                    <div className="">
+                                                        <input
+                                                            type="number"
+                                                            name=""
+                                                            // defaultValue={1}
+                                                            value={quantity}
+                                                            min={1}
+                                                            max={10}
+                                                            className="form-control"
+                                                            style={{ width: "70px" }}
+                                                            onChange={(e) => handleOnchangeQuantity(e)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="d-flex align-items-center gap-30">
+                                                    <button
+                                                        className={`button button-add border-0 ${isFixed ? 'fixed' : ''}`}
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#staticBackdrop"
+                                                        type="button"
+                                                        onClick={() => handleAddToCart()}
+                                                    >
+                                                        <BsCartPlus size={"22px"} />
+                                                        <span>Add to Cart</span>
+                                                    </button>
+                                                    <button className={`button button-buy signup ${isFixed ? 'fixed' : ''}`}>Buy It Now</button>
+                                                </div>
+
+                                                <div className="d-flex gap-10 flex-column  my-3">
+                                                    <h3
+                                                        className="product-heading"
+                                                        onClick={() => setShow(!show)}
+                                                    >
+                                                        Shipping & Returns
+                                                        <div>
+                                                            {show === true ?
+                                                                <MdOutlineKeyboardArrowUp size={"25px"} />
+                                                                :
+                                                                <MdOutlineKeyboardArrowDown size={"25px"} />
+                                                            }</div>
+                                                    </h3>
+                                                    {show === true &&
+                                                        <p className="product-data">
+                                                            Free shipping and returns available on all orders! <br /> We
+                                                            ship all US domestic orders within
+                                                            <b>5-10 business days!</b>
+                                                        </p>
+                                                    }
+                                                </div>
+                                                <div className="d-flex gap-10 align-items-center my-1 my-sm-3">
+                                                    <h3 className="product-heading">Product Link:</h3>
+                                                    <a
+                                                    // href="javascript:void(0);"
+                                                    // onClick={() => {
+                                                    //     copyToClipboard(
+                                                    //         "https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?cs=srgb&dl=pexels-fernando-arcos-190819.jpg&fm=jpg"
+                                                    //     );
+                                                    // }}
+                                                    >
+                                                        Copy Product Link
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div >
+                        <div className='description'>
+                            <div className='container-xxl'>
+                                <div className='row'>
+                                    <div className='col-md-9 col-lg-10 col-12'>
+                                        <div className='main'>
+                                            <span className='title'>Product Description</span>
+                                            <div className={`${seemore === true ? "text" : "text h300"}`}
+                                                // style={}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: description,
+                                                }}
+                                            />
+                                            <div className='seemore'
+                                                onClick={() => handleSeemore()}>
+                                                {seemore === true ? 'Thu gọn' : 'Xem thêm'}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </>
+                        <div className='detail-product-comment'>
+                            <div className='container-xxl'>
+                                <div className='row'>
+                                    <div ref={reviewBoxRef} className='col-md-9 col-lg-10 col-12'>
+                                        <Comment />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='same-product pb-3 pb-sm-5'>
+                            <div className='container-xxl'>
+                                <div className='row'>
+                                    <div className='col-12'>
+                                        <div className='main'>
+                                            <div className='main-header'>
+                                                <span className='title'>FROM THE SAME PRODUCT</span>
+                                                <span className='see-all' onClick={() => handleNavigate()}><span>See All</span> <BsChevronCompactRight /></span>
+                                            </div>
+                                            <div className='item gap-15'>
+                                                {sameProduct && sameProduct?.length > 0 && sameProduct.map((item, index) => {
+                                                    return (
+                                                        <>
+                                                            <CardProduct
+                                                                active={!item.active ? false : item.active}
+                                                                addWishList={() => addWishList(item)}
+                                                                detailProduct={() => detailProduct(item)}
+                                                                brand={item?.brand[0]?.name}
+                                                                description={item?.description}
+                                                                title={item?.title}
+                                                                price={item?.price}
+                                                                image={item?.images[0]?.url}
+                                                                slug={item?.slug}
+                                                                star={item?.totalrating}
+                                                                width={`15.67%`}
+                                                                coupon={item?.coupon}
+                                                                sold={item?.sold}
+                                                            />
+                                                        </>
+                                                    )
+                                                })}
+                                            </div>
+                                            {pageCount !== 1 &&
+                                                <div className='paginate'>
+                                                    <Paginate
+                                                        pageCount={pageCount}
+                                                        fetchAllProducts={fetchTheSameProduct}
+                                                        currentPage={currentPage}
+                                                        setCurrentPage={setCurrentPage}
+                                                        scroll={scroll}
+                                                    />
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
                 )
             }
         </div >

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getCategoryApi } from '../../service/homeService';
 import { getAllByCategoryApi, addProductToWishApi, deleteProductWishlist, getProductApi } from '../../service/homeService';
 import CardProduct from './CardProduct';
@@ -19,10 +19,10 @@ const PopularProduct = () => {
     const [category, setCategory] = useState([])
     const [product, setProduct] = useState([])
     const [activeIndex, setActiveIndex] = useState(0);
-    const [isExist, setIsExist] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const userId = useSelector((state) => state?.user?.account?._id)
+
 
     useEffect(() => {
         fetchCategory()
@@ -89,6 +89,7 @@ const PopularProduct = () => {
             }
         }
     }
+
     const settings = {
         dots: false,
         infinite: false,
@@ -107,7 +108,7 @@ const PopularProduct = () => {
                 }
             },
             {
-                breakpoint: 768,
+                breakpoint: 820,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 1,

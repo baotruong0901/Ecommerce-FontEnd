@@ -9,7 +9,7 @@ import { fetchAllBlog } from '../../store/actions/blogAction';
 import CardBlog from './CardBlog';
 import { useNavigate } from 'react-router-dom';
 const Blogs = () => {
-    const blogs = useSelector((state) => state.blogs.blogs)
+    const blogs = useSelector((state) => state?.blogs?.blogs)
     const dispash = useDispatch()
     const navigate = useNavigate()
     const getBlogs = () => {
@@ -30,7 +30,16 @@ const Blogs = () => {
         centerPadding: 30,
         responsive: [
             {
-                breakpoint: 768,
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 820,
                 settings: {
                     slidesToShow: 4,
                     slidesToScroll: 1,

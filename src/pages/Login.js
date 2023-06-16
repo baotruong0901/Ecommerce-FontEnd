@@ -58,7 +58,7 @@ const Login = () => {
             <div className='container-xxl'>
                 <div className='row main'>
                     <div className='col-12'>
-                        <form className='col-12 col-sm-3 col-md-5'>
+                        <form className='col-12 col-sm-3 col-md-4'>
                             <h4 className='mb-2'>Login</h4>
                             <Input
                                 placeholder="Enter Email"

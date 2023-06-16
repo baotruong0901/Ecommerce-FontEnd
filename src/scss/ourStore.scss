@@ -168,7 +168,7 @@
                 .products-list{
                 &-item{
                     .card-product{
-                        width: 32.2%!important;
+                        width: 32%!important;
                     }
                 }
             }
@@ -177,6 +177,26 @@
     }
 }
 
-// @media (max-width: 425px) {
-    
-// }
+@media (max-width: 425px) {
+    .our-store{
+        padding: 20px 0;
+        &-main{
+            .left{
+                display: none;
+            }
+            .right{
+                width: 100%;
+                .sort-by{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .products-list{
+                    .card-product{
+                        width: 48.5%!important;
+                    }
+                }
+            }
+        }
+    }
+}

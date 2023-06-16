@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 const DetailBlog = () => {
     const isLogin = useSelector((state) => state?.user?.isLogin)
     const userId = useSelector((state) => state?.user?.account?._id)
-    const detailBlog = useSelector((state) => state.blogs.blog)
+    const detailBlog = useSelector((state) => state?.blogs?.blog)
     const allBlog = useSelector((state) => state.blogs.blogs)
     const { slug } = useParams();
     const [blogSlug, id] = slug.split('&');
@@ -23,10 +23,9 @@ const DetailBlog = () => {
     const [sameTopic, setSameTopic] = useState([])
     const dispash = useDispatch()
     const navigate = useNavigate()
-
     useEffect(() => {
         document.title = detailBlog?.title; // Thay đổi title của trang web
-    }, []);
+    }, [detailBlog?.title]);
 
     const getABlog = () => {
         dispash(fetchABlog(id))
@@ -95,7 +94,7 @@ const DetailBlog = () => {
             <div className='main'>
                 <div className='container-xxl'>
                     <div className='row content'>
-                        <div className='col-9'>
+                        <div className='col-12 col-sm-9'>
                             {detailBlog !== null &&
                                 <div className='post'>
                                     <h3 className='title py-3'>{detailBlog?.title}</h3>
@@ -140,7 +139,7 @@ const DetailBlog = () => {
                                 </div>
                             }
                         </div>
-                        <div className='col-3'>
+                        <div className='col-sm-3 col-12'>
                             <div className='outstanding'>
                                 <h4 className='title'>tin nổi bật</h4>
                                 <div className='outstanding-item'>

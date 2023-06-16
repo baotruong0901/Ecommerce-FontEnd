@@ -28,7 +28,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
-            <div className='contact-main pb-5 pt-4'>
+            <div className='contact-main pt-3 pb-sm-5 pt-sm-4'>
                 <div className='container-xxl'>
                     <div className='maps'>
                         <iframe
@@ -39,18 +39,18 @@ const Contact = () => {
                             referrerPolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
-                    <div className='contact-form'>
-                        <div className='contact-form-left'>
+                    <div className='contact-form row'>
+                        <div className='contact-form-left col-md-6 col-12'>
                             <h6>Contact</h6>
-                            <form>
+                            <form className='row'>
                                 <input className='form-control' type='text' placeholder='Name'></input>
                                 <input className='form-control' type='email' placeholder='Email*'></input>
-                                <input className='form-control' type='text' placeholder='Phone number'></input>
-                                <input className='form-control' type='text' placeholder='Comment'></input>
+                                <input className='form-control ' type='text' placeholder='Phone number'></input>
+                                <input className='form-control ' type='text' placeholder='Comment'></input>
                                 <button type='button'>Send</button>
                             </form>
                         </div>
-                        <div className='contact-form-right'>
+                        <div className='contact-form-right col-md-6 col-12'>
                             <h6>Get In Touch With Us</h6>
                             <div className='item gap-10'>
                                 <AiFillHome size={"14px"} /> <p>32 Nguyen Xien, Da Nang
