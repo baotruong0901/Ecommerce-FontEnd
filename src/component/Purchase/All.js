@@ -73,7 +73,7 @@ const All = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="product">
+                            <div onClick={() => handleProgress(item)} className="product">
                                 {item?.status === "CANCELLED" && <div className='isCancel'></div>}
                                 <div className='image'>
                                     <img src={item?.products[0]?.product?.images[0].url} className="img-fluid" alt="product image" />

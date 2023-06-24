@@ -9,17 +9,16 @@
         margin-bottom: 15px;
     }
     .main{
-        display: flex;
-        align-items: start;
-        justify-content: space-between;
+        // display: flex;
+        // align-items: start;
+        // justify-content: space-between;
         .left{
-            width: 70%;
+            // width: 70%;
             border-right: 1px solid var(--color-eaeaea);
             .input{
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 70%;
                 margin-left: 23%;
                 label{
                     width:120px ;
@@ -52,11 +51,45 @@
         color: var(--color-fff);
         transition: 0.2s linear;
         cursor: pointer;
-        margin: 0 calc(23% + 30px);
+        width: 40%;
+        margin-left: 75%;
         &:hover{
             background: var(--color-febd69);
             color: var(--color-3b4149) ;
         }
     }
     
+}
+
+@media (max-width: 425px) {
+    .myprofile{
+        .main{
+            flex-direction: column-reverse;
+            .left{
+                width: 100%!important;
+                border-right: none;
+
+                .input{
+                    margin-left: 0!important;
+                }
+            }
+            .update{
+                margin-left: 27%!important;
+                width: 73%;
+            }
+            .right{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                img{
+                    margin-top: 0px!important;
+                }
+                label{
+                    // width: 150px;
+                    text-align: center;
+                }
+            }
+        }
+    }
 }

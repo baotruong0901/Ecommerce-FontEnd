@@ -53,63 +53,61 @@ function App() {
     <>
 
       <BrowserRouter>
-        <Suspense fallback={<Splash />}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="/our-store/:filter" element={<OurStore />} />
-              <Route path="/blogs" element={<Blogs />} />
-              <Route path="/blogs/:slug" element={<DetailBlog />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/wish-list" element={
-                <PrivateRoute>
-                  <WishLish />
-                </PrivateRoute>
-              } />
-              <Route path="/cart" element={
-                <PrivateRoute>
-                  <Cart />
-                </PrivateRoute>
-              }
-              />
-              <Route path="/product/:slug" element={<DetailProduct />} />
-              <Route path="/checkout" element={<Checkout />}>
-                <Route index path="shipping" element={<Shipping />} />
-                <Route index path="payment" element={<Payment />} />
-              </Route>
-              <Route path="/booking/:state" element={<BookingSuccedd />} />
-              <Route path="/detail-booking/:id" element={<DetailBooking />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/reset-password/:token" element={<ResetPassword />} />
-              <Route path="/user" element={<Profile />} >
-                <Route index path="account" element={<Myprofile />} />
-                <Route path="change-password" element={<ChangePassword />} />
-                <Route path="purchase/:type" element={<Purchase />} >
-
-                </Route>
-              </Route>
-
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/our-store/:filter" element={<OurStore />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:slug" element={<DetailBlog />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/wish-list" element={
+              <PrivateRoute>
+                <WishLish />
+              </PrivateRoute>
+            } />
+            <Route path="/cart" element={
+              <PrivateRoute>
+                <Cart />
+              </PrivateRoute>
+            }
+            />
+            <Route path="/product/:slug" element={<DetailProduct />} />
+            <Route path="/checkout" element={<Checkout />}>
+              <Route index path="shipping" element={<Shipping />} />
+              <Route index path="payment" element={<Payment />} />
             </Route>
-            <Route path="/admin" element={<Admin />}>
-              <Route index path="dashboard" element={<Dashboard />} />
-              <Route path="customers" element={<Customer />} />
-              <Route path="add" element={<Add />} />
-              <Route path="product-list" element={<ProductList />} />
-              <Route path="brand-list" element={< BrandList />} />
-              <Route path="category-list" element={<CategoryList />} />
-              <Route path="color-list" element={<ColorList />} />
-              <Route path="size-list" element={<SizeList />} />
-              <Route path="orders" element={<Order />} />
-              <Route path="add-blog" element={<AddBlog />} />
-              <Route path="blogs-list" element={<BlogList />} />
-              <Route path="enquiries" element={<Enquiries />} />
-            </Route>
-            <Route path='*' element={<NotFound />} />
+            <Route path="/booking/:state" element={<BookingSuccedd />} />
+            <Route path="/detail-booking/:id" element={<DetailBooking />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/user" element={<Profile />} >
+              <Route index path="account" element={<Myprofile />} />
+              <Route path="change-password" element={<ChangePassword />} />
+              <Route path="purchase/:type" element={<Purchase />} >
 
-          </Routes>
-        </Suspense>
+              </Route>
+            </Route>
+
+          </Route>
+          <Route path="/admin" element={<Admin />}>
+            <Route index path="dashboard" element={<Dashboard />} />
+            <Route path="customers" element={<Customer />} />
+            <Route path="add" element={<Add />} />
+            <Route path="product-list" element={<ProductList />} />
+            <Route path="brand-list" element={< BrandList />} />
+            <Route path="category-list" element={<CategoryList />} />
+            <Route path="color-list" element={<ColorList />} />
+            <Route path="size-list" element={<SizeList />} />
+            <Route path="orders" element={<Order />} />
+            <Route path="add-blog" element={<AddBlog />} />
+            <Route path="blogs-list" element={<BlogList />} />
+            <Route path="enquiries" element={<Enquiries />} />
+          </Route>
+          <Route path='*' element={<NotFound />} />
+
+        </Routes>
       </BrowserRouter >
       <ToastContainer
         position="bottom-center"

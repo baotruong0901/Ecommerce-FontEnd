@@ -5,16 +5,20 @@ import '.././scss/home.scss'
 import MovingBrand from '../component/homepage/MovingBrand';
 import Blogs from '../component/homepage/Blogs';
 const Home = () => {
+
     useEffect(() => {
         document.title = 'E-commerce | mua hàng online'; // Thay đổi title của trang web
     }, []);
     return (
-        <div className='home'>
-            <Banner />
-            <PopularProduct />
-            <Blogs />
-            <MovingBrand />
-        </div>
+        <>
+            <div className='home'>
+                <Banner />
+                <PopularProduct />
+                <Blogs />
+                <MovingBrand />
+            </div>
+
+        </>
     );
 };
 

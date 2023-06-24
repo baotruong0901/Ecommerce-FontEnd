@@ -25,7 +25,7 @@ const Profile = () => {
         setShow(true)
     }
     return (
-        <div className='profile py-3 py-md-4'>
+        <div className='profile py-sm-3 py-md-4'>
             {/* <div className='header mb-5'>
                 <div className='container-xxl'>
                     <div className='row'>

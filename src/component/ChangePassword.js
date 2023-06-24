@@ -28,7 +28,7 @@ const ChangePassword = () => {
                 <h5>Change Password</h5>
                 <p>For your account's security, do not share your password with anyone else</p>
             </div>
-            <form className='col-6'>
+            <form className='col-sm-6 col-12'>
                 <Input
                     label='New password'
                     type="password"

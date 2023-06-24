@@ -49,10 +49,10 @@ const Myprofile = () => {
                 <h5>My Profile</h5>
                 <p>Manage and protect your accont</p>
             </div>
-            <div className='main  gap-15'>
-                <div className='left'>
-                    <form>
-                        <div className="mb-3 input">
+            <div className='main row gap-15'>
+                <div className='left col-sm-7 col-12'>
+                    <form className='row'>
+                        <div className="mb-3 col-sm-9 col-12 input">
                             <label className="form-label">Fisrt Name</label>
                             <input
                                 value={values?.firstname}
@@ -62,7 +62,7 @@ const Myprofile = () => {
                                 onChange={(e) => changeInput(e)}
                             />
                         </div>
-                        <div className="mb-3 input">
+                        <div className="mb-3 col-sm-9 col-12 input">
                             <label className="form-label">Last Name</label>
                             <input
                                 value={values?.lastname}
@@ -72,11 +72,11 @@ const Myprofile = () => {
                                 onChange={(e) => changeInput(e)}
                             />
                         </div>
-                        <div className="mb-3 input">
+                        <div className="mb-3 col-sm-9 col-12 input">
                             <label for="exampleInputPassword1" className="form-label">Email</label>
                             <input value={values?.email} type="text" className="form-control" disabled />
                         </div>
-                        <div className="mb-3 input">
+                        <div className="mb-3 col-sm-9 col-12 input">
                             <label for="exampleInputPassword1" className="form-label">Mobile</label>
                             <input
                                 value={values?.mobile}
@@ -86,16 +86,16 @@ const Myprofile = () => {
                                 onChange={(e) => changeInput(e)}
                             />
                         </div>
+                        <div className='mb-3 col-sm-9 col-12'>
+                            <button onClick={() => handleUpdateUser()} className='update' type="button">Save</button>
+                        </div>
                     </form>
                 </div>
-                <div className='right'>
+                <div className='right col-sm-5 col-12'>
                     <img src={user} alt='profile' />
                     <label id='select'>Select image</label>
                     <input htmlFor="select" type='file' hidden></input>
                 </div>
-            </div>
-            <div className='mb-3'>
-                <button onClick={() => handleUpdateUser()} className='update' type="button">Save</button>
             </div>
         </div>
     );
