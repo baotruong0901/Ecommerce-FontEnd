@@ -30,7 +30,7 @@ const AddBrand = ({ name }) => {
                 setImages={setSelectedFiles}
                 type="only"
                 images={selectedFiles}
-                url="https://ecommerce-bga8.onrender.com/api/brand"
+                url="https://ecommerce-clone-if2t.onrender.com/api/brand"
             />
             <button type='button' onClick={handleCreate} className='btn btn-primary mt-3'>Create {name}</button>
         </>

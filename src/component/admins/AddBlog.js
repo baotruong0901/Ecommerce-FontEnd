@@ -67,7 +67,7 @@ const AddBlog = () => {
                     setImages={setSelectedFiles}
                     type="only"
                     images={selectedFiles}
-                    url="https://ecommerce-bga8.onrender.com/api/blog"
+                    url="https://ecommerce-clone-if2t.onrender.com/api/blog"
                 />
                 <button type='button' onClick={handleCreate} className='btn btn-primary mt-3'>Create Blog</button>
 

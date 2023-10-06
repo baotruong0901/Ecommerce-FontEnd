@@ -7,8 +7,7 @@ NProgress.configure({
 
 })
 const instance = axios.create({
-    // baseURL: "http://localhost:8800"
-    baseURL: "https://ecommerce-bga8.onrender.com/"
+    baseURL: "https://ecommerce-clone-if2t.onrender.com/"
 })
 
 // Add a request interceptor
@@ -17,6 +16,7 @@ instance.interceptors.request.use(function (config) {
     const access_token = store?.getState()?.user?.account?.token
     config.headers["Authorization"] = "Bearer " + access_token
     NProgress.start();
+
     //end
 
     // Do something before request is sent
@@ -40,5 +40,4 @@ instance.interceptors.response.use(function (response) {
     // console.log('>>> ', error);
     return error && error.response && error.response.data ? error.response.data : Promise.reject(error);
 });
-
 export default instance

@@ -148,7 +148,7 @@ const AddProduct = ({ name }) => {
             <UploadImage
                 setImages={setSelectedFiles}
                 images={selectedFiles}
-                url="https://ecommerce-bga8.onrender.com/api/product"
+                url="https://ecommerce-clone-if2t.onrender.com/api/product"
             />
             {/* <input type="file" ref={fileInputRef} multiple onChange={handleFileInputChange} /> */}
             <button type='button' onClick={handleCreate} className='btn btn-primary mt-3'>Create {name}</button>

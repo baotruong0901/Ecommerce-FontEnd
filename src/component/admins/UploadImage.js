@@ -5,6 +5,7 @@ const { Dragger } = Upload;
 
 const UploadImage = (props) => {
     const { images, setImages, url, type } = props
+    console.log(props);
     const upload = {
         name: 'images',
         multiple: true,
